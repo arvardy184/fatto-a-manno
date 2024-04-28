@@ -91,11 +91,7 @@
                                         </div>
 
                                         <div class="pt-3 sm:pt-5 lg:pt-0">
-<<<<<<< Updated upstream
-                                            <h2 class="text-xl font-semibold text-black dark:text-white">Documentation</h2>
-=======
-                                            <h2 class="text-xl font-semibold text-black dark:text-white">Dok</h2>
->>>>>>> Stashed changes
+                            
 
                                             <p class="mt-4 text-sm/relaxed">
                                                 pantek acc woi, jangan tolak
