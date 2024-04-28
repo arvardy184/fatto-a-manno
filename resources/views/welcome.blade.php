@@ -94,7 +94,7 @@
                                             <h2 class="text-xl font-semibold text-black dark:text-white">Dok</h2>
 
                                             <p class="mt-4 text-sm/relaxed">
-                                                pantek acc woi 
+                                                pantek acc woi, jangan tolak
                                             </p>
                                         </div>
                                     </div>
