@@ -34,6 +34,7 @@
                                         Dashboard
                                     </a>
                                 @else
+            
                                     <a
                                         href="{{ route('login') }}"
                                         class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
@@ -111,7 +112,7 @@
                                 </div>
 
                                 <div class="pt-3 sm:pt-5">
-                                    <h2 class="text-xl font-semibold text-black dark:text-white">Laracasts</h2>
+                                    <h2 class="text-xl font-semibold text-black dark:text-white">Seno</h2>
 
                                     <p class="mt-4 text-sm/relaxed">
                                         Laracasts offers thousands of video tutorials on Laravel, PHP, and JavaScript development. Check them out, see for yourself, and massively level up your development skills in the process.
@@ -130,7 +131,7 @@
                                 </div>
 
                                 <div class="pt-3 sm:pt-5">
-                                    <h2 class="text-xl font-semibold text-black dark:text-white">Laravel News</h2>
+                                    <h2 class="text-xl font-semibold text-black dark:text-white">Riady</h2>
 
                                     <p class="mt-4 text-sm/relaxed">
                                         Laravel News is a community driven portal and newsletter aggregating all of the latest and most important news in the Laravel ecosystem, including new package releases and tutorials.
