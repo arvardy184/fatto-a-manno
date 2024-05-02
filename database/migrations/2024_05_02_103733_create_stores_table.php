@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('stores', function (Blueprint $table) {
             $table->id();
             $table->integer('quantity');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('cloth_id');
             $table->unsignedBigInteger('storage_id');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('cloth_id')->references('id')->on('clothes')->onDelete('cascade');
             $table->foreign('storage_id')->references('id')->on('storages')->onDelete('cascade');
         });
     }
