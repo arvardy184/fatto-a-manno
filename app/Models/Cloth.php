@@ -28,4 +28,9 @@ class Cloth extends Model
     {
         return $this->belongsToMany(User::class, 'buys')->withPivot('quantity', 'payment_method', 'status_pembayaran');
     }
+
+    public function storages()
+    {
+        return $this->belongsToMany(Storage::class, 'stores')->withPivot('quantity');
+    }
 }
