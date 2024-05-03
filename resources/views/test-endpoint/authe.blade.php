@@ -11,6 +11,7 @@
     @if(auth()->check())
     <h1>User JSON Data</h1>
     <pre>{{ json_encode(auth()->user(), JSON_PRETTY_PRINT) }}</pre>
+    <button id="testButton">Run Test</button>
     @else
     <h1>User Registration</h1>
     <form method="POST" action="/register">
@@ -30,6 +31,25 @@
         <input type="submit" value="Register">
     </form>
     @endif
+
+    <script>
+        document.getElementById("testButton").addEventListener("click", function() {
+            fetch("/test")
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    // If you want to do something with the response, you can do it here
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error("There was a problem with the fetch operation:", error);
+                });
+        });
+    </script>
 </body>
 
 </html>

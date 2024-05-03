@@ -58,7 +58,7 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return response()->json(['message' => "Login Succeed"]);
+        return redirect()->route('page-login');
     }
 
     /**
@@ -80,6 +80,6 @@ class AuthController extends Controller
     {
         auth()->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return redirect()->route('page-login');
     }
 }
