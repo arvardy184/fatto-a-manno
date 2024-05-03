@@ -10,10 +10,4 @@ export default defineConfig({
     ],
 });
 
-module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
+
