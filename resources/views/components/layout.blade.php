@@ -20,6 +20,7 @@
 <body class="h-full">
     <div class="min-h-full">
         <x-header></x-header>
+        <x-navbar></x-navbar>
         <main>
             {{ $slot }}
         </main>
