@@ -3,11 +3,9 @@
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('page')->group(function () {
-    Route::get('/', function () {
-        return view('home');
-    })->name('page-home');
 
+//TEST VIEW
+Route::prefix('page')->group(function () {
     Route::get('/register', function () {
         return view('test-endpoint.authe');
     })->name('page-register');
@@ -17,6 +15,7 @@ Route::prefix('page')->group(function () {
     })->name('page-login');
 });
 
+//CONTROLLER
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
@@ -25,6 +24,10 @@ Route::any('/test', function () {
         'data' => 'aaaaaaaaaa'
     ]);
 })->middleware('isAdmin');
+
+Route::get('/', function () {
+    return view('home');
+});
 
 Route::get('/about', function () {
     return view('about');
