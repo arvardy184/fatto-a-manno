@@ -16,8 +16,8 @@ Route::prefix('page')->group(function () {
 });
 
 //CONTROLLER
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/signup', [AuthController::class, 'register']);
+Route::post('/signin', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 Route::any('/test', function () {
     return response()->json([
@@ -27,22 +27,10 @@ Route::any('/test', function () {
 
 Route::get('/', function () {
     return view('home', ['title' => 'Home']);
-});
-
-Route::get('/about', function () {
-    return view('about', ['title' => 'About']);
-});
-
-Route::get('/blog', function () {
-    return view('blog', ['title' => 'Blog']);
-});
+})->name('home');
 
 Route::get('/login', function () {
     return view('login', ['title' => 'Login']);
-});
-
-Route::get('/contact', function () {
-    return view('contact', ['title' => 'Contact']);
 });
 
 Route::get('/register', function () {
