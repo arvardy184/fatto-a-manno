@@ -21,7 +21,7 @@ class ClothesController extends Controller
             'price_per_piece' => 'required',
             'description' => 'required',
             'image_url' => 'required',
-            'required|exists:storages,name',
+            'stored_in' => 'required|exists:storages,name',
             'quantity' => 'required'
         ]);
 
@@ -48,18 +48,13 @@ class ClothesController extends Controller
             ], 404);
         };
 
-        //Set Store Value
-        $store = Store::create([
-            'cloth_id' => $cloth->id,
-            'storage_id' => $storage->id,
-            'quantity' => request('quantity'),
-        ]);
+        // Assuming $cloth and $storage are instances of Cloth and Storage models respectively
+        $cloth->storages()->attach($storage, ['quantity' => request('quantity')]);
 
         if ($storage) {
             $res = response()->json([
                 'clothes' => $cloth,
-                'storage' => $storage,
-                'store' => $store
+                'storage' => $storage
             ]);
             return $res;
         } else {
