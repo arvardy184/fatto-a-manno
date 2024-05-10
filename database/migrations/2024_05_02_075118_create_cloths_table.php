@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('cloths', function (Blueprint $table) {
             $table->id();
             $table->string('type', 50);
-            $table->string('nama', 100);
+            $table->string('name', 100);
             $table->string('size', 10);
             $table->string('color', 20);
             $table->integer('price_per_piece');
             $table->string('description', 500);
             $table->string('image_url', 200);
+            $table->timestamps();
         });
     }
 

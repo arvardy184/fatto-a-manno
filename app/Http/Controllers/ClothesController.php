@@ -21,7 +21,7 @@ class ClothesController extends Controller
             'price_per_piece' => 'required',
             'description' => 'required',
             'image_url' => 'required',
-            'stored_in' => 'required',
+            'required|exists:storages,name',
             'quantity' => 'required'
         ]);
 
