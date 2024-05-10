@@ -40,9 +40,9 @@ class ClothesController extends Controller
         ]);
 
         //Get Storage Name
-        $storage = Storage::where('name', request('stored_in'))->firstOrFail();
+        $storage = Storage::where('name', request('stored_in'))->first();
 
-        if ($storage->fails()) {
+        if (!$storage) {
             return response()->json([
                 'message' => 'No Storage found'
             ], 404);
@@ -193,6 +193,6 @@ class ClothesController extends Controller
         });
 
         // Return the clothes with total quantities
-        return response()->json($clothes);
+        return view('Clothes.data_pakaian', ['title' => 'Data Pakaian'], compact('clothes'));
     }
 }

@@ -31,10 +31,10 @@ Route::any('/test', function () {
     ]);
 })->middleware('isAdmin');
 //Admin
-Route::post('/addClothes', [ClothesController::class, 'addClothes'])->middleware('isAdmin');
-Route::post('/editClothes/{id}', [ClothesController::class, 'editClothes'])->middleware('isAdmin');
-Route::post('/deleteClothes/{id}', [ClothesController::class, 'deleteClothes'])->middleware('isAdmin');
-Route::post('/getClothes', [ClothesController::class, 'getAllClothes']);
+Route::post('/addClothes', [ClothesController::class, 'addClothes']);
+Route::post('/editClothes/{id}', [ClothesController::class, 'editClothes']);
+Route::post('/deleteClothes/{id}', [ClothesController::class, 'deleteClothes']);
+Route::get('/getClothes', [ClothesController::class, 'getAllClothes']);
 
 Route::get('/', function () {
     return view('Guest.home', ['title' => 'Home']);
