@@ -51,11 +51,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function clothes()
     {
-        return $this->belongsToMany(Cloth::class, 'buys')->withPivot('quantity', 'payment_method', 'status_pembayaran');
+        return $this->belongsToMany(Cloth::class, 'buys')->withPivot('quantity', 'payment_method', 'status_pembayaran')->withTimestamps();
     }
 
     public function storages()
     {
-        return $this->belongsToMany(Storage::class, 'stores')->withPivot('quantity');
+        return $this->belongsToMany(Storage::class, 'stores')->withPivot('quantity')->withTimestamps();
     }
 }
