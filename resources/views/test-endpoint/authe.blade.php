@@ -14,7 +14,7 @@
     <button id="testButton">Run Test</button>
     @else
     <h1>User Registration</h1>
-    <form method="POST" action="/register">
+    <form method="POST" action="/signup">
         @csrf
         <label for="name">Name:</label><br>
         <input type="text" id="name" name="name"><br>

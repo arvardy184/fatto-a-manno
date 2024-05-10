@@ -19,6 +19,7 @@ Route::prefix('page')->group(function () {
 Route::post('/signup', [AuthController::class, 'register']);
 Route::post('/signin', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
+Route::get('/email/verify/{id}', [AuthController::class, 'mailVerification'])->name('verifyMail');
 Route::any('/test', function () {
     return response()->json([
         'data' => 'aaaaaaaaaa'
