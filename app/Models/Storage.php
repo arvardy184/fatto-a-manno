@@ -15,8 +15,8 @@ class Storage extends Model
         'address',
     ];
 
-    public function users()
+    public function clothes()
     {
-        return $this->belongsToMany(User::class, 'stores')->withPivot('quantity');
+        return $this->belongsToMany(Cloth::class, 'stores')->withPivot('quantity');
     }
 }

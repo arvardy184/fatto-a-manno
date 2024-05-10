@@ -42,7 +42,6 @@ class AuthController extends Controller
         ]);
 
         if ($user) {
-            Log::info("/email/verify/{$user->id}");
             // Assuming $user is the user model instance
             $verificationUrl = URL::temporarySignedRoute(
                 "verifyMail", // Name of the verification route
@@ -83,6 +82,7 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
+        //Check if user has already verified
         if (auth()->user()->email_verified_at == null) {
             auth()->logout();
             return response()->json(['error' => 'User Not Found'], 401);

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClothesController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -13,9 +14,13 @@ Route::prefix('page')->group(function () {
     Route::get('/login', function () {
         return view('test-endpoint.logine');
     })->name('page-login');
+
+    Route::get('/testing', function () {
+        return view('test-endpoint.test-func');
+    })->name('page-test');
 });
 
-//CONTROLLER
+//Auth
 Route::post('/signup', [AuthController::class, 'register']);
 Route::post('/signin', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
@@ -25,6 +30,11 @@ Route::any('/test', function () {
         'data' => 'aaaaaaaaaa'
     ]);
 })->middleware('isAdmin');
+//Admin
+Route::post('/addClothes', [ClothesController::class, 'addClothes'])->middleware('isAdmin');
+Route::post('/editClothes/{id}', [ClothesController::class, 'editClothes'])->middleware('isAdmin');
+Route::post('/deleteClothes/{id}', [ClothesController::class, 'deleteClothes'])->middleware('isAdmin');
+Route::post('/getClothes', [ClothesController::class, 'getAllClothes']);
 
 Route::get('/', function () {
     return view('home', ['title' => 'Home']);
