@@ -32,10 +32,9 @@ Route::any('/test', function () {
 })->middleware('isAdmin');
 //Admin
 Route::post('/addClothes', [ClothesController::class, 'addClothes']);
-Route::post('/editClothes/{id}', [ClothesController::class, 'editClothes'])->middleware('isAdmin');
-Route::post('/deleteClothes/{id}', [ClothesController::class, 'deleteClothes'])->middleware('isAdmin');
+Route::post('/editClothes/{id}', [ClothesController::class, 'editClothes']);
+Route::post('/deleteClothes/{id}', [ClothesController::class, 'deleteClothes']);
 Route::get('/getClothes', [ClothesController::class, 'getAllClothes']);
-Route::get('/getClothes/{id}', [ClothesController::class, 'getClothesbyId']);
 
 Route::get('/', function () {
     return view('Guest.home', ['title' => 'Home']);
@@ -83,3 +82,4 @@ Route::get('/dashboard/data_pakaian/tambah', function () {
 Route::get('/dashboard/data_pakaian/edit', function () {
     return view('Clothes.edit_pakaian', ['title' => 'Edit Pakaian']);
 })->name('Edit Pakaian');
+
