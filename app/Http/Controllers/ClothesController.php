@@ -55,8 +55,8 @@ class ClothesController extends Controller
             $exist_clothes->storages()->attach($storage, ['quantity' => request('quantity')]);
 
             $res = response()->json([
-                'clothes2' => $exist_clothes,
-                'storage2' => $storage
+                'clothes' => $exist_clothes,
+                'storage' => $storage
             ]);
             return $res;
         };
@@ -143,21 +143,39 @@ class ClothesController extends Controller
             return response()->json(['message' => $validator->messages()]);
         }
 
-        //Edit Stock
-        // Find the corresponding record in the pivot table
-        $store = Store::where('cloth_id', $cloth_id)
+        // Find the cloth by ID
+        $cloth = Cloth::find($cloth_id);
+
+        // Check if the cloth exists
+        if (!$cloth) {
+            return response()->json(['message' => 'Clothes not found'], 404);
+        }
+
+        // Find the storage by ID
+        $storage = Storage::find($storage_id);
+
+        if (!$storage) {
+            return response()->json([
+                'message' => 'No Storage found'
+            ], 404);
+        };
+
+        // Delete the corresponding record in the pivot table
+        $deletedRows = Store::where('cloth_id', $cloth_id)
             ->where('storage_id', $storage_id)
-            ->first();
+            ->delete();
 
         // Check if the record exists
-        if (!$store) {
+        if ($deletedRows == 0) {
             return response()->json(['message' => 'Stock not found'], 404);
         }
 
-        // Update the 'quantity' column with the new value
-        $store->update([
-            'quantity' => request('quantity')
-        ]);
+        // Add the stock update
+        $cloth->storages()->attach($storage, ['quantity' => request('quantity')]);
+
+        $store = Store::where('cloth_id', $cloth_id)
+            ->where('storage_id', $storage_id)
+            ->get();
 
         if ($store) {
             $res = response()->json([
@@ -210,6 +228,12 @@ class ClothesController extends Controller
             // Attach total quantity to the cloth object
             $cloth->total_quantity = (int) $this->findClothWithTotalQuantity($cloth->id);
         });
+
+        if (request()->is('api/*')) {
+            return response()->json([
+                'clothes' => $clothes,
+            ]);
+        }
 
         // Return the clothes with total quantities
         return view('Clothes.data_pakaian', ['title' => 'Data Pakaian'], compact('clothes'));
