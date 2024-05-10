@@ -18,10 +18,7 @@ class ClothesController extends Controller
             'name' => 'required',
             'size' => 'required',
             'color' => 'required',
-            'price_per_piece' => 'required',
-            'description' => 'required',
-            'image_url' => 'required',
-            'stored_in' => 'required',
+            'stored_in' => 'required|exists:storages,name',
             'quantity' => 'required'
         ]);
 
@@ -29,15 +26,12 @@ class ClothesController extends Controller
             return response()->json(['message' => $validator->messages()]);
         }
 
-        $cloth = Cloth::create([
-            'type' => request('type'),
-            'name' => request('name'),
-            'size' => request('size'),
-            'color' => request('color'),
-            'price_per_piece' => request('price_per_piece'),
-            'description' => request('description'),
-            'image_url' => request('image_url'),
-        ]);
+        // Check if the same clothes exist
+        $exist_clothes = Cloth::where('type', request('type'))
+            ->where('name', request('name'))
+            ->where('size', request('size'))
+            ->where('color', request('color'))
+            ->first();
 
         //Get Storage Name
         $storage = Storage::where('name', request('stored_in'))->first();
@@ -48,18 +42,43 @@ class ClothesController extends Controller
             ], 404);
         };
 
-        //Set Store Value
-        $store = Store::create([
-            'cloth_id' => $cloth->id,
-            'storage_id' => $storage->id,
-            'quantity' => request('quantity'),
+        //Check if the quantity exceed the storage limit
+        if ($this->getStorageLimit($storage) - (int) request('quantity') < 0) {
+            return response()->json([
+                'message' => 'Storage Quantity Exceeded'
+            ], 404);
+        }
+
+        if ($exist_clothes) {
+
+            // Assuming $cloth and $storage are instances of Cloth and Storage models respectively
+            $exist_clothes->storages()->attach($storage, ['quantity' => request('quantity')]);
+
+            $res = response()->json([
+                'clothes2' => $exist_clothes,
+                'storage2' => $storage
+            ]);
+            return $res;
+        };
+
+        //Create Cloth Instance
+        $cloth = Cloth::create([
+            'type' => request('type'),
+            'name' => request('name'),
+            'size' => request('size'),
+            'color' => request('color'),
+            'price_per_piece' => request('price_per_piece'),
+            'description' => request('description'),
+            'image_url' => request('image_url'),
         ]);
+
+        // Assuming $cloth and $storage are instances of Cloth and Storage models respectively
+        $cloth->storages()->attach($storage, ['quantity' => request('quantity')]);
 
         if ($storage) {
             $res = response()->json([
                 'clothes' => $cloth,
-                'storage' => $storage,
-                'store' => $store
+                'storage' => $storage
             ]);
             return $res;
         } else {
@@ -194,5 +213,37 @@ class ClothesController extends Controller
 
         // Return the clothes with total quantities
         return view('Clothes.data_pakaian', ['title' => 'Data Pakaian'], compact('clothes'));
+    }
+
+    public function getClothesbyId($id)
+    {
+        $clothes = Cloth::find($id);
+
+        // Check if the cloth exists
+        if (!$clothes) {
+            return response()->json(['message' => 'Clothes not found'], 404);
+        }
+
+        // Return the clothes with total quantities
+        return response()->json([
+            'clothes' => $clothes,
+        ]);
+    }
+
+    public function getStorageLimit($storage)
+    {
+        // Retrieve all clothes
+        $clothes = Cloth::all();
+        $sum = 0;
+
+        // Iterate over each cloth
+        $clothes->each(function ($cloth) use (&$sum) {
+            // Attach total quantity to the cloth object
+            $sum += (int) $this->findClothWithTotalQuantity($cloth->id);
+        });
+
+        $limit = (int) $storage->quantity_limit - $sum;
+
+        return $limit;
     }
 }
