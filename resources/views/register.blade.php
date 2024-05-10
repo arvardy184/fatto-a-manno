@@ -6,7 +6,6 @@
             <h2 class="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign in to your
                 account</h2>
         </div>
-
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form class="space-y-6" action="/signup" method="POST">
                    @csrf

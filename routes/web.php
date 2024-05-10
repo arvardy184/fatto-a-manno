@@ -42,8 +42,44 @@ Route::get('/', function () {
 
 Route::get('/login', function () {
     return view('login', ['title' => 'Login']);
-});
+})->name('login');
 
 Route::get('/register', function () {
     return view('register', ['title' => 'Register']);
-});
+})->name('register');
+
+Route::get('/dashboard', function () {
+    return view('dashboard', ['title' => 'Dashboard']);
+})->name('dashboard');
+
+//user dan admin
+Route::get('/dashboard/profile', function () {
+    return view('profile', ['title' => 'Profil']);
+})->name('profile');
+
+//user
+Route::get('/dashboard/edit_profil', function () {
+    return view('edit_profil', ['title' => 'Edit Profil']);
+})->name('Edit Profil');
+
+Route::get('/dashboard/ubah_password', function () {
+    return view('edit_profil', ['title' => 'Ubah Password']);
+})->name('Ubah Password');
+
+//admin
+Route::get('/dashboard/data_pengguna', function () {
+    return view('data_pengguna', ['title' => 'Data Pengguna']);
+})->name('Data Pengguna');
+
+Route::get('/dashboard/data_pakaian', function () {
+    return view('data_pakaian', ['title' => 'Data Pakaian']);
+})->name('Data Pakaian');
+
+Route::get('/dashboard/data_pakaian/tambah', function () {
+    return view('tambah_pakaian', ['title' => 'Tambah Pakaian']);
+})->name('Tambah Pakaian');
+
+Route::get('/dashboard/data_pakaian/edit', function () {
+    return view('edit_pakaian', ['title' => 'Edit Pakaian']);
+})->name('Edit Pakaian');
+
