@@ -153,7 +153,7 @@
                 </div>
             </div>
             <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Features</a>
-            <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Marketplace</a>
+            <a href="/getClothes" class="text-sm font-semibold leading-6 text-gray-900">Marketplace</a>
             <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Company</a>
         </div>
         <div class="fixed right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
@@ -260,7 +260,7 @@
                         </div>
                         <a href="#"
                             class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Features</a>
-                        <a href="#"
+                        <a href="/getClothes"
                             class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Marketplace</a>
                         <a href="#"
                             class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Company</a>
@@ -428,7 +428,7 @@
                 </div>
             </div>
             <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Features</a>
-            <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Marketplace</a>
+            <a href="/getClothes" class="text-sm font-semibold leading-6 text-gray-900">Marketplace</a>
             <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Company</a>
         </div>
         <div class="fixed right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
@@ -529,7 +529,7 @@
                         </div>
                         <a href="#"
                             class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Features</a>
-                        <a href="#"
+                        <a href="/getClothes"
                             class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Marketplace</a>
                         <a href="#"
                             class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Company</a>
