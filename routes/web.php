@@ -37,15 +37,15 @@ Route::post('/deleteClothes/{id}', [ClothesController::class, 'deleteClothes'])-
 Route::post('/getClothes', [ClothesController::class, 'getAllClothes']);
 
 Route::get('/', function () {
-    return view('home', ['title' => 'Home']);
+    return view('Guest.home', ['title' => 'Home']);
 })->name('home');
 
 Route::get('/login', function () {
-    return view('login', ['title' => 'Login']);
+    return view('Guest.login', ['title' => 'Login']);
 })->name('login');
 
 Route::get('/register', function () {
-    return view('register', ['title' => 'Register']);
+    return view('Guest.register', ['title' => 'Register']);
 })->name('register');
 
 Route::get('/dashboard', function () {
@@ -59,7 +59,7 @@ Route::get('/dashboard/profile', function () {
 
 //user
 Route::get('/dashboard/edit_profil', function () {
-    return view('edit_profil', ['title' => 'Edit Profil']);
+    return view('User.edit_profil', ['title' => 'Edit Profil']);
 })->name('Edit Profil');
 
 Route::get('/dashboard/ubah_password', function () {
@@ -68,18 +68,18 @@ Route::get('/dashboard/ubah_password', function () {
 
 //admin
 Route::get('/dashboard/data_pengguna', function () {
-    return view('data_pengguna', ['title' => 'Data Pengguna']);
+    return view('Admin.data_pengguna', ['title' => 'Data Pengguna']);
 })->name('Data Pengguna');
 
 Route::get('/dashboard/data_pakaian', function () {
-    return view('data_pakaian', ['title' => 'Data Pakaian']);
+    return view('Clothes.data_pakaian', ['title' => 'Data Pakaian']);
 })->name('Data Pakaian');
 
 Route::get('/dashboard/data_pakaian/tambah', function () {
-    return view('tambah_pakaian', ['title' => 'Tambah Pakaian']);
+    return view('Clothes.tambah_pakaian', ['title' => 'Tambah Pakaian']);
 })->name('Tambah Pakaian');
 
 Route::get('/dashboard/data_pakaian/edit', function () {
-    return view('edit_pakaian', ['title' => 'Edit Pakaian']);
+    return view('Clothes.edit_pakaian', ['title' => 'Edit Pakaian']);
 })->name('Edit Pakaian');
 
