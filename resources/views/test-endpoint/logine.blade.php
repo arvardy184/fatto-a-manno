@@ -15,7 +15,7 @@
     <button id="logout">Log out</button>
     @else
     <h1>Login</h1>
-    <form method="POST" action="/login">
+    <form method="POST" action="/signin">
         @csrf
         <label for="email">Email:</label><br>
         <input type="text" id="email" name="email"><br>

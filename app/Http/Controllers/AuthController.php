@@ -4,10 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Mail\VerificationMail;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\VerifyEmailNotification;
 
 class AuthController extends Controller
 {
@@ -23,7 +28,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->message()]);
+            return response()->json(['message' => $validator->messages()]);
         }
 
         //Create User
@@ -37,10 +42,31 @@ class AuthController extends Controller
         ]);
 
         if ($user) {
-            return response()->json(['message' => "Registration Succeed"]);
+            // Assuming $user is the user model instance
+            $verificationUrl = URL::temporarySignedRoute(
+                "verifyMail", // Name of the verification route
+                now()->addMinutes(10), // Expiry time for the URL (e.g., 60 minutes)
+                ['id' => $user->id] // Route parameters
+            );
+            Mail::to($user->email)->send(new VerificationMail($verificationUrl));
+            return redirect()->route('login');
         } else {
             return response()->json(['message' => "Registration Failed"]);
         }
+    }
+
+    public function mailVerification($id)
+    {
+        $user = User::find($id);
+        if (!$user) {
+            Log::error("User with ID $id not found.");
+            // Handle the case where the user is not found
+            // For example, return a response indicating that the user doesn't exist
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $user->email_verified_at = now();
+        $user->save();
     }
 
     /**
@@ -56,7 +82,13 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return redirect()->route('page-login');
+        //Check if user has already verified
+        if (auth()->user()->email_verified_at == null) {
+            auth()->logout();
+            return response()->json(['error' => 'User Not Found'], 401);
+        }
+
+        return redirect()->route('home');
     }
 
     /**
