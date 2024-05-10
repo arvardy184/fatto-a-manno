@@ -155,14 +155,10 @@
             <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Company</a>
         </div>
 
-        @auth
-        @else
-            <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-                <a href="/login" class="text-sm font-semibold leading-6 text-gray-900">Log in <span
-                        aria-hidden="true">&rarr;</span></a>
-            </div>
-
-        @endauth
+        <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+            <a href="/login" class="text-sm font-semibold leading-6 text-gray-900">Log in <span
+                    aria-hidden="true">&rarr;</span></a>
+        </div>
 
     </nav>
     <!-- Mobile menu, show/hide based on menu open state. -->
@@ -233,14 +229,12 @@
                         <a href="#"
                             class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Company</a>
                     </div>
-                    @auth
-                    @else
-                        <div class="py-6">
-                            <a href="/login"
-                                class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log
-                                in</a>
-                        </div>
-                    @endauth
+
+                    <div class="py-6">
+                        <a href="/login"
+                            class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log
+                            in</a>
+                    </div>
                 </div>
             </div>
         </div>
