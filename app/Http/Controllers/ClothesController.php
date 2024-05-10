@@ -195,4 +195,19 @@ class ClothesController extends Controller
         // Return the clothes with total quantities
         return response()->json($clothes);
     }
+
+    public function getClothesbyId($id)
+    {
+        $clothes = Cloth::find($id);
+
+        // Check if the cloth exists
+        if (!$clothes) {
+            return response()->json(['message' => 'Clothes not found'], 404);
+        }
+
+        // Return the clothes with total quantities
+        return response()->json([
+            'clothes' => $clothes,
+        ]);
+    }
 }
