@@ -79,7 +79,8 @@ Route::get('/dashboard/data_pakaian/tambah', function () {
     return view('Clothes.tambah_pakaian', ['title' => 'Tambah Pakaian']);
 })->name('Tambah Pakaian');
 
-Route::get('/dashboard/data_pakaian/edit', function () {
-    return view('Clothes.edit_pakaian', ['title' => 'Edit Pakaian']);
+Route::get('/dashboard/data_pakaian/edit/{id}', function ($id) {
+    return view('Clothes.edit_pakaian', ['title' => 'Edit Pakaian', 'id' => $id]);
 })->name('Edit Pakaian');
+
 
