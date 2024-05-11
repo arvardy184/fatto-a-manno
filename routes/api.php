@@ -24,8 +24,7 @@ Route::group([
 
 //Storage
 Route::group([
-    'prefix' => 'storage',
-    'middleware' => 'isAdmin'
+    'prefix' => 'storage'
 ], function () {
     Route::post('/add', [StorageController::class, 'addStorage']);
     Route::post('/edit/{cloth_id}', [StorageController::class, 'editStorage']);
