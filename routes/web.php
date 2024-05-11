@@ -1,8 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClothesController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StorageController;
 
 
 //TEST VIEW
@@ -19,22 +20,6 @@ Route::prefix('page')->group(function () {
         return view('test-endpoint.test-func');
     })->name('page-test');
 });
-
-//Auth
-Route::post('/signup', [AuthController::class, 'register']);
-Route::post('/signin', [AuthController::class, 'login']);
-Route::get('/logout', [AuthController::class, 'logout']);
-Route::get('/email/verify/{id}', [AuthController::class, 'mailVerification'])->name('verifyMail');
-Route::any('/test', function () {
-    return response()->json([
-        'data' => 'aaaaaaaaaa'
-    ]);
-})->middleware('isAdmin');
-//Admin
-Route::post('/addClothes', [ClothesController::class, 'addClothes']);
-Route::post('/editClothes/{id}', [ClothesController::class, 'editClothes']);
-Route::post('/deleteClothes/{id}', [ClothesController::class, 'deleteClothes']);
-Route::get('/getClothes', [ClothesController::class, 'getAllClothes']);
 
 Route::get('/', function () {
     return view('Guest.home', ['title' => 'Home']);
@@ -84,3 +69,40 @@ Route::get('/dashboard/data_pakaian/edit/{id}', function ($id) {
 })->name('Edit Pakaian');
 
 
+//CONTROLLERS
+
+//Auth
+Route::post('/signup', [AuthController::class, 'register']);
+Route::post('/signin', [AuthController::class, 'login']);
+Route::get('/logout', [AuthController::class, 'logout']);
+Route::get('/email/verify/{id}', [AuthController::class, 'mailVerification'])->name('verifyMail');
+Route::any('/test', function () {
+    return response()->json([
+        'data' => 'aaaaaaaaaa'
+    ]);
+})->middleware('isAdmin');
+
+//ADMIN ===========================================================================================
+//Clothes
+Route::group([
+    'prefix' => 'clothes'
+], function () {
+    Route::post('/add', [ClothesController::class, 'addClothes']);
+    Route::post('/edit/{cloth_id}', [ClothesController::class, 'editClothes']);
+    Route::post('/edit/stock/{cloth_id}/{storage_id}', [ClothesController::class, 'editStock']);
+    Route::get('/quantity/{id}', [ClothesController::class, 'findClothWithTotalQuantity']);
+    Route::get('/delete/{id}', [ClothesController::class, 'deleteClothes']);
+    Route::get('/', [ClothesController::class, 'getAllClothes']);
+    Route::get('/{id}', [ClothesController::class, 'getClothesbyId']);
+});
+
+//Storage
+Route::group([
+    'prefix' => 'storage'
+], function () {
+    Route::post('/add', [StorageController::class, 'addStorage']);
+    Route::post('/edit/{cloth_id}', [StorageController::class, 'editStorage']);
+    Route::get('/delete/{id}', [StorageController::class, 'deleteStorage']);
+    Route::get('/', [StorageController::class, 'getAllStorage']);
+    Route::get('/{id}', [StorageController::class, 'getStoragebyId']);
+});

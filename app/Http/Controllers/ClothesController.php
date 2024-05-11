@@ -80,7 +80,11 @@ class ClothesController extends Controller
                 'clothes' => $cloth,
                 'storage' => $storage
             ]);
-            return $res;
+
+            if (request()->is('api/*')) {
+                return $res;
+            }
+            return $this->getAllClothes();
         } else {
             return response()->json(['message' => "Function Failed"], 400);
         }
@@ -126,7 +130,12 @@ class ClothesController extends Controller
             $res = response()->json([
                 'clothes' => $cloth,
             ]);
-            return $res;
+
+            if (request()->is('api/*')) {
+                return $res;
+            }
+
+            return $this->getAllClothes();
         } else {
             return response()->json(['message' => "Function Failed"], 400);
         }
@@ -178,10 +187,10 @@ class ClothesController extends Controller
             ->get();
 
         if ($store) {
-            $res = response()->json([
-                'store' => $store,
-            ]);
-            return $res;
+            if (request()->is('api/*')) {
+                return response()->json(['store' => $store]);
+            }
+            return $this->getAllClothes();
         } else {
             return response()->json(['message' => "Function Failed"], 400);
         }
@@ -199,7 +208,10 @@ class ClothesController extends Controller
 
         // Delete the cloth
         if ($cloth->delete()) {
-            return response()->json(['message' => "Function Success"]);
+            if (request()->is('api/*')) {
+                return response()->json(['message' => "Function Success"]);
+            }
+            return $this->getAllClothes();
         } else {
             return response()->json(['message' => "Function Failed"], 400);
         }
@@ -229,7 +241,7 @@ class ClothesController extends Controller
             $cloth->total_quantity = (int) $this->findClothWithTotalQuantity($cloth->id);
         });
 
-        if (request()->is('api/*')) {
+        if (request()->expectsJson() || request()->is('api/*')) {
             return response()->json([
                 'clothes' => $clothes,
             ]);
@@ -249,9 +261,14 @@ class ClothesController extends Controller
         }
 
         // Return the clothes with total quantities
-        return response()->json([
-            'clothes' => $clothes,
-        ]);
+        if (request()->expectsJson() || request()->is('api/*')) {
+            return response()->json([
+                'clothes' => $clothes,
+            ]);
+        }
+
+        // Return the clothes with total quantities
+        return view('Clothes.data_pakaian', ['title' => 'Data Pakaian'], compact('clothes'));
     }
 
     public function getStorageLimit($storage)
