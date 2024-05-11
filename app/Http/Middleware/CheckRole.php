@@ -15,6 +15,10 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (!auth()->user()) {
+            abort(401, 'Unauthenticated');
+        }
+
         if (auth()->user()->role_id != 1) {
             abort(401, 'Unauthenticated');
         }
