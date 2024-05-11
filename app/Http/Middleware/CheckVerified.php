@@ -6,7 +6,9 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckRole
+use function PHPUnit\Framework\isNull;
+
+class CheckVerified
 {
     /**
      * Handle an incoming request.
@@ -15,14 +17,6 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->user()) {
-            abort(401, 'Unauthenticated');
-        }
-
-        if (auth()->user()->role_id != 1) {
-            abort(401, 'Unauthenticated');
-        }
-
         return $next($request);
     }
 }

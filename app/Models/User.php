@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
@@ -50,11 +51,11 @@ class User extends Authenticatable
 
     public function clothes()
     {
-        return $this->belongsToMany(Cloth::class, 'buys')->withPivot('quantity', 'payment_method', 'status_pembayaran');
+        return $this->belongsToMany(Cloth::class, 'buys')->withPivot('quantity', 'payment_method', 'status_pembayaran')->withTimestamps();
     }
 
     public function storages()
     {
-        return $this->belongsToMany(Storage::class, 'stores')->withPivot('quantity');
+        return $this->belongsToMany(Storage::class, 'stores')->withPivot('quantity')->withTimestamps();
     }
 }

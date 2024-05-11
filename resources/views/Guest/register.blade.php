@@ -6,37 +6,32 @@
             <h2 class="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign in to your
                 account</h2>
         </div>
-
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form class="space-y-6" action="#" method="POST">
+            <form class="space-y-6" action="/signup" method="POST">
+                   @csrf
                 <div class="form-floating mb-3">
-                    <input type="nama" class="form-control border border-black rounded" id="floatingInput"
-                        placeholder="muhammad zakki islami">
+                    <input type="text" class="form-control border border-black rounded" id="floatingInput"
+                        placeholder="muhammad zakki islami" name="name">
                     <label for="floatingInput">Nama Lengkap</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input type="username" class="form-control border border-black rounded" id="floatingInput"
-                        placeholder="zakkiislami">
-                    <label for="floatingInput">Username</label>
                 </div>
                 <div class="form-floating">
                     <input type="password" class="form-control border border-black rounded" id="floatingPassword"
-                        placeholder="Password">
+                        placeholder="Password" name="password">
                     <label for="floatingPassword">Password</label>
                 </div>
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control border border-black rounded" id="floatingInput"
-                        placeholder="name@example.com">
+                        placeholder="name@example.com" name="email" >
                     <label for="floatingInput">Email</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="address" class="form-control border border-black rounded" id="floatingInput"
-                        placeholder="Jl Suhat">
+                    <input type="text" class="form-control border border-black rounded" id="floatingInput"
+                        placeholder="Jl Suhat" name="address">
                     <label for="floatingInput">Alamat</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="number" class="form-control border border-black rounded" id="floatingInput"
-                        placeholder="08111111111111">
+                    <input type="text" class="form-control border border-black rounded" id="floatingInput"
+                        placeholder="08111111111111" name="number">
                     <label for="floatingInput">No Hp</label>
                 </div>
                 <div>
