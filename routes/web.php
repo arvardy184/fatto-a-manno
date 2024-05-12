@@ -56,6 +56,7 @@ Route::get('/dashboard/data_pengguna', function () {
     return view('Admin.data_pengguna', ['title' => 'Data Pengguna']);
 })->name('Data Pengguna');
 
+//clothes
 Route::get('/dashboard/data_pakaian', function () {
     return view('Clothes.data_pakaian', ['title' => 'Data Pakaian']);
 })->name('Data Pakaian');
@@ -67,6 +68,19 @@ Route::get('/dashboard/data_pakaian/tambah', function () {
 Route::get('/dashboard/data_pakaian/edit/{id}', function ($id) {
     return view('Clothes.edit_pakaian', ['title' => 'Edit Pakaian', 'id' => $id]);
 })->name('Edit Pakaian');
+
+//storage
+Route::get('/dashboard/data_storage', function () {
+    return view('Storage.data_storage', ['title' => 'Data Gudang']);
+})->name('Data Gudang');
+
+Route::get('/dashboard/data_storage/edit', function () {
+    return view('Storage.edit_storage', ['title' => 'Edit Gudang']);
+})->name('Edit Gudang');
+
+Route::get('/dashboard/data_storage/tambah', function () {
+    return view('Storage.tambah_storage', ['title' => 'Tambah Gudang']);
+})->name('Tambah Gudang');
 
 
 //CONTROLLERS

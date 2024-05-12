@@ -460,6 +460,8 @@
                         tabindex="-1" id="user-menu-item-1">Informasi Pengguna</a>
                     <a href="/getClothes" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
                         tabindex="-1" id="user-menu-item-1">Informasi Barang</a>
+                    <a href="/dashboard/data_storage" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                        tabindex="-1" id="user-menu-item-1">Informasi Gudang</a>
                     <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
                         id="user-menu-item-2">Log out</a>
                 </div>
