@@ -16,6 +16,7 @@ class Buy extends Pivot
     protected $fillable = [
         'quantity',
         'payment_method',
-        'payment_status'
+        'payment_status',
+        'confimation_status'
     ];
 }

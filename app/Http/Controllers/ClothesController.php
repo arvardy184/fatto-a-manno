@@ -233,7 +233,7 @@ class ClothesController extends Controller
     public function getAllClothes()
     {
         // Retrieve all clothes
-        $clothes = Cloth::all();
+        $clothes = Cloth::paginate(10);
 
         // Iterate over each cloth
         $clothes->each(function ($cloth) {
