@@ -78,15 +78,17 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
 
+
+
         if (!$token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Unauthorized', 'credential' => $credentials], 401);
         }
 
-        //Check if user has already verified
-        if (auth()->user()->email_verified_at == null) {
-            auth()->logout();
-            return response()->json(['error' => 'User Not Found'], 401);
-        }
+        // //Check if user has already verified
+        // if (auth()->user()->email_verified_at == null) {
+        //     auth()->logout();
+        //     return response()->json(['error' => 'User Not Found'], 401);
+        // }
 
         return redirect()->route('home');
     }

@@ -49,9 +49,18 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
+      /**
+     * Default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'role_id' => 0,
+    ];
+
     public function clothes()
     {
-        return $this->belongsToMany(Cloth::class, 'buys')->withPivot('quantity', 'payment_method', 'status_pembayaran')->withTimestamps();
+        return $this->belongsToMany(Cloth::class, 'buys')->withPivot('quantity', 'payment_method', 'payment_status', 'confirmation_status')->withTimestamps();
     }
 
     public function storages()

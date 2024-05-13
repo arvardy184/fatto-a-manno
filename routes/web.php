@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClothesController;
 use App\Http\Controllers\StorageController;
+use App\Http\Controllers\BuyController;
 
 
 //TEST VIEW
@@ -119,4 +120,16 @@ Route::group([
     Route::get('/delete/{id}', [StorageController::class, 'deleteStorage']);
     Route::get('/', [StorageController::class, 'getAllStorage']);
     Route::get('/{id}', [StorageController::class, 'getStoragebyId']);
+});
+
+
+
+//BUY ===========================================================================================
+
+Route::group(['prefix' => 'buy'], function () {
+    Route::post('/add', [BuyController::class, 'addBuy']);
+    Route::put('/edit/{id}', [BuyController::class, 'editBuy']);
+    Route::delete('/delete/{id}', [BuyController::class, 'deleteBuy']);
+    Route::get('/', [BuyController::class, 'getAllBuys']);
+    Route::get('/{id}', [BuyController::class, 'getBuybyId']);
 });

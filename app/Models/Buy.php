@@ -17,6 +17,6 @@ class Buy extends Pivot
         'quantity',
         'payment_method',
         'payment_status',
-        'confimation_status'
+        'confirmation_status'
     ];
 }

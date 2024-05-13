@@ -24,9 +24,14 @@ class Cloth extends Model
         'image_url'
     ];
 
+    // public function buys()
+    // {
+    //     return $this->belongsToMany(Buy::class, 'buys')->withPivot('quantity', 'payment_method', 'payment_status', 'confirmation_status')->withTimestamps();
+    // }
+
     public function users()
     {
-        return $this->belongsToMany(User::class, 'buys')->withPivot('quantity', 'payment_method', 'status_pembayaran')->withTimestamps();
+        return $this->belongsToMany(User::class, 'buys')->withPivot('quantity', 'payment_method', 'payment_status', 'confirmation_status')->withTimestamps();
     }
 
     public function storages()
