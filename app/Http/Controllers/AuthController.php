@@ -28,7 +28,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->messages()]);
+            return redirect()->back()->withErrors([$validator->messages()]);
         }
 
         //Create User
@@ -76,6 +76,16 @@ class AuthController extends Controller
      */
     public function login()
     {
+        //Validate Request
+        $validator = Validator::make(request()->all(), [
+            'password' => 'required',
+            'email' => 'required|email',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors([$validator->messages()]);
+        }
+
         $credentials = request(['email', 'password']);
 
         if (!$token = auth()->attempt($credentials)) {
