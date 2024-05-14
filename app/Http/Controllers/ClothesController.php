@@ -84,7 +84,7 @@ class ClothesController extends Controller
             if (request()->is('api/*')) {
                 return $res;
             }
-            return $this->getAllClothes();
+            return $this->getClothesbyAttribute();
         } else {
             return response()->json(['message' => "Function Failed"], 400);
         }
@@ -135,7 +135,7 @@ class ClothesController extends Controller
                 return $res;
             }
 
-            return $this->getAllClothes();
+            return $this->getClothesbyAttribute();
         } else {
             return response()->json(['message' => "Function Failed"], 400);
         }
@@ -190,7 +190,7 @@ class ClothesController extends Controller
             if (request()->is('api/*')) {
                 return response()->json(['store' => $store]);
             }
-            return $this->getAllClothes();
+            return $this->getClothesbyAttribute();
         } else {
             return response()->json(['message' => "Function Failed"], 400);
         }
@@ -211,7 +211,7 @@ class ClothesController extends Controller
             if (request()->is('api/*')) {
                 return response()->json(['message' => "Function Success"]);
             }
-            return $this->getAllClothes();
+            return $this->getClothesbyAttribute();
         } else {
             return response()->json(['message' => "Function Failed"], 400);
         }
@@ -230,17 +230,16 @@ class ClothesController extends Controller
         }
     }
 
-    public function getAllClothes()
+    public function getClothesbyId($id)
     {
-        // Retrieve all clothes
-        $clothes = Cloth::paginate(10);
+        $clothes = Cloth::find($id);
 
-        // Iterate over each cloth
-        $clothes->each(function ($cloth) {
-            // Attach total quantity to the cloth object
-            $cloth->total_quantity = (int) $this->findClothWithTotalQuantity($cloth->id);
-        });
+        // Check if the cloth exists
+        if (!$clothes) {
+            return response()->json(['message' => 'Clothes not found'], 404);
+        }
 
+        // Return the clothes with total quantities
         if (request()->expectsJson() || request()->is('api/*')) {
             return response()->json([
                 'clothes' => $clothes,
@@ -251,12 +250,50 @@ class ClothesController extends Controller
         return view('Clothes.data_pakaian', ['title' => 'Data Pakaian'], compact('clothes'));
     }
 
-    public function getClothesbyId($id)
+    //The params are optional in the URL
+    public function getClothesbyAttribute()
     {
-        $clothes = Cloth::find($id);
+        $validator = Validator::make(request()->all(), [
+            'type' => 'sometimes|string',
+            'size' => 'sometimes|string',
+            'color' => 'sometimes|string',
+            'price' => 'sometimes|numeric',
+            'description' => 'sometimes|string',
+        ]);
 
-        // Check if the cloth exists
-        if (!$clothes) {
+        $type = request('type', null);
+        $size = request('size', null);
+        $color = request('color', null);
+        $price = request('price', null);
+        $description = request('description', null);
+
+        // Build query conditions based on provided arguments
+        $query = Cloth::query();
+
+        if (!is_null($type)) {
+            $query->where('type', $type);
+        }
+
+        if (!is_null($size)) {
+            $query->where('size', $size);
+        }
+
+        if (!is_null($color)) {
+            $query->where('color', $color);
+        }
+
+        if (!is_null($price)) {
+            $query->where('price_per_piece', '<=', $price);
+        }
+
+        if (!is_null($description)) {
+            $query->where('description', 'like', '%' . $description . '%');
+        }
+
+        $clothes = $query->paginate(10);
+
+        // Check if clothes exist
+        if ($clothes->isEmpty()) {
             return response()->json(['message' => 'Clothes not found'], 404);
         }
 

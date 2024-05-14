@@ -107,7 +107,7 @@ Route::group([
     Route::post('/edit/stock/{cloth_id}/{storage_id}', [ClothesController::class, 'editStock']);
     Route::get('/quantity/{id}', [ClothesController::class, 'findClothWithTotalQuantity']);
     Route::get('/delete/{id}', [ClothesController::class, 'deleteClothes']);
-    Route::get('/', [ClothesController::class, 'getAllClothes']);
+    Route::get('/', [ClothesController::class, 'getClothesbyAttribute']);
     Route::get('/{id}', [ClothesController::class, 'getClothesbyId']);
 });
 

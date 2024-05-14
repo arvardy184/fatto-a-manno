@@ -51,7 +51,7 @@ class AuthController extends Controller
             Mail::to($user->email)->send(new VerificationMail($verificationUrl));
             return redirect()->route('login');
         } else {
-            return response()->json(['message' => "Registration Failed"]);
+            return redirect()->back()->withErrors(["User not Found"]);
         }
     }
 
@@ -78,10 +78,8 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
 
-
-
         if (!$token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized', 'credential' => $credentials], 401);
+            return redirect()->back()->withErrors(["User not Found"]);
         }
 
         // //Check if user has already verified
