@@ -31,8 +31,8 @@ class StorageController extends Controller
         if (request()->is('api/*')) {
             return response()->json(['storage' => $storage], 201);
         }
-        // Return the clothes with var
-        return view('view.view', ['title' => 'View'], compact('var'));
+
+        return $this->getAllStorage();
     }
 
     public function editStorage($id)
@@ -67,8 +67,8 @@ class StorageController extends Controller
         if (request()->is('api/*')) {
             return response()->json(['storage' => $storage], 201);
         }
-        // Return the clothes with var
-        return view('view.view', ['title' => 'View'], compact('var'));
+
+        return $this->getAllStorage();
     }
 
     public function deleteStorage($id)
@@ -87,8 +87,8 @@ class StorageController extends Controller
         if (request()->is('api/*')) {
             return response()->json(['message' => 'Storage deleted successfully'], 200);
         }
-        // Return the clothes with var
-        return view('view.view', ['title' => 'View'], compact('var'));
+
+        return $this->getAllStorage();
     }
 
     public function getAllStorage()

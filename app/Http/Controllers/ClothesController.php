@@ -7,6 +7,7 @@ use App\Models\Store;
 use App\Models\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ClothesController extends Controller
 {
@@ -234,6 +235,12 @@ class ClothesController extends Controller
     {
         $clothes = Cloth::find($id);
 
+        // Iterate over each cloth
+        $clothes->each(function ($cloth) {
+            // Attach total quantity to the cloth object
+            $cloth->total_quantity = (int) $this->findClothWithTotalQuantity($cloth->id);
+        });
+
         // Check if the cloth exists
         if (!$clothes) {
             return response()->json(['message' => 'Clothes not found'], 404);
@@ -247,7 +254,7 @@ class ClothesController extends Controller
         }
 
         // Return the clothes with total quantities
-        return view('Clothes.data_pakaian', ['title' => 'Data Pakaian'], compact('clothes'));
+        return view('Data Pakaian', ['title' => 'Data Pakaian'], compact('clothes'));
     }
 
     //The params are optional in the URL
@@ -290,7 +297,29 @@ class ClothesController extends Controller
             $query->where('description', 'like', '%' . $description . '%');
         }
 
-        $clothes = $query->paginate(10);
+        // Get the results
+        $results = $query->get();
+
+        // Iterate over each cloth
+        $results->each(function ($cloth) {
+            // Attach total quantity to the cloth object
+            $cloth->total_quantity = (int) $this->findClothWithTotalQuantity($cloth->id);
+        });
+
+
+        // Paginate the results
+        $perPage = 10;
+        $page = request()->get('page', 1);
+        $offset = ($page - 1) * $perPage;
+        // Slice the results to get the subset for the current page
+        $paginatedResults = $results->slice($offset, $perPage);
+        // Create a LengthAwarePaginator instance
+        $clothes = new LengthAwarePaginator(
+            $paginatedResults,
+            $results->count(),
+            $perPage,
+            $page
+        );
 
         // Check if clothes exist
         if ($clothes->isEmpty()) {
@@ -305,7 +334,7 @@ class ClothesController extends Controller
         }
 
         // Return the clothes with total quantities
-        return view('Clothes.data_pakaian', ['title' => 'Data Pakaian'], compact('clothes'));
+        return view('Data Pakaian', ['title' => 'Data Pakaian'], compact('clothes'));
     }
 
     public function getStorageLimit($storage)

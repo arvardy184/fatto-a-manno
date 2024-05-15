@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BuyController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClothesController;
 use App\Http\Controllers\StorageController;
-use App\Http\Controllers\BuyController;
 
 
 //TEST VIEW
@@ -133,3 +134,6 @@ Route::group(['prefix' => 'buy'], function () {
     Route::get('/', [BuyController::class, 'getAllBuys']);
     Route::get('/{id}', [BuyController::class, 'getBuybyId']);
 });
+
+
+Route::post('/hook', [AdminController::class, 'webhook']);
