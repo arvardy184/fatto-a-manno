@@ -38,6 +38,10 @@ Route::get('/dashboard', function () {
     return view('dashboard', ['title' => 'Dashboard']);
 })->name('dashboard');
 
+Route::get('/all_products', function () {
+    return view('Guest.all_products', ['title' => 'All Products']);
+})->name('All Products');
+
 //user dan admin
 Route::get('/dashboard/profile', function () {
     return view('profile', ['title' => 'Profil']);
