@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Buy;
+use App\Models\User;
+use App\Models\Cloth;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Http;
@@ -13,14 +16,24 @@ class AdminController extends Controller
     //     $this->middleware('isAdmin');
     // }
 
+    //TEST MIDTRANS======================================================================================================================
     public function test()
     {
+        $id = 17;
+
+        $buy = Buy::find($id);
+        $clothes = Cloth::find($buy->cloth_id);
+
+        // return response()->json($buy);
+
         $params = [
             "transaction_details" => [
-                "order_id" => "ORDER-113",
-                "gross_amount" => 100000
+                "order_id" => "ORDER-" . $buy->id,
+                "gross_amount" => (float) $clothes->price_per_piece * (float) $buy->quantity
             ]
         ];
+
+        // return response()->json($params);
 
         $auth = base64_encode(env('MIDTRANS_SERVER_KEY'));
 
@@ -32,11 +45,47 @@ class AdminController extends Controller
 
         $response = json_decode($response->body());
 
-        return response()->json($response);
+        return redirect()->route("$response->redirect_url");
+
+        // $cloth = Cloth::find(1);
+        // $user = User::find(1);
+
+        // // Assuming $cloth and $user are already defined
+        // // Attach the Buy object to the Cloth and User relationship
+        // $cloth->users()->attach($user, [
+        //     'quantity' => 1,
+        //     'payment_method' => 1,
+        //     'payment_status' => 1,
+        //     'confirmation_status' => 1
+        // ]);
+
+        // $buy = Buy::orderBy('id', 'desc')->first();
+
+        // return response()->json($buy);
     }
 
     public function webhook(Request $request)
     {
+        $req = $request->order_id;
+        $id = (int) str_replace("ORDER-", "", $req);
+        $buy = Buy::find($id);
+
+        if (!$buy) {
+            return response()->json([
+                'error' => 'No transaction Found'
+            ]);
+        }
+
+        $buy->update([
+            'payment_status' => 1,
+            'confirmation_status' => 1
+        ]);
+
+        return response()->json($buy);
+
         return redirect('http://fatto-a-manno-production.up.railway.app/');
     }
+    //=============================================================================================================================
+
+
 }

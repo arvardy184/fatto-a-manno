@@ -19,7 +19,7 @@ class StorageController extends Controller
 
         // Check if validation fails
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->messages()], 400);
+            return redirect()->back()->withErrors($validator->messages());
         }
 
         $storage = Storage::create([
@@ -46,7 +46,7 @@ class StorageController extends Controller
 
         // Check if validation fails
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->messages()], 400);
+            return redirect()->back()->withErrors($validator->messages());
         }
 
         // Find storage by ID
@@ -54,7 +54,7 @@ class StorageController extends Controller
 
         // Check if storage exists
         if (!$storage) {
-            return response()->json(['error' => 'Storage not found'], 404);
+            return redirect()->back()->withErrors(["Storage not Found"]);
         }
 
         // Update storage details and save
@@ -78,7 +78,7 @@ class StorageController extends Controller
 
         // Check if storage exists
         if (!$storage) {
-            return response()->json(['error' => 'Storage not found'], 404);
+            return redirect()->back()->withErrors(["Storage not Found"]);
         }
 
         // Delete storage
@@ -110,7 +110,7 @@ class StorageController extends Controller
 
         // Check if storage exists
         if (!$storages) {
-            return response()->json(['error' => 'Storage not found'], 404);
+            return redirect()->back()->withErrors(["Storage not Found"]);
         }
 
         if (request()->is('api/*')) {
@@ -119,5 +119,23 @@ class StorageController extends Controller
 
         // Return the clothes with var
         return view('Storage.data_storage', ['title' => 'View'], compact('storages'));
+    }
+
+    public function getDataEditStorage($id)
+    {
+        // Find storage by ID
+        $storages = Storage::find($id);
+
+        // Check if storage exists
+        if (!$storages) {
+            return redirect()->back()->withErrors(["Storage not Found"]);
+        }
+
+        if (request()->is('api/*')) {
+            return response()->json(['storage' => $storages], 200);
+        }
+
+        // Return the clothes with var
+        return view('Storage.edit_storage', ['title' => 'View'], compact('storages'));
     }
 }
