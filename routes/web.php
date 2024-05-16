@@ -123,8 +123,6 @@ Route::group([
     Route::get('/{id}', [StorageController::class, 'getStoragebyId']);
 });
 
-
-
 //BUY ===========================================================================================
 
 Route::group(['prefix' => 'buy'], function () {
