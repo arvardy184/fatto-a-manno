@@ -38,6 +38,8 @@ Route::get('/dashboard', function () {
     return view('dashboard', ['title' => 'Dashboard']);
 })->name('dashboard');
 
+Route::get('/all_products', [ClothesController::class, 'getClothesbyAttribute'])->name('All Products');
+
 //user dan admin
 Route::get('/dashboard/profile', function () {
     return view('profile', ['title' => 'Profil']);
@@ -58,9 +60,7 @@ Route::get('/dashboard/data_pengguna', function () {
 })->name('Data Pengguna');
 
 //clothes
-Route::get('/dashboard/data_pakaian', function () {
-    return view('Clothes.data_pakaian', ['title' => 'Data Pakaian']);
-})->name('Data Pakaian');
+Route::get('/dashboard/data_pakaian', [ClothesController::class, 'getClothesbyAttribute'])->name('Data Pakaian');
 
 Route::get('/dashboard/data_pakaian/tambah', function () {
     return view('Clothes.tambah_pakaian', ['title' => 'Tambah Pakaian']);
