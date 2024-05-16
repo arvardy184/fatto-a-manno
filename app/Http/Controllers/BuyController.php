@@ -15,12 +15,12 @@ class BuyController extends Controller
     {
         //Validate Request
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|exists:users,id',
+            'user_id' => 'sometimes|exists:users,id',
             'cloth_id' => 'required|exists:cloths,id',
             'quantity' => 'required|integer|min:1',
             'payment_method' => 'required|string',
-            'payment_status' => 'required|integer',
-            'confirmation_status' => 'required|integer',
+            'payment_status' => 'integer',
+            'confirmation_status' => 'integer',
         ]);
 
         $user = User::find($request->user_id);
@@ -43,8 +43,8 @@ class BuyController extends Controller
         $cloth->users()->attach($user, [
             'quantity' => $request->quantity,
             'payment_method' => $request->payment_method,
-            'payment_status' => $request->payment_status,
-            'confirmation_status' => $request->confirmation_status
+            'payment_status' => 0,
+            'confirmation_status' => 0
         ]);
         $buy = Buy::where('quantity', $request->quantity) 
         ->where('payment_method', $request->payment_method)
@@ -111,17 +111,9 @@ class BuyController extends Controller
         }
     }
 
-    public function editConfirmBuy($id, Request $request)
+    public function editPayment($id)
     {
-        //Validate Request
-        $validator = Validator::make($request->all(), [
-            'confirmation_status' => 'required|integer',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['message' => $validator->messages()], 400);
-        }
-
+       
         $buy = Buy::find($id);
 
         if (!$buy) {
@@ -129,7 +121,7 @@ class BuyController extends Controller
         }
 
         $buy->update([
-            'confirmation_status' => $request->confirmation_status
+            'payment_status' => 1
         ]);
 
         if ($buy) {
