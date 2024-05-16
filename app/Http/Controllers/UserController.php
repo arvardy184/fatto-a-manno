@@ -8,12 +8,12 @@ use App\Models\User;
 class UserController extends Controller
 {
 
-   
+
     public function getAllUsers()
     {
         $users = User::all();
 
-        return response()->json(['users' => $users], 200);
+        return view('Admin.data-Pengguna', ['title' => 'Data Pengguna'], compact('users'));
     }
 
     public function getUserbyId($id)
@@ -21,34 +21,23 @@ class UserController extends Controller
         $user = User::find($id);
 
         if (!$user) {
-            return response()->json(['error' => 'User not found'], 404);
+            return redirect()->back()->withErrors(["Error"]);
         }
 
-        return response()->json(['user' => $user], 200);
-    }
-
-    public function getProfile($id)
-    {
-        $user = User::find($id);
-        if (!$user) {
-            return response()->json(['error' => 'User not found'], 404);
-        }
-        return response()->json(['user' => $user], 200);
+        return view('Admin.data-Pengguna', ['title' => 'Data Pengguna'], compact('users'));
     }
 
     public function updateUser($id, Request $request)
     {
         $user = User::find($id);
-        if ($user)
-    {
+        if ($user) {
             $user->name = $request->input('name');
             $user->email = $request->input('email');
             $user->save();
-            return response()->json(['user' => $user], 200);
-    }
-    else {
-            return response()->json(['error' => 'User not found'], 404);
-        }   
+            return $this->getAllUsers();
+        } else {
+            return redirect()->back()->withErrors(["Error"]);
+        }
     }
 
     public function deleteUser($id)
@@ -56,9 +45,9 @@ class UserController extends Controller
         $user = User::find($id);
         if ($user) {
             $user->delete();
-            return response()->json(['message' => 'User deleted successfully'], 200);
+            return $this->getAllUsers();
         } else {
-            return response()->json(['error' => 'User not found'], 404);
+            return redirect()->back()->withErrors(["Error"]);
         }
     }
 }

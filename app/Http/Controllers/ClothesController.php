@@ -43,9 +43,7 @@ class ClothesController extends Controller
 
         //Check if the quantity exceed the storage limit
         if ($this->getStorageLimit($storage) - (int) request('quantity') < 0) {
-            return response()->json([
-                'message' => 'Storage Quantity Exceeded'
-            ], 404);
+            return redirect()->back()->withErrors(["Limit Exceeded"]);
         }
 
         if ($exist_clothes) {
@@ -83,9 +81,9 @@ class ClothesController extends Controller
             if (request()->is('api/*')) {
                 return $res;
             }
-            return $this->getClothesbyAttribute();
+            return $this->getAllClothes();
         } else {
-            return response()->json(['message' => "Function Failed"], 400);
+            return redirect()->back()->withErrors(["Error"]);
         }
     }
 
@@ -103,7 +101,7 @@ class ClothesController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->messages()]);
+            return redirect()->back()->withErrors($validator->messages());
         }
 
         // Find the cloth by ID
@@ -111,7 +109,7 @@ class ClothesController extends Controller
 
         // Check if the cloth exists
         if (!$cloth) {
-            return response()->json(['message' => 'Clothes not found'], 404);
+            return redirect()->back()->withErrors(["Clothes not Found"]);
         }
 
         // Update the cloth with the new data
@@ -134,9 +132,9 @@ class ClothesController extends Controller
                 return $res;
             }
 
-            return $this->getClothesbyAttribute();
+            return $this->getAllClothes();
         } else {
-            return response()->json(['message' => "Function Failed"], 400);
+            return redirect()->back()->withErrors(["Error"]);
         }
     }
 
@@ -156,16 +154,14 @@ class ClothesController extends Controller
 
         // Check if the cloth exists
         if (!$cloth) {
-            return response()->json(['message' => 'Clothes not found'], 404);
+            return redirect()->back()->withErrors(["Clothes not Found"]);
         }
 
         // Find the storage by ID
         $storage = Storage::find($storage_id);
 
         if (!$storage) {
-            return response()->json([
-                'message' => 'No Storage found'
-            ], 404);
+            return redirect()->back()->withErrors(["Storage not Found"]);
         };
 
         // Delete the corresponding record in the pivot table
@@ -175,7 +171,7 @@ class ClothesController extends Controller
 
         // Check if the record exists
         if ($deletedRows == 0) {
-            return response()->json(['message' => 'Stock not found'], 404);
+            return redirect()->back()->withErrors(["Stock not Found"]);
         }
 
         // Add the stock update
@@ -189,9 +185,9 @@ class ClothesController extends Controller
             if (request()->is('api/*')) {
                 return response()->json(['store' => $store]);
             }
-            return $this->getClothesbyAttribute();
+            return $this->getAllClothes();
         } else {
-            return response()->json(['message' => "Function Failed"], 400);
+            return redirect()->back()->withErrors(["Error"]);
         }
     }
 
@@ -202,7 +198,7 @@ class ClothesController extends Controller
 
         // Check if the cloth exists
         if (!$cloth) {
-            return response()->json(['message' => 'Clothes not found'], 404);
+            return redirect()->back()->withErrors(["Clothes not Found"]);
         }
 
         // Delete the cloth
@@ -210,9 +206,9 @@ class ClothesController extends Controller
             if (request()->is('api/*')) {
                 return response()->json(['message' => "Function Success"]);
             }
-            return $this->getClothesbyAttribute();
+            return $this->getAllClothes();
         } else {
-            return response()->json(['message' => "Function Failed"], 400);
+            return redirect()->back()->withErrors(["Error"]);
         }
     }
 
@@ -235,8 +231,13 @@ class ClothesController extends Controller
 
         // Check if the cloth exists
         if (!$clothes) {
-            return response()->json(['message' => 'Clothes not found'], 404);
+            return redirect()->back()->withErrors(["Clothes not Found"]);
         }
+
+        $clothes->each(function ($cloth) {
+            // Attach total quantity to the cloth object
+            $cloth->total_quantity = (int) $this->findClothWithTotalQuantity($cloth->id);
+        });
 
         // Return the clothes with total quantities
         if (request()->expectsJson() || request()->is('api/*')) {
@@ -261,7 +262,7 @@ class ClothesController extends Controller
 
         // Check if the cloth exists
         if (!$clothes) {
-            return response()->json(['message' => 'Clothes not found'], 404);
+            return redirect()->back()->withErrors(["Clothes not Found"]);
         }
 
         // Return the clothes with total quantities
@@ -341,7 +342,7 @@ class ClothesController extends Controller
 
         // Check if clothes exist
         if ($clothes->isEmpty()) {
-            return response()->json(['message' => 'Clothes not found'], 404);
+            return redirect()->back()->withErrors(["Clothes not Found"]);
         }
 
         // Return the clothes with total quantities
@@ -370,5 +371,31 @@ class ClothesController extends Controller
         $limit = (int) $storage->quantity_limit - $sum;
 
         return $limit;
+    }
+
+    public function getDataEditClothes($id)
+    {
+        $clothes = Cloth::find($id);
+
+        // Iterate over each cloth
+        $clothes->each(function ($cloth) {
+            // Attach total quantity to the cloth object
+            $cloth->total_quantity = (int) $this->findClothWithTotalQuantity($cloth->id);
+        });
+
+        // Check if the cloth exists
+        if (!$clothes) {
+            return redirect()->back()->withErrors(["Clothes not Found"]);
+        }
+
+        // Return the clothes with total quantities
+        if (request()->expectsJson() || request()->is('api/*')) {
+            return response()->json([
+                'clothes' => $clothes,
+            ]);
+        }
+
+        // Return the clothes with total quantities
+        return view('Clothes.edit_pakaian', ['title' => 'Data Pakaian'], compact('clothes'));
     }
 }

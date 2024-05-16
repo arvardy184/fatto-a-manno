@@ -111,6 +111,7 @@ Route::group([
     Route::get('/', [ClothesController::class, 'getAllClothes']);
     Route::get('/att', [ClothesController::class, 'getClothesbyAttribute']);
     Route::get('/{id}', [ClothesController::class, 'getClothesbyId']);
+    Route::get('/data/{id}', [StorageController::class, 'getDataEditClothes']);
 });
 
 //Storage
@@ -122,6 +123,7 @@ Route::group([
     Route::get('/delete/{id}', [StorageController::class, 'deleteStorage']);
     Route::get('/', [StorageController::class, 'getAllStorage']);
     Route::get('/{id}', [StorageController::class, 'getStoragebyId']);
+    Route::get('/data/{id}', [StorageController::class, 'getDataEditStorage']);
 });
 
 //BUY ===========================================================================================
