@@ -38,11 +38,8 @@ class ClothesController extends Controller
         $storage = Storage::where('name', request('stored_in'))->first();
 
         if (!$storage) {
-            return response()->json([
-                'message' => 'No Storage found'
-            ], 404);
-        }
-        ;
+            return redirect()->back()->withErrors(["Storage not Found"]);
+        };
 
         //Check if the quantity exceed the storage limit
         if ($this->getStorageLimit($storage) - (int) request('quantity') < 0) {
@@ -61,8 +58,7 @@ class ClothesController extends Controller
                 'storage' => $storage
             ]);
             return $res;
-        }
-        ;
+        };
 
         //Create Cloth Instance
         $cloth = Cloth::create([
@@ -170,8 +166,7 @@ class ClothesController extends Controller
             return response()->json([
                 'message' => 'No Storage found'
             ], 404);
-        }
-        ;
+        };
 
         // Delete the corresponding record in the pivot table
         $deletedRows = Store::where('cloth_id', $cloth_id)
@@ -234,6 +229,26 @@ class ClothesController extends Controller
         }
     }
 
+    public function getAllClothes()
+    {
+        $clothes = Cloth::all();
+
+        // Check if the cloth exists
+        if (!$clothes) {
+            return response()->json(['message' => 'Clothes not found'], 404);
+        }
+
+        // Return the clothes with total quantities
+        if (request()->expectsJson() || request()->is('api/*')) {
+            return response()->json([
+                'clothes' => $clothes,
+            ]);
+        }
+
+        // Return the clothes with total quantities
+        return view('Clothes.data_pakaian', ['title' => 'Data Pakaian'], compact('clothes'));
+    }
+
     public function getClothesbyId($id)
     {
         $clothes = Cloth::find($id);
@@ -257,7 +272,7 @@ class ClothesController extends Controller
         }
 
         // Return the clothes with total quantities
-        return view('Data Pakaian', ['title' => 'Data Pakaian'], compact('clothes'));
+        return view('Clothes.data_pakaian', ['title' => 'Data Pakaian'], compact('clothes'));
     }
 
     //The params are optional in the URL
@@ -337,7 +352,7 @@ class ClothesController extends Controller
         }
 
         // Return the clothes with total quantities
-        return view('Data Pakaian', ['title' => 'Data Pakaian'], compact('clothes'));
+        return view('Clothes.data_pakaian', ['title' => 'Data Pakaian'], compact('clothes'));
     }
 
     public function getStorageLimit($storage)

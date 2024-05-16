@@ -100,24 +100,24 @@ class StorageController extends Controller
             return response()->json(['storages' => $storages], 200);
         }
         // Return the clothes with var
-        return view('view.view', ['title' => 'View'], compact('var'));
+        return view('Storage.data_storage', ['title' => 'View'], compact('storages'));
     }
 
     public function getStoragebyId($id)
     {
         // Find storage by ID
-        $storage = Storage::find($id);
+        $storages = Storage::find($id);
 
         // Check if storage exists
-        if (!$storage) {
+        if (!$storages) {
             return response()->json(['error' => 'Storage not found'], 404);
         }
 
         if (request()->is('api/*')) {
-            return response()->json(['storage' => $storage], 200);
+            return response()->json(['storage' => $storages], 200);
         }
 
         // Return the clothes with var
-        return view('view.view', ['title' => 'View'], compact('var'));
+        return view('Storage.data_storage', ['title' => 'View'], compact('storages'));
     }
 }
