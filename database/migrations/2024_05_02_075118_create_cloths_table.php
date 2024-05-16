@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('type', 50);
             $table->string('name', 100);
             $table->string('size', 10);
-            $table->string('color', 20);
+            $table->string('color', 50);
             $table->integer('price_per_piece');
             $table->string('description', 500);
             $table->string('image_url', 200);

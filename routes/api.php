@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClothesController;
@@ -60,3 +61,7 @@ Route::group(['prefix' => 'buy'], function () {
     Route::get('/', [BuyController::class, 'getAllBuys']);
     Route::get('/{id}', [BuyController::class, 'getBuybyId']);
 });
+
+
+Route::post('/pay', [AdminController::class, 'test']);
+Route::post('/hook', [AdminController::class, 'webhook']);
