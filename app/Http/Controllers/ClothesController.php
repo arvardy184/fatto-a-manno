@@ -40,7 +40,8 @@ class ClothesController extends Controller
             return response()->json([
                 'message' => 'No Storage found'
             ], 404);
-        };
+        }
+        ;
 
         //Check if the quantity exceed the storage limit
         if ($this->getStorageLimit($storage) - (int) request('quantity') < 0) {
@@ -59,7 +60,8 @@ class ClothesController extends Controller
                 'storage' => $storage
             ]);
             return $res;
-        };
+        }
+        ;
 
         //Create Cloth Instance
         $cloth = Cloth::create([
@@ -167,7 +169,8 @@ class ClothesController extends Controller
             return response()->json([
                 'message' => 'No Storage found'
             ], 404);
-        };
+        }
+        ;
 
         // Delete the corresponding record in the pivot table
         $deletedRows = Store::where('cloth_id', $cloth_id)
