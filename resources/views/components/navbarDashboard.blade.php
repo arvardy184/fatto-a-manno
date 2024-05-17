@@ -101,7 +101,7 @@
                 <a href="/dashboard/data_pakaian"
                     class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">View
                     Clothing information</a>
-                <a href="/dashboard/data_storage"
+                <a href="/storage/"
                     class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">View
                     Storage Information</a>
                 <a href="/dashboard/data_pengguna"
