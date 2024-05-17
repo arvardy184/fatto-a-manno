@@ -6,7 +6,7 @@
             <h2 class="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Tambah Pakaian</h2>
         </div>
         <div class="mt-1 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form class="space-y-6" action="/addClothes" method="POST">
+            <form class="space-y-6" action="/clothes/add" method="POST">
                 @csrf
                 <div class="mb-6">
                     <label for="type" class="block mb-1 text-sm font-semibold text-gray-700">Type</label>
