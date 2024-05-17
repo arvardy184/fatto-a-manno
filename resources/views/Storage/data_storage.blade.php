@@ -13,24 +13,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="bg-gray-100 even:bg-gray-200">
-                        <td class="px-4 py-2 border"></td>
-                        <td class="px-4 py-2 border"></td>
-                        <td class="px-4 py-2 border"></td>
-                        <td class="px-4 py-2 border">
-                            <button>
-                                <a href="/dashboard/data_storage/edit"
-                                    class="block w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2"
-                                    onclick="return confirm('Are you sure to edit this storage?')">Edit</a>
-                            </button>
-                            <form action="" method="POST" class="inline-block">
-                                @csrf
-                                <button type="submit"
-                                    class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                                    onclick="return confirm('Are you sure to delete this storage?')">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
+                    @foreach ($storages as $storage)
+                        <tr class="bg-gray-100 even:bg-gray-200">
+                            <td class="px-4 py-2 border">{{ $storage['name'] }}</td>
+                            <td class="px-4 py-2 border">{{ $storage['quantity_limit'] }}</td>
+                            <td class="px-4 py-2 border">{{ $storage['address'] }}</td>
+                            <td class="px-4 py-2 border">
+                                <button>
+                                    <a href="/storage/data/{{ $storage['id'] }}"
+                                        class="block w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2"
+                                        onclick="return confirm('Are you sure to edit this storage?')">Edit</a>
+                                </button>
+                                <form action="/storage/delete/{{ $storage['id'] }}" method="POST" class="inline-block">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit"
+                                        class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                        onclick="return confirm('Are you sure to delete this storage?')">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

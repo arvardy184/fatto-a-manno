@@ -14,6 +14,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    
                     <tr class="bg-gray-100 even:bg-gray-200">
                         <td class="px-4 py-2 border"></td>
                         <td class="px-4 py-2 border"></td>
