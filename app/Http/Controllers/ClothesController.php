@@ -39,7 +39,8 @@ class ClothesController extends Controller
 
         if (!$storage) {
             return redirect()->back()->withErrors(["Storage not Found"]);
-        };
+        }
+        ;
 
         //Check if the quantity exceed the storage limit
         if ($this->getStorageLimit($storage) - (int) request('quantity') < 0) {
@@ -56,7 +57,8 @@ class ClothesController extends Controller
                 'storage' => $storage
             ]);
             return $res;
-        };
+        }
+        ;
 
         //Create Cloth Instance
         $cloth = Cloth::create([
@@ -81,7 +83,7 @@ class ClothesController extends Controller
             if (request()->is('api/*')) {
                 return $res;
             }
-            return $this->getAllClothes();
+            return redirect()->route('Data Pakaian');
         } else {
             return redirect()->back()->withErrors(["Error"]);
         }
@@ -132,7 +134,7 @@ class ClothesController extends Controller
                 return $res;
             }
 
-            return $this->getAllClothes();
+            return redirect()->route('Data Pakaian');
         } else {
             return redirect()->back()->withErrors(["Error"]);
         }
@@ -162,7 +164,8 @@ class ClothesController extends Controller
 
         if (!$storage) {
             return redirect()->back()->withErrors(["Storage not Found"]);
-        };
+        }
+        ;
 
         // Delete the corresponding record in the pivot table
         $deletedRows = Store::where('cloth_id', $cloth_id)
@@ -185,7 +188,7 @@ class ClothesController extends Controller
             if (request()->is('api/*')) {
                 return response()->json(['store' => $store]);
             }
-            return $this->getAllClothes();
+            return redirect()->route('Data Pakaian');
         } else {
             return redirect()->back()->withErrors(["Error"]);
         }
@@ -206,7 +209,7 @@ class ClothesController extends Controller
             if (request()->is('api/*')) {
                 return response()->json(['message' => "Function Success"]);
             }
-            return $this->getAllClothes();
+            return redirect()->route('Data Pakaian');
         } else {
             return redirect()->back()->withErrors(["Error"]);
         }
@@ -353,7 +356,7 @@ class ClothesController extends Controller
         }
 
         // Return the clothes with total quantities
-        return view('Clothes.data_pakaian', ['title' => 'Data Pakaian'], compact('clothes'));
+        return view('Guest.all_products', ['title' => 'All Products'], compact('clothes'));
     }
 
     public function getStorageLimit($storage)

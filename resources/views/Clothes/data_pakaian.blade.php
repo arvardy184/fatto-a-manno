@@ -33,11 +33,11 @@
                             <td class="px-4 py-2 border">{{ $cloth['total_quantity'] }}</td>
                             <td class="px-4 py-2 border">
                                 <button>
-                                    <a href="/dashboard/data_pakaian/edit/{{ $cloth['id'] }}"
+                                    <a href="/clothes/data/{{ $cloth['id'] }}"
                                         class="block w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2"
                                         onclick="return confirm('Are you sure to edit this clothes?')">Edit</a>
                                 </button>
-                                <form action="/deleteClothes/{{ $cloth['id'] }}" method="POST" class="inline-block">
+                                <form action="/clothes/delete/{{ $cloth['id'] }}" method="GET" class="inline-block">
                                     @csrf
                                     <button type="submit"
                                         class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"

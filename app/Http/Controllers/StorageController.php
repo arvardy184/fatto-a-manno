@@ -32,7 +32,7 @@ class StorageController extends Controller
             return response()->json(['storage' => $storage], 201);
         }
 
-        return $this->getAllStorage();
+        return redirect()->route('Data Gudang');
     }
 
     public function editStorage($id)
@@ -68,7 +68,7 @@ class StorageController extends Controller
             return response()->json(['storage' => $storage], 201);
         }
 
-        return $this->getAllStorage();
+        return redirect()->route('Data Gudang');
     }
 
     public function deleteStorage($id)
@@ -88,7 +88,7 @@ class StorageController extends Controller
             return response()->json(['message' => 'Storage deleted successfully'], 200);
         }
 
-        return $this->getAllStorage();
+        return redirect()->back();
     }
 
     public function getAllStorage()
@@ -100,7 +100,7 @@ class StorageController extends Controller
             return response()->json(['storages' => $storages], 200);
         }
         // Return the clothes with var
-        return view('Storage.data_storage', ['title' => 'View'], compact('storages'));
+        return view('Storage.data_storage', ['title' => 'Data Storage'], compact('storages'));
     }
 
     public function getStoragebyId($id)
