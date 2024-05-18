@@ -1,11 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BuyController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClothesController;
 use App\Http\Controllers\StorageController;
-use App\Http\Controllers\BuyController;
 
+
+// tolong linka middleware ke semua nya 
 
 //TEST VIEW
 Route::prefix('page')->group(function () {
@@ -22,66 +25,59 @@ Route::prefix('page')->group(function () {
     })->name('page-test');
 });
 
-Route::get('/', function () {
-    return view('Guest.home', ['title' => 'Home']);
-})->name('home');
+Route::group([
+], function () {
+    Route::get('/', function () {
+        return view('Guest.home', ['title' => 'Home']);
+    })->name('home');
 
-Route::get('/login', function () {
-    return view('Guest.login', ['title' => 'Login']);
-})->name('login');
+    Route::get('/login', function () {
+        return view('Guest.login', ['title' => 'Login']);
+    })->name('login');
 
-Route::get('/register', function () {
-    return view('Guest.register', ['title' => 'Register']);
-})->name('register');
+    Route::get('/register', function () {
+        return view('Guest.register', ['title' => 'Register']);
+    })->name('register');
 
-Route::get('/dashboard', function () {
-    return view('dashboard', ['title' => 'Dashboard']);
-})->name('dashboard');
+    Route::get('/dashboard', function () {
+        return view('dashboard', ['title' => 'Dashboard']);
+    })->name('dashboard');
+    Route::get('/all_products', [ClothesController::class, 'getClothesbyAttribute'])->name('All Products');
+});
 
-//user dan admin
-Route::get('/dashboard/profile', function () {
-    return view('profile', ['title' => 'Profil']);
-})->name('profile');
+Route::group([
+    'prefix' => 'dashboard'
+], function () {
 
-//user
-Route::get('/dashboard/edit_profil', function () {
-    return view('User.edit_profil', ['title' => 'Edit Profil']);
-})->name('Edit Profil');
+    //user dan admin
+    Route::get('/profile', function () {
+        return view('profile', ['title' => 'Profil']);
+    })->name('profile');
 
-Route::get('/dashboard/ubah_password', function () {
-    return view('edit_profil', ['title' => 'Ubah Password']);
-})->name('Ubah Password');
+    //user
+    Route::get('/edit_profil', function () {
+        return view('User.edit_profil', ['title' => 'Edit Profil']);
+    })->name('Edit Profil');
+    Route::get('/ubah_password', function () {
+        return view('edit_profil', ['title' => 'Ubah Password']);
+    })->name('Ubah Password');
 
-//admin
-Route::get('/dashboard/data_pengguna', function () {
-    return view('Admin.data_pengguna', ['title' => 'Data Pengguna']);
-})->name('Data Pengguna');
+    //admin
+    Route::get('/data_pengguna', function () {
+        return view('Admin.data_pengguna', ['title' => 'Data Pengguna']);
+    })->name('Data Pengguna');
 
-//clothes
-Route::get('/dashboard/data_pakaian', function () {
-    return view('Clothes.data_pakaian', ['title' => 'Data Pakaian']);
-})->name('Data Pakaian');
+    //clothes
+    Route::get('/data_pakaian', [ClothesController::class, 'getAllClothes'])->name('Data Pakaian');
+    Route::get('/data_pakaian/tambah', function () {
+        return view('Clothes.tambah_pakaian', ['title' => 'Tambah Pakaian']);
+    })->name('Tambah Pakaian');
 
-Route::get('/dashboard/data_pakaian/tambah', function () {
-    return view('Clothes.tambah_pakaian', ['title' => 'Tambah Pakaian']);
-})->name('Tambah Pakaian');
-
-Route::get('/dashboard/data_pakaian/edit/{id}', function ($id) {
-    return view('Clothes.edit_pakaian', ['title' => 'Edit Pakaian', 'id' => $id]);
-})->name('Edit Pakaian');
-
-//storage
-Route::get('/dashboard/data_storage', function () {
-    return view('Storage.data_storage', ['title' => 'Data Gudang']);
-})->name('Data Gudang');
-
-Route::get('/dashboard/data_storage/edit', function () {
-    return view('Storage.edit_storage', ['title' => 'Edit Gudang']);
-})->name('Edit Gudang');
-
-Route::get('/dashboard/data_storage/tambah', function () {
-    return view('Storage.tambah_storage', ['title' => 'Tambah Gudang']);
-})->name('Tambah Gudang');
+    //storage
+    Route::get('/data_storage/tambah', function () {
+        return view('Storage.tambah_storage', ['title' => 'Tambah Gudang']);
+    })->name('Tambah Gudang');
+});
 
 
 //CONTROLLERS
@@ -109,6 +105,7 @@ Route::group([
     Route::get('/delete/{id}', [ClothesController::class, 'deleteClothes']);
     Route::get('/', [ClothesController::class, 'getAllClothes']);
     Route::get('/{id}', [ClothesController::class, 'getClothesbyId']);
+    Route::get('/data/{id}', [ClothesController::class, 'getDataEditClothes']);
 });
 
 //Storage
@@ -117,12 +114,11 @@ Route::group([
 ], function () {
     Route::post('/add', [StorageController::class, 'addStorage']);
     Route::post('/edit/{cloth_id}', [StorageController::class, 'editStorage']);
-    Route::get('/delete/{id}', [StorageController::class, 'deleteStorage']);
-    Route::get('/', [StorageController::class, 'getAllStorage']);
+    Route::delete('/delete/{id}', [StorageController::class, 'deleteStorage']);
+    Route::get('/', [StorageController::class, 'getAllStorage'])->name('Data Gudang');
     Route::get('/{id}', [StorageController::class, 'getStoragebyId']);
+    Route::get('/data/{id}', [StorageController::class, 'getDataEditStorage']);
 });
-
-
 
 //BUY ===========================================================================================
 
@@ -133,3 +129,6 @@ Route::group(['prefix' => 'buy'], function () {
     Route::get('/', [BuyController::class, 'getAllBuys']);
     Route::get('/{id}', [BuyController::class, 'getBuybyId']);
 });
+
+
+Route::post('/hook', [AdminController::class, 'webhook']);

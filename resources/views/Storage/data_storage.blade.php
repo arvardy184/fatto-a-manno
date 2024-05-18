@@ -1,47 +1,46 @@
 <x-layoutDashboard>
     <x-slot:title>{{ $title }}</x-slot:title>
-    <div class="container mt-5">
-        <h1 class="text-center">Data Storage</h1>
-        <hr />
-        <table class="table table-bordered mt-2 text-center col-12">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Quantity Limit</th>
-                    <th>Address</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <button
-                            class="mt-1 flex w-full justify-center rounded-md bg-cyan-950 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                            <a href="/dashboard/data_storage/edit"
-                                onclick="return confirm('Are you sure to edit this Storage?')">Edit</a>
-                        </button>
-                        <form action="" method="POST">
-                            @csrf
-                            <button type="submit"
-                                class="mt-1 flex w-full justify-center rounded-md bg-red-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                onclick="return confirm('Are you sure to delete this Storage?')">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="container text-center">
-        <div class="row">
-            <div class="col-6">
-                <button type="button" class="btn btn-secondary"><a href="/dashboard">Back</a></button>
-            </div>
-            <div class="col-6">
-                <button type="button" class="btn btn-primary"><a href="/dashboard/data_storage/tambah">Add</a></button>
-            </div>
+    <div class="container mx-auto mt-5">
+        <h1 class="text-center text-2xl font-bold mb-4">Data Storage</h1>
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border text-center">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Quantity Limit</th>
+                        <th>Address</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($storages as $storage)
+                        <tr class="bg-gray-100 even:bg-gray-200">
+                            <td class="px-4 py-2 border">{{ $storage['name'] }}</td>
+                            <td class="px-4 py-2 border">{{ $storage['quantity_limit'] }}</td>
+                            <td class="px-4 py-2 border">{{ $storage['address'] }}</td>
+                            <td class="px-4 py-2 border">
+                                <button>
+                                    <a href="/storage/data/{{ $storage['id'] }}"
+                                        class="block w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2"
+                                        onclick="return confirm('Are you sure to edit this storage?')">Edit</a>
+                                </button>
+                                <form action="/storage/delete/{{ $storage['id'] }}" method="POST" class="inline-block">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit"
+                                        class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                        onclick="return confirm('Are you sure to delete this storage?')">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-6 flex justify-between">
+            <a href="/dashboard" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Back</a>
+            <a href="/dashboard/data_storage/tambah"
+                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add</a>
         </div>
     </div>
 </x-layoutDashboard>

@@ -1,34 +1,35 @@
-{{-- seno: tampilkan semua data user disini --}}
 <x-layoutDashboard>
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="container mt-5">
-        <h4 class="text-center">Data User</h4>
-        <hr />
-        <table class="table table-bordered mt-2 text-center col-12">
-            <thead>
-                <tr>
-                    <th>Nama</th>
-                    <th>Email</th>
-                    <th>Address</th>
-                    <th>Number</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <button
-                            class=" mt-1 flex w-full justify-center rounded-md bg-red-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"><a
-                                href=""
-                                onclick="return confirm('Are you sure to delete this candidate?')">Delete</a></button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <a href="/dashboard" class="btn btn-secondary">Back</a>
+        <h1 class="text-center text-2xl font-bold mb-4">Data User</h1>
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border text-center">
+                <thead>
+                    <tr>
+                        <th class="px-4 py-2 border">Nama</th>
+                        <th class="px-4 py-2 border">Email</th>
+                        <th class="px-4 py-2 border">Address</th>
+                        <th class="px-4 py-2 border">Number</th>
+                        <th class="px-4 py-2 border">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr class="bg-gray-100 even:bg-gray-200">
+                        <td class="px-4 py-2 border"></td>
+                        <td class="px-4 py-2 border"></td>
+                        <td class="px-4 py-2 border"></td>
+                        <td class="px-4 py-2 border"></td>
+                        <td class="px-4 py-2 border">
+                            <button
+                                class="inline-block w-full px-4 py-2 text-xs font-semibold leading-6 text-white uppercase bg-red-600 rounded hover:bg-red-700 focus:outline-none focus:bg-red-700"
+                                onclick="return confirm('Are you sure to delete this candidate?')">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <a href="/dashboard"
+            class="block w-full max-w-xs mx-auto mt-4 px-4 py-2 border text-sm font-semibold leading-6 text-center text-white uppercase bg-gray-600 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700">Back</a>
     </div>
 </x-layoutDashboard>

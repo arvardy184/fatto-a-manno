@@ -28,7 +28,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->messages()]);
+            return redirect()->back()->withErrors([$validator->messages()]);
         }
 
         //Create User
@@ -51,7 +51,7 @@ class AuthController extends Controller
             Mail::to($user->email)->send(new VerificationMail($verificationUrl));
             return redirect()->route('login');
         } else {
-            return response()->json(['message' => "Registration Failed"]);
+            return redirect()->back()->withErrors(["User not Found"]);
         }
     }
 
@@ -76,12 +76,20 @@ class AuthController extends Controller
      */
     public function login()
     {
+        //Validate Request
+        $validator = Validator::make(request()->all(), [
+            'password' => 'required',
+            'email' => 'required|email',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors([$validator->messages()]);
+        }
+
         $credentials = request(['email', 'password']);
 
-
-
         if (!$token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized', 'credential' => $credentials], 401);
+            return redirect()->back()->withErrors(["User not Found"]);
         }
 
         // //Check if user has already verified
