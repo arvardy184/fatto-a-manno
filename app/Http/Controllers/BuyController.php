@@ -8,6 +8,9 @@ use App\Models\Storage;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+
+
 
 class BuyController extends Controller
 {
@@ -23,55 +26,84 @@ class BuyController extends Controller
             'confirmation_status' => 'integer',
         ]);
 
-        $user = User::find($request->user_id);
+        // Check if the user exists
+
+        // if(!$user) {
+        //     return response()->json(['message' => 'User not found'], 404);
+        // }
 
         // Check if validation fails
         if ($validator->fails()) {
             return response()->json(['message' => $validator->messages()]);
         }
 
+        $user = User::find($request->user_id);
         // Find the cloth
-         $cloth = Cloth::find($request->cloth_id);
-         $storage = $cloth->storages()->first();
+        $cloth = Cloth::find($request->cloth_id);
+        $storage = $cloth->storages()->first();
+
+        // // Check if the cloth exists
+        //  if(!$cloth) {
+        //     return response()->json(['message' => 'Cloth not found'], 404);
+        // }
+
+        // Check if the storage exists
+        if (!$storage) {
+            return response()->json(['message' => 'Storage not found'], 404);
+        }
 
         //check if the quantity exceed the storage limit
         if ($storage->quantity_limit < $request->quantity) {
             return response()->json(['message' => 'Storage Quantity Exceeded'], 400);
         }
 
-        // Create the buy record
-        $cloth->users()->attach($user, [
-            'quantity' => $request->quantity,
-            'payment_method' => $request->payment_method,
-            'payment_status' => 0,
-            'confirmation_status' => 0
-        ]);
-        $buy = Buy::where('quantity', $request->quantity) 
-        ->where('payment_method', $request->payment_method)
-        ->where( 'payment_status' , $request->payment_status)
-        ->where( 'confirmation_status' , $request->confirmation_status)->first();
+        // // Create the buy record
+        // $cloth->users()->attach($user, [
+        //     'quantity' => $request->quantity,
+        //     'payment_method' => $request->payment_method,
+        //     'payment_status' => 0,
+        //     'confirmation_status' => 0
+        // ]);
 
-        if ($cloth) {
+        DB::transaction(function () use ($user, $cloth, $storage, $request) {
+            $cloth->users()->attach($user, [
+                'quantity' => $request->quantity,
+                'payment_method' => $request->payment_method,
+                'payment_status' => 0,
+                'confirmation_status' => 0
+            ]);
+
             // Update the storage quantity
             $storage->quantity_limit -= $request->quantity;
             $storage->save();
+        });
 
-            //check if the quantity exceed the storage limit
-            if($storage->quantity_limit < 0) {
-                return response()->json(['message' => 'Storage Quantity Exceeded'], 400);
-            }
+        // 
+        // $buy = Buy::where('quantity', $request->quantity) 
+        // ->where('payment_method', $request->payment_method)
+        // ->where( 'payment_status' , $request->payment_status)
+        // ->where( 'confirmation_status' , $request->confirmation_status)->first();
+        // Retrieve the latest buy record for the user and cloth
+        $buy = $cloth->users()->wherePivot('user_id', $user->id)->latest('pivot_created_at')->first();
 
-            // $res = response()->json([
-            //     'buy' => $cloth
-            // ]);'
+        // Update the storage quantity
+        $storage->quantity_limit -= $request->quantity;
+        $storage->save();
 
-            if ($request->is('api/*')) {
-                return response()->json(['buy' => $buy], 201);
-            } 
-            return $this->getAllBuys();
-        } else {
-            return response()->json(['message' => "Failed"], 400);
+        // $buy = Buy::orderBy('id', 'desc')->first();
+
+        //check if the quantity exceed the storage limit
+        if ($storage->quantity_limit < 0) {
+            return response()->json(['message' => 'Storage Quantity Exceeded'], 400);
         }
+
+        $buy = $cloth->users()->latest()->first();
+
+
+        if ($request->is('api/*')) {
+            return response()->json(['buy' => $buy], 201);
+        }
+        return $this->getAllBuys();
     }
 
     public function editBuy($id, Request $request)
@@ -102,7 +134,7 @@ class BuyController extends Controller
             ]);
 
             if ($request->is('api/*')) {
-               return response()->json(['buy' => $buy], 201);
+                return response()->json(['buy' => $buy], 201);
             }
 
             return $this->getAllBuys();
@@ -113,7 +145,7 @@ class BuyController extends Controller
 
     public function editPayment($id)
     {
-       
+
         $buy = Buy::find($id);
 
         if (!$buy) {

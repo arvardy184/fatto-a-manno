@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClothesController;
 use App\Http\Controllers\StorageController;
+use App\Http\Controllers\UserController;
 
 
 // tolong linka middleware ke semua nya 
@@ -128,6 +129,15 @@ Route::group(['prefix' => 'buy'], function () {
     Route::delete('/delete/{id}', [BuyController::class, 'deleteBuy']);
     Route::get('/', [BuyController::class, 'getAllBuys']);
     Route::get('/{id}', [BuyController::class, 'getBuybyId']);
+});
+
+Route::group(['prefix' => 'user'], function () {
+    Route::get('/', [UserController::class, 'getAllUsers']);
+    Route::get('/{id}', [UserController::class, 'getUserbyId']);
+    Route::post('/add', [UserController::class, 'createUser']);
+    Route::put('/edit/{id}', [UserController::class, 'updateUser']);
+    Route::delete('/delete/{id}', [UserController::class, 'deleteUser']);
+    Route::get('/data/{id}', [UserController::class, 'getDataEditUser']);
 });
 
 
