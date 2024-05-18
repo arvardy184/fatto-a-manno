@@ -40,6 +40,7 @@ Route::group([
     Route::get('/delete/{id}', [StorageController::class, 'deleteStorage']);
     Route::get('/', [StorageController::class, 'getAllStorage']);
     Route::get('/{id}', [StorageController::class, 'getStoragebyId']);
+    Route::get('/data/{id}', [StorageController::class, 'getStorageDetail']);
 });
 
 //USER ===========================================================================================

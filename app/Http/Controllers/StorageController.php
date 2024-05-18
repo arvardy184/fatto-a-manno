@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cloth;
+use App\Models\Store;
 use App\Models\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -133,6 +135,26 @@ class StorageController extends Controller
 
         if (request()->is('api/*')) {
             return response()->json(['storage' => $storages], 200);
+        }
+
+        // Return the clothes with var
+        return view('Storage.edit_storage', ['title' => 'View'], compact('storages'));
+    }
+
+    public function getStorageDetail($id)
+    {
+        // Find storage by ID
+        $storage = Storage::find($id);
+
+        // Check if storage exists
+        if (!$storage) {
+            return redirect()->back()->withErrors(["Storage not Found"]);
+        }
+
+        $clothes = Store::where('storage_id', $storage->id);
+
+        if (request()->is('api/*')) {
+            return response()->json(['clothes' => $clothes], 200);
         }
 
         // Return the clothes with var
