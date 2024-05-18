@@ -9,7 +9,7 @@ use App\Http\Controllers\StorageController;
 use App\Http\Controllers\UserController;
 
 
-// tolong linka middleware ke semua nya 
+// tolong linkan middleware ke semua nya 
 
 //TEST VIEW
 Route::prefix('page')->group(function () {
@@ -53,7 +53,7 @@ Route::group([
     //user dan admin
     Route::get('/profile', function () {
         return view('profile', ['title' => 'Profil']);
-    })->name('profile');
+    })->name('Profile');
 
     //user
     Route::get('/edit_profil', function () {
@@ -64,9 +64,7 @@ Route::group([
     })->name('Ubah Password');
 
     //admin
-    Route::get('/data_pengguna', function () {
-        return view('Admin.data_pengguna', ['title' => 'Data Pengguna']);
-    })->name('Data Pengguna');
+    Route::get('/data_pengguna', [UserController::class, 'getAllUsers'])->name('Data Pengguna');
 
     //clothes
     Route::get('/data_pakaian', [ClothesController::class, 'getAllClothes'])->name('Data Pakaian');
@@ -78,6 +76,10 @@ Route::group([
     Route::get('/data_storage/tambah', function () {
         return view('Storage.tambah_storage', ['title' => 'Tambah Gudang']);
     })->name('Tambah Gudang');
+
+    Route::get('/detail_items', function () {
+        return view('Storage.detail_items', ['title' => 'Detail Items']);
+    })->name('Detail Items');
 });
 
 
@@ -109,7 +111,7 @@ Route::group([
     Route::get('/data/{id}', [ClothesController::class, 'getDataEditClothes']);
 });
 
-//Storage
+//Storage ===========================================================================================
 Route::group([
     'prefix' => 'storage'
 ], function () {
@@ -122,7 +124,6 @@ Route::group([
 });
 
 //BUY ===========================================================================================
-
 Route::group(['prefix' => 'buy'], function () {
     Route::post('/add', [BuyController::class, 'addBuy']);
     Route::put('/edit/{id}', [BuyController::class, 'editBuy']);
@@ -132,11 +133,10 @@ Route::group(['prefix' => 'buy'], function () {
 });
 
 Route::group(['prefix' => 'user'], function () {
-    Route::get('/', [UserController::class, 'getAllUsers']);
     Route::get('/{id}', [UserController::class, 'getUserbyId']);
     Route::post('/add', [UserController::class, 'createUser']);
     Route::put('/edit/{id}', [UserController::class, 'updateUser']);
-    Route::delete('/delete/{id}', [UserController::class, 'deleteUser']);
+    Route::post('/delete/{id}', [UserController::class, 'deleteUser']);
     Route::get('/data/{id}', [UserController::class, 'getDataEditUser']);
 });
 

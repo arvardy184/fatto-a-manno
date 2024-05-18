@@ -6,10 +6,10 @@
             <table class="min-w-full bg-white border text-center">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Quantity Limit</th>
-                        <th>Address</th>
-                        <th>Action</th>
+                        <th class="px-4 py-2 border">Name</th>
+                        <th class="px-4 py-2 border">Quantity Limit</th>
+                        <th class="px-4 py-2 border">Address</th>
+                        <th class="px-4 py-2 border">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -19,6 +19,10 @@
                             <td class="px-4 py-2 border">{{ $storage['quantity_limit'] }}</td>
                             <td class="px-4 py-2 border">{{ $storage['address'] }}</td>
                             <td class="px-4 py-2 border">
+                                <button>
+                                    <a href="/dashboard/detail_items"
+                                        class="block w-full bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mb-2">Detail</a>
+                                </button>
                                 <button>
                                     <a href="/storage/data/{{ $storage['id'] }}"
                                         class="block w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2"

@@ -133,7 +133,6 @@ class ClothesController extends Controller
             if (request()->is('api/*')) {
                 return $res;
             }
-
             return redirect()->route('Data Pakaian');
         } else {
             return redirect()->back()->withErrors(["Error"]);
