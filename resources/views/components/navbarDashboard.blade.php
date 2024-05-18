@@ -63,8 +63,8 @@
                                     role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
                                     tabindex="-1">
                                     <!-- Active: "bg-gray-100", Not Active: "" -->
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
-                                        tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                                    <a href="/dashboard/profile" class="block px-4 py-2 text-sm text-gray-700"
+                                        role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
                                     <a href="/logout" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
                                         tabindex="-1" id="user-menu-item-2">Sign out</a>
                                 </div>
@@ -125,7 +125,7 @@
 
                     </div>
                     <div class="mt-3 space-y-1 px-2">
-                        <a href="#"
+                        <a href="/dashboard/profile"
                             class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your
                             Profile</a>
                         <a href="/logout"
@@ -254,7 +254,7 @@
 
                     </div>
                     <div class="mt-3 space-y-1 px-2">
-                        <a href="#"
+                        <a href="/dashboard/profile"
                             class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your
                             Profile</a>
                         <a href="/logout"

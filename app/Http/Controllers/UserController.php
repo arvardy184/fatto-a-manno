@@ -52,14 +52,6 @@ class UserController extends Controller
 
     public function updateUser($id, Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'sometimes|string|max:255',
-            'email' => 'sometimes|email|unique:users,email,' . $id,
-        ]);
-        // if ($validatedData->fails()) {
-        //     return redirect()->back()->withErrors($validatedData)->withInput();
-        // }
-
         $user = User::find($id);
         if (!$user) {
             return request()->expectsJson()
@@ -67,14 +59,21 @@ class UserController extends Controller
                 : redirect()->back()->withErrors(['message' => 'User not found']);
         }
 
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'address' => 'required|string|max:255',
+            'number' => 'required|string|unique:users,number,' . $user->id,
+        ]);
+
         $user->update($validatedData);
 
         if (request()->expectsJson()) {
             return response()->json(['user' => $user], 200);
         }
-
-        return redirect()->back()->with('success', 'User updated successfully');
+        return redirect()->route('Profile')->with('success', 'User updated successfully');
     }
+
 
     public function deleteUser($id)
     {
