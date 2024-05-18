@@ -50,8 +50,9 @@
             <div class="mt-1 sm:mx-auto sm:w-full sm:max-w-sm">
                 {{-- seno: tampilkan data-data user disini --}}
                 @csrf
+              
                 <div class="mb-5">
-                    <label for="" class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
+                    <label for="" class="block text-sm font-medium text-gray-700">Nama</label>
                     <div class="border border-gray-300 rounded-md p-2">{{ auth()->user()->name }}</div>
                 </div>
                 <div class="mb-5">

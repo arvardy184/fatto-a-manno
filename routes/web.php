@@ -57,7 +57,7 @@ Route::group([
 
     //user
     Route::get('/edit_profil', function () {
-        return view('User.edit_profil', ['title' => 'Edit Profil']);
+        return view('edit_profil', ['title' => 'Edit Profil']);
     })->name('Edit Profil');
     Route::get('/ubah_password', function () {
         return view('edit_profil', ['title' => 'Ubah Password']);
