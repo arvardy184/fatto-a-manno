@@ -98,7 +98,7 @@ class AuthController extends Controller
         //     return response()->json(['error' => 'User Not Found'], 401);
         // }
 
-        return redirect()->route('home');
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -120,6 +120,6 @@ class AuthController extends Controller
     {
         auth()->logout();
 
-        return redirect()->route('page-login');
+        return redirect()->route('home');
     }
 }

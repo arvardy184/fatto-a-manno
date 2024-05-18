@@ -8,17 +8,21 @@
         </div>
 
         <div class="mt-3 sm:mx-auto sm:w-full sm:max-w-sm">
+            <!-- Check for a global error message -->
+            @if (session('errors'))
+                @include('components.view_modal')
+            @endif
             <form class="space-y-6" action="/signin" method="POST">
                 @csrf
                 <div class="mb-3">
                     <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
-                    <input type="email" id="email" name="email"
+                    <input type="email" id="email" name="email" required
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         placeholder="name@example.com">
                 </div>
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <input type="password" id="password" name="password"
+                    <input type="password" id="password" name="password" required
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         placeholder="Password">
                 </div>
