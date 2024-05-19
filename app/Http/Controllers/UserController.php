@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function getAllUsers()
     {
-        $users = User::all();
+        $users = User::paginate(10);
 
         if(request()->expectsJson()) {
             return response()->json(['users' => $users], 200);
@@ -79,13 +79,21 @@ class UserController extends Controller
     public function deleteUser($id)
     {
         $user = User::find($id);
-        
+        if(auth()->user()->id == $id) {
+            return redirect()->back()->withErrors(["You can't delete yourself"]);
+        }
         if ($user) {
             $user->delete();
-            return redirect()->route('admin.users.index')->with('success', 'User deleted successfully');
         } else {
             return redirect()->back()->withErrors(["User not found"]);
         }
+        return redirect()->route('Data Pengguna');
+    }
+
+    public function deleteAllUsers()
+    {
+        User::truncate();
+        return redirect()->route('Data Pengguna');
     }
 
     public function getDataEditUser($id)
