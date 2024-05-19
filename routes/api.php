@@ -37,10 +37,12 @@ Route::group([
 ], function () {
     Route::post('/add', [StorageController::class, 'addStorage']);
     Route::post('/edit/{cloth_id}', [StorageController::class, 'editStorage']);
-    Route::get('/delete/{id}', [StorageController::class, 'deleteStorage']);
-    Route::get('/', [StorageController::class, 'getAllStorage']);
+    Route::delete('/delete/{id}', [StorageController::class, 'deleteStorage']);
+    Route::get('/', [StorageController::class, 'getAllStorage'])->name('Data Gudang');
     Route::get('/{id}', [StorageController::class, 'getStoragebyId']);
-    Route::get('/data/{id}', [StorageController::class, 'getStorageDetail']);
+    Route::get('/data/{id}', [StorageController::class, 'getDataEditStorage']);
+    Route::get('/clothes/{id}', [StorageController::class, 'getStorageDetail']);
+    Route::get('/clothes/data/{id}', [StorageController::class, 'editStock']);
 });
 
 //USER ===========================================================================================

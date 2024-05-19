@@ -151,13 +151,43 @@ class StorageController extends Controller
             return redirect()->back()->withErrors(["Storage not Found"]);
         }
 
-        $clothes = Store::where('storage_id', $storage->id);
+        $stores = Store::where('storage_id', $storage->id);
 
         if (request()->is('api/*')) {
-            return response()->json(['clothes' => $clothes], 200);
+            return response()->json(['stores' => $stores], 200);
         }
 
         // Return the clothes with var
-        return view('Storage.edit_storage', ['title' => 'View'], compact('storages'));
+        return view('Storage.detail_items', ['title' => 'View'], compact('stores'));
+    }
+
+    public function editStock($id)
+    {
+        $validator = Validator::make(request()->all(), [
+            'quantity' => 'required'
+        ]);
+
+        // Check if validation fails
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->messages());
+        }
+
+        //Find Store
+        $store = Store::find('id', $id);
+        $store->update([
+            'quantity' => request('quantity')
+        ]);
+
+        // Check if storage exists
+        if (!$store) {
+            return redirect()->back()->withErrors(["Storage not Found"]);
+        }
+
+        if (request()->is('api/*')) {
+            return response()->json(['stores' => $store], 200);
+        }
+
+        // Return the clothes with var
+        return redirect()->route('Detail Items');
     }
 }

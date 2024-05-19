@@ -39,8 +39,7 @@ class ClothesController extends Controller
 
         if (!$storage) {
             return redirect()->back()->withErrors(["Storage not Found"]);
-        }
-        ;
+        };
 
         //Check if the quantity exceed the storage limit
         if ($this->getStorageLimit($storage) - (int) request('quantity') < 0) {
@@ -57,8 +56,7 @@ class ClothesController extends Controller
                 'storage' => $storage
             ]);
             return $res;
-        }
-        ;
+        };
 
         //Create Cloth Instance
         $cloth = Cloth::create([
@@ -163,8 +161,7 @@ class ClothesController extends Controller
 
         if (!$storage) {
             return redirect()->back()->withErrors(["Storage not Found"]);
-        }
-        ;
+        };
 
         // Delete the corresponding record in the pivot table
         $deletedRows = Store::where('cloth_id', $cloth_id)
@@ -240,6 +237,20 @@ class ClothesController extends Controller
             // Attach total quantity to the cloth object
             $cloth->total_quantity = (int) $this->findClothWithTotalQuantity($cloth->id);
         });
+
+        // Paginate the results
+        $perPage = 10;
+        $page = request()->get('page', 1);
+        $offset = ($page - 1) * $perPage;
+        // Slice the results to get the subset for the current page
+        $paginatedResults = $clothes->slice($offset, $perPage);
+        // Create a LengthAwarePaginator instance
+        $clothes = new LengthAwarePaginator(
+            $paginatedResults,
+            $clothes->count(),
+            $perPage,
+            $page
+        );
 
         // Return the clothes with total quantities
         if (request()->expectsJson() || request()->is('api/*')) {
