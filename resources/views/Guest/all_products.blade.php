@@ -57,6 +57,9 @@
                         @include('layouts.card')
                     @endforeach
                 </div>
+                <div class="mt-3">
+                    {{ $clothes->links() }}
+                </div>
             </div>
         </div>
     </div>
