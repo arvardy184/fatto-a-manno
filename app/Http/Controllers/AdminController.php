@@ -121,4 +121,17 @@ class AdminController extends Controller
             'storage' => $storages,
         ]);
     }
+
+    private function findClothWithTotalQuantity($clothId)
+    {
+        $cloth = Cloth::find($clothId);
+
+        $totalQuantity = $cloth->storages()->sum('stores.quantity');
+
+        if ($totalQuantity) {
+            return $totalQuantity;
+        } else {
+            return 0;
+        }
+    }
 }
