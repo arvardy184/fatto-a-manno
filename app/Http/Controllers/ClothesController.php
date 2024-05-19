@@ -211,7 +211,7 @@ class ClothesController extends Controller
         }
     }
 
-    public function findClothWithTotalQuantity($clothId)
+    private function findClothWithTotalQuantity($clothId)
     {
         $cloth = Cloth::find($clothId);
 
