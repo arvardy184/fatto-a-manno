@@ -9,6 +9,7 @@ use App\Models\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AdminController extends Controller
 {
@@ -91,15 +92,33 @@ class AdminController extends Controller
     public function getAllData()
     {
         $users = User::paginate(10);
-        $clothes = Cloth::paginate(10);
+        $clothes = Cloth::all();
         $storages = Storage::paginate(10);
 
-        $data = [
+        $clothes->each(function ($cloth) {
+            // Attach total quantity to the cloth object
+            $cloth->total_quantity = (int) $this->findClothWithTotalQuantity($cloth->id);
+        });
+
+        // Paginate the results
+        $perPage = 10;
+        $page = request()->get('page', 1);
+        $offset = ($page - 1) * $perPage;
+        // Slice the results to get the subset for the current page
+        $paginatedResults = $clothes->slice($offset, $perPage);
+        // Create a LengthAwarePaginator instance
+        $clothes = new LengthAwarePaginator(
+            $paginatedResults,
+            $clothes->count(),
+            $perPage,
+            $page
+        );
+
+        return view('dashboard', [
+            'title' => 'Dashboard',
             'users' => $users,
             'clothes' => $clothes,
-            'storages' => $storages,
-        ];
-
-        return view('dashboard', ['title' => 'Dashboard'], compact('data'));
+            'storage' => $storages,
+        ]);
     }
 }
