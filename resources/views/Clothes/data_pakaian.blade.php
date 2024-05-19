@@ -1,4 +1,4 @@
-<x-layoutDashboard>
+<x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="container mx-auto mt-5">
         <h1 class="text-center text-2xl font-bold mb-4">Data Pakaian</h1>
@@ -49,10 +49,13 @@
                 </tbody>
             </table>
         </div>
+        <div class="bg-white mt-3">
+            {{ $clothes->appends(['users_page' => request()->users_page, 'storages_page' => request()->storages_page])->fragment('clothes')->links() }}
+        </div>
         <div class="mt-6 flex justify-between">
             <a href="/dashboard" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Back</a>
             <a href="/dashboard/data_pakaian/tambah"
                 class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add</a>
         </div>
     </div>
-</x-layoutDashboard>
+</x-layout>

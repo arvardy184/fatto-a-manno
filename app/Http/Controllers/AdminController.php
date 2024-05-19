@@ -9,6 +9,7 @@ use App\Models\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AdminController extends Controller
 {
@@ -90,16 +91,46 @@ class AdminController extends Controller
 
     public function getAllData()
     {
-        $users = User::paginate(10);
-        $clothes = Cloth::paginate(10);
-        $storages = Storage::paginate(10);
+        $users = User::paginate(10, ['*'], 'users');
+        $storages = Storage::paginate(10, ['*'], 'storages');
 
-        $data = [
+        $clothes = Cloth::all();
+        $clothes->each(function ($cloth) {
+            // Attach total quantity to the cloth object
+            $cloth->total_quantity = (int) $this->findClothWithTotalQuantity($cloth->id);
+        });
+
+        // Paginate the results for clothes
+        $perPage = 10;
+        $page = request()->get('clothes_page', 1);
+        $offset = ($page - 1) * $perPage;
+        $paginatedResults = $clothes->slice($offset, $perPage);
+        $clothes = new LengthAwarePaginator(
+            $paginatedResults,
+            $clothes->count(),
+            $perPage,
+            $page,
+            ['path' => request()->url(), 'pageName' => 'clothes_page']
+        );
+
+        return view('dashboard', [
+            'title' => 'Dashboard',
             'users' => $users,
             'clothes' => $clothes,
             'storages' => $storages,
-        ];
+        ]);
+    }
 
-        return view('dashboard', ['title' => 'Dashboard'], compact('data'));
+    private function findClothWithTotalQuantity($clothId)
+    {
+        $cloth = Cloth::find($clothId);
+
+        $totalQuantity = $cloth->storages()->sum('stores.quantity');
+
+        if ($totalQuantity) {
+            return $totalQuantity;
+        } else {
+            return 0;
+        }
     }
 }
