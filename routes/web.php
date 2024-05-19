@@ -26,8 +26,7 @@ Route::prefix('page')->group(function () {
     })->name('page-test');
 });
 
-Route::group([
-], function () {
+Route::group([], function () {
     Route::get('/', function () {
         return view('Guest.home', ['title' => 'Home']);
     })->name('home');
@@ -121,6 +120,8 @@ Route::group([
     Route::get('/', [StorageController::class, 'getAllStorage'])->name('Data Gudang');
     Route::get('/{id}', [StorageController::class, 'getStoragebyId']);
     Route::get('/data/{id}', [StorageController::class, 'getDataEditStorage']);
+    Route::get('/clothes/{id}', [StorageController::class, 'getStorageDetail']);
+    Route::get('/clothes/data/{id}', [StorageController::class, 'editStock']);
 });
 
 //BUY ===========================================================================================

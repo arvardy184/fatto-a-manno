@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cloth;
+use App\Models\Store;
 use App\Models\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -137,5 +139,55 @@ class StorageController extends Controller
 
         // Return the clothes with var
         return view('Storage.edit_storage', ['title' => 'View'], compact('storages'));
+    }
+
+    public function getStorageDetail($id)
+    {
+        // Find storage by ID
+        $storage = Storage::find($id);
+
+        // Check if storage exists
+        if (!$storage) {
+            return redirect()->back()->withErrors(["Storage not Found"]);
+        }
+
+        $stores = Store::where('storage_id', $storage->id);
+
+        if (request()->is('api/*')) {
+            return response()->json(['stores' => $stores], 200);
+        }
+
+        // Return the clothes with var
+        return view('Storage.detail_items', ['title' => 'View'], compact('stores'));
+    }
+
+    public function editStock($id)
+    {
+        $validator = Validator::make(request()->all(), [
+            'quantity' => 'required'
+        ]);
+
+        // Check if validation fails
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->messages());
+        }
+
+        //Find Store
+        $store = Store::find('id', $id);
+        $store->update([
+            'quantity' => request('quantity')
+        ]);
+
+        // Check if storage exists
+        if (!$store) {
+            return redirect()->back()->withErrors(["Storage not Found"]);
+        }
+
+        if (request()->is('api/*')) {
+            return response()->json(['stores' => $store], 200);
+        }
+
+        // Return the clothes with var
+        return redirect()->route('Detail Items');
     }
 }
