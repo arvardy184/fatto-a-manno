@@ -1,4 +1,4 @@
-<x-layoutDashboard>
+<x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="container mx-auto mt-5">
         <h1 class="text-center text-2xl font-bold mb-4">Data Storage</h1>
@@ -47,4 +47,4 @@
                 class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add</a>
         </div>
     </div>
-</x-layoutDashboard>
+</x-layout>

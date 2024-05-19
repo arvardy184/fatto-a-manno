@@ -1,4 +1,4 @@
-<x-layoutDashboard>
+<x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     @if (auth()->user()->role_id == 1)
         {{-- admin --}}
@@ -27,10 +27,6 @@
                 </div>
                 <div>
                     <button
-                        class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                        <a href="/dashboard/edit_profil">Edit Profil</a>
-                    </button>
-                    <button
                         class="mt-1 flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                         <a href="/dashboard/edit_profil">Ubah Password</a>
                     </button>
@@ -50,7 +46,7 @@
             <div class="mt-1 sm:mx-auto sm:w-full sm:max-w-sm">
                 {{-- seno: tampilkan data-data user disini --}}
                 @csrf
-              
+
                 <div class="mb-5">
                     <label for="" class="block text-sm font-medium text-gray-700">Nama</label>
                     <div class="border border-gray-300 rounded-md p-2">{{ auth()->user()->name }}</div>
@@ -84,4 +80,4 @@
             </div>
         </div>
     @endif
-</x-layoutDashboard>
+</x-layout>
