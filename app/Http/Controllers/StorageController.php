@@ -120,7 +120,7 @@ class StorageController extends Controller
         }
 
         // Return the clothes with var
-        return view('Storage.data_storage', ['title' => 'View'], compact('storages'));
+        return view('Storage.data_storage', ['title' => 'Data Storage'], compact('storages'));
     }
 
     public function getDataEditStorage($id)
@@ -138,7 +138,7 @@ class StorageController extends Controller
         }
 
         // Return the clothes with var
-        return view('Storage.edit_storage', ['title' => 'View'], compact('storages'));
+        return view('Storage.edit_storage', ['title' => 'Edit Storage'], compact('storages'));
     }
 
     public function getStorageDetail($id)
@@ -158,7 +158,7 @@ class StorageController extends Controller
         }
 
         // Return the clothes with var
-        return view('Storage.detail_items', ['title' => 'View'], compact('stores'));
+        return view('Storage.detail_items', ['title' => 'Detail Item'], compact('stores'));
     }
 
     public function editStock($id)
