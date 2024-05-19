@@ -91,8 +91,8 @@ class AdminController extends Controller
 
     public function getAllData()
     {
-        $users = User::paginate(10, [''], 'users');
-        $storages = Storage::paginate(10, [''], 'storages');
+        $users = User::paginate(10, ['*'], 'users');
+        $storages = Storage::paginate(10, ['*'], 'storages');
 
         $clothes = Cloth::all();
         $clothes->each(function ($cloth) {

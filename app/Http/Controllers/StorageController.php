@@ -96,7 +96,7 @@ class StorageController extends Controller
     public function getAllStorage()
     {
         // Get all storages
-        $storages = Storage::paginate(10);
+        $storages = Storage::paginate(10, ['*'], 'storages');
 
         if (request()->is('api/*')) {
             return response()->json(['storages' => $storages], 200);
