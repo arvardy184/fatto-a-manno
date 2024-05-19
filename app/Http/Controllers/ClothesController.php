@@ -244,12 +244,18 @@ class ClothesController extends Controller
         $offset = ($page - 1) * $perPage;
         // Slice the results to get the subset for the current page
         $paginatedResults = $clothes->slice($offset, $perPage);
-        // Create a LengthAwarePaginator instance
+
+        // Paginate the results for clothes
+        $perPage = 10;
+        $page = request()->get('clothes_page', 1);
+        $offset = ($page - 1) * $perPage;
+        $paginatedResults = $clothes->slice($offset, $perPage);
         $clothes = new LengthAwarePaginator(
             $paginatedResults,
             $clothes->count(),
             $perPage,
-            $page
+            $page,
+            ['path' => request()->url(), 'pageName' => 'clothes_page']
         );
 
         // Return the clothes with total quantities
@@ -339,18 +345,17 @@ class ClothesController extends Controller
         });
 
 
-        // Paginate the results
+        // Paginate the results for clothes
         $perPage = 10;
-        $page = request()->get('page', 1);
+        $page = request()->get('clothes_page', 1);
         $offset = ($page - 1) * $perPage;
-        // Slice the results to get the subset for the current page
         $paginatedResults = $results->slice($offset, $perPage);
-        // Create a LengthAwarePaginator instance
         $clothes = new LengthAwarePaginator(
             $paginatedResults,
             $results->count(),
             $perPage,
-            $page
+            $page,
+            ['path' => request()->url(), 'pageName' => 'clothes_page']
         );
 
         // Check if clothes exist
