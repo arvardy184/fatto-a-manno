@@ -50,7 +50,7 @@
             </table>
         </div>
         <div class="bg-white mt-3">
-            {{ $clothes->appends(['users_page' => request()->users_page, 'storages_page' => request()->storages_page])->fragment('clothes')->links() }}
+            {{ $clothes->links() }}
         </div>
         <div class="mt-6 flex justify-between">
             <a href="/dashboard" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Back</a>

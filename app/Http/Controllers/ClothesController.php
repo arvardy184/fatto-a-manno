@@ -346,7 +346,7 @@ class ClothesController extends Controller
 
 
         // Paginate the results for clothes
-        $perPage = 10;
+        $perPage = 8;
         $page = request()->get('clothes_page', 1);
         $offset = ($page - 1) * $perPage;
         $paginatedResults = $results->slice($offset, $perPage);

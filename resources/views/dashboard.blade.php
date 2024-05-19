@@ -36,14 +36,14 @@
                         @endforeach
                     </tbody>
                 </table>
-                <div class="bg-white mt-3">
-                    {{ $clothes->appends(['users_page' => request()->users_page, 'storages_page' => request()->storages_page])->fragment('clothes')->links() }}
-                </div>
             </div>
-            <div class="mt-3 flex justify-between">
+            <div class="mt-3">
+                {{ $clothes->appends(['users_page' => request()->users_page, 'storages_page' => request()->storages_page])->fragment('clothes')->links() }}
+            </div>
+            <button class="mt-3">
                 <a href="/dashboard/data_pakaian"
-                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Detail</a>
-            </div>
+                    class="block w-full  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mb-2">Detail</a>
+            </button>
         </div>
 
         <div id="storages" class="container mx-auto mt-5">
@@ -67,17 +67,17 @@
                         @endforeach
                     </tbody>
                 </table>
-                <div class=" bg-white mt-3">
-                    {{ $storages->appends(['clothes_page' => request()->clothes_page, 'users_page' => request()->users_page])->fragment('storages')->links() }}
-                </div>
             </div>
-            <div class="mt-3 flex justify-between">
+            <div class=" mt-3">
+                {{ $storages->appends(['clothes_page' => request()->clothes_page, 'users_page' => request()->users_page])->fragment('storages')->links() }}
+            </div>
+            <button class="mt-3">
                 <a href="/storage/"
-                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Detail</a>
-            </div>
+                    class="block w-full bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mb-2">Detail</a>
+            </button>
         </div>
 
-        <div id="users" class="container mt-5">
+        <div id="users" class="container mt-5 mx-auto">
             <h1 class="text-center text-2xl font-bold mb-4">Data User</h1>
             <div class="overflow-x-auto">
                 <table class="min-w-full bg-white border text-center">
@@ -100,14 +100,14 @@
                         @endforeach
                     </tbody>
                 </table>
-                <div class=" border-gray-200 dark:bg-white mt-3">
-                    {{ $users->appends(['clothes_page' => request()->clothes_page, 'storages_page' => request()->storages_page])->fragment('users')->links() }}
-                </div>
-                <div class="mt-3 flex justify-between">
-                    <a href="/dashboard/data_pengguna"
-                        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Detail</a>
-                </div>
             </div>
+            <div class=" mt-3">
+                {{ $users->appends(['clothes_page' => request()->clothes_page, 'storages_page' => request()->storages_page])->fragment('users')->links() }}
+            </div>
+            <button class="mt-3">
+                <a href="/dashboard/detail_items"
+                    class="block w-full bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mb-2">Detail</a>
+            </button>
         </div>
 
 
