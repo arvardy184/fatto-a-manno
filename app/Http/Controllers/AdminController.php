@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Buy;
 use App\Models\User;
 use App\Models\Cloth;
+use App\Models\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Http;
@@ -87,5 +88,18 @@ class AdminController extends Controller
     }
     //=============================================================================================================================
 
+    public function getAllData()
+    {
+        $users = User::paginate(10);
+        $clothes = Cloth::paginate(10);
+        $storages = Storage::paginate(10);
 
+        $data = [
+            'users' => $users,
+            'clothes' => $clothes,
+            'storages' => $storages,
+        ];
+
+        return view('dashboard', ['title' => 'Dashboard'], compact('data'));
+    }
 }

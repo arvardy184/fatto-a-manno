@@ -39,9 +39,7 @@ Route::group([], function () {
         return view('Guest.register', ['title' => 'Register']);
     })->name('register');
 
-    Route::get('/dashboard', function () {
-        return view('dashboard', ['title' => 'Dashboard']);
-    })->name('dashboard');
+    Route::get('/dashboard', [AdminController::class, 'getAllData'])->name('dashboard');
     Route::get('/all_products', [ClothesController::class, 'getClothesbyAttribute'])->name('All Products');
 });
 
