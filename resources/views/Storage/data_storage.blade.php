@@ -41,7 +41,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="bg-white mt-3">
+        <div class="mt-3 justify-between">
             {{ $storages->appends(['users_page' => request()->users_page, 'storages_page' => request()->storages_page])->fragment('clothes')->links() }}
         </div>
         <div class="mt-6 flex justify-between">
