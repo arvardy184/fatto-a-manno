@@ -49,7 +49,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="bg-white mt-3">
+        <div class="mt-3 justify-between">
             {{ $clothes->links() }}
         </div>
         <div class="mt-6 flex justify-between">
