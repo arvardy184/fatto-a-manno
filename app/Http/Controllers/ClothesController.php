@@ -295,6 +295,32 @@ class ClothesController extends Controller
         return view('Clothes.data_pakaian', ['title' => 'Data Pakaian'], compact('clothes'));
     }
 
+    public function getClothesDetail($id)
+    {
+        $clothes = Cloth::find($id);
+
+        // Iterate over each cloth
+        $clothes->each(function ($cloth) {
+            // Attach total quantity to the cloth object
+            $cloth->total_quantity = (int) $this->findClothWithTotalQuantity($cloth->id);
+        });
+
+        // Check if the cloth exists
+        if (!$clothes) {
+            return redirect()->back()->withErrors(["Clothes not Found"]);
+        }
+
+        // Return the clothes with total quantities
+        if (request()->expectsJson() || request()->is('api/*')) {
+            return response()->json([
+                'clothes' => $clothes,
+            ]);
+        }
+
+        // Return the clothes with total quantities
+        return view('Clothes.deskripsi_pakaian', ['title' => 'Deskripsi Pakaian'], compact('clothes'));
+    }
+
     //The params are optional in the URL
     public function getClothesbyAttribute()
     {
