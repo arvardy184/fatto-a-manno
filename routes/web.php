@@ -129,15 +129,24 @@ Route::group(['prefix' => 'buy'], function () {
     Route::delete('/delete/{id}', [BuyController::class, 'deleteBuy']);
     Route::get('/', [BuyController::class, 'getAllBuys']);
     Route::get('/{id}', [BuyController::class, 'getBuybyId']);
+    Route::get('/payment/{id}', [BuyController::class, 'editPayment']);
+    Route::post('/find/{user_id}', [BuyController::class, 'getBuybyAttribute']);
+    Route::post('/find', [BuyController::class, 'getBuybyAttributeCustomer']);
 });
 
 Route::group(['prefix' => 'user'], function () {
+    Route::get('/', [UserController::class, 'getAllUser']); //Ini return all user to view
     Route::get('/{id}', [UserController::class, 'getUserbyId']);
     Route::post('/add', [UserController::class, 'createUser']);
     Route::put('/edit/{id}', [UserController::class, 'updateUser']);
     Route::post('/delete/{id}', [UserController::class, 'deleteUser']);
-    Route::get('/data/{id}', [UserController::class, 'getDataEditUser']);
+    Route::get('/data/{id}', [UserController::class, 'getDataEditUser']); // Ini return data 1 user to view
 });
 
 
 Route::post('/hook', [AdminController::class, 'webhook']);
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/', [AdminController::class, 'getAllData']); //Ini return all user to view
+    Route::post('/confirm/{id}', [AdminController::class, 'confirmPayment']);
+});

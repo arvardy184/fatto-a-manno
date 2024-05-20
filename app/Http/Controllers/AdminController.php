@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
@@ -91,8 +92,8 @@ class AdminController extends Controller
 
     public function getAllData()
     {
-        $users = User::paginate(10, ['*'], 'users');
-        $storages = Storage::paginate(10, ['*'], 'storages');
+        $users = User::paginate(10, ['*'], 'users_page');
+        $storages = Storage::paginate(10, ['*'], 'storages_page');
 
         $clothes = Cloth::all();
         $clothes->each(function ($cloth) {
@@ -131,6 +132,37 @@ class AdminController extends Controller
             return $totalQuantity;
         } else {
             return 0;
+        }
+    }
+
+    public function confirmPayment($id)
+    {
+        $validator = Validator::make(request()->all(), [
+            'confirmation_status' => 'required|in:1,2'
+        ]);
+
+        // Check if validation fails
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->messages());
+        }
+
+        $buy = Buy::find($id);
+
+        if (!$buy) {
+            return response()->json(['message' => 'Buy not found'], 404);
+        }
+
+        $buy->update([
+            'confirmation_status' => 1
+        ]);
+
+        if ($buy) {
+            if (request()->is('api/*')) {
+                return response()->json(['message' => "Successfully Confirmed"], 200);
+            }
+            return redirect()->route('Data Pembelian');
+        } else {
+            return redirect()->back()->withErrors('Function Failed');
         }
     }
 }

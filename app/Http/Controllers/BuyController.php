@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buy;
+use App\Models\User;
 use App\Models\Cloth;
 use App\Models\Storage;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 
 
@@ -34,7 +35,7 @@ class BuyController extends Controller
 
         // Check if validation fails
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->messages()]);
+            return redirect()->back()->withErrors($validator->messages());
         }
 
         $user = User::find($request->user_id);
@@ -49,12 +50,12 @@ class BuyController extends Controller
 
         // Check if the storage exists
         if (!$storage) {
-            return response()->json(['message' => 'Storage not found'], 404);
+            return redirect()->back()->withErrors('Storage not Found');
         }
 
         //check if the quantity exceed the storage limit
         if ($storage->quantity_limit < $request->quantity) {
-            return response()->json(['message' => 'Storage Quantity Exceeded'], 400);
+            return redirect()->back()->withErrors('Storage Quantity Exceeded!');
         }
 
         // // Create the buy record
@@ -94,7 +95,7 @@ class BuyController extends Controller
 
         //check if the quantity exceed the storage limit
         if ($storage->quantity_limit < 0) {
-            return response()->json(['message' => 'Storage Quantity Exceeded'], 400);
+            return redirect()->back()->withErrors('Storage Quantity Exceeded!');
         }
 
         $buy = $cloth->users()->latest()->first();
@@ -103,7 +104,8 @@ class BuyController extends Controller
         if ($request->is('api/*')) {
             return response()->json(['buy' => $buy], 201);
         }
-        return $this->getAllBuys();
+
+        return redirect()->route('Data Pembelian');
     }
 
     public function editBuy($id, Request $request)
@@ -117,13 +119,13 @@ class BuyController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->messages()]);
+            return redirect()->back()->withErrors($validator->messages());
         }
 
         $buy = Buy::find($id);
 
         if (!$buy) {
-            return response()->json(['message' => 'Buy not found'], 404);
+            return redirect()->back()->withErrors('Buy not Found');
         }
 
         $buy->update($request->all());
@@ -137,9 +139,9 @@ class BuyController extends Controller
                 return response()->json(['buy' => $buy], 201);
             }
 
-            return $this->getAllBuys();
+            return redirect()->route('Data Pembelian');
         } else {
-            return response()->json(['message' => "Function Failed"], 400);
+            return redirect()->back()->withErrors('Edit Failed');
         }
     }
 
@@ -160,13 +162,11 @@ class BuyController extends Controller
             if (request()->is('api/*')) {
                 return response()->json(['message' => "Successfully Confirmed"], 200);
             }
-            return $this->getAllBuys();
+            return redirect()->route('Data Pembelian');
         } else {
-            return response()->json(['message' => "Function Failed"], 400);
+            return redirect()->back()->withErrors('Change Failed');
         }
     }
-
-
 
     public function deleteBuy($id)
     {
@@ -180,15 +180,15 @@ class BuyController extends Controller
             if (request()->is('api/*')) {
                 return response()->json(['message' => "Successfully Deleted"], 200);
             }
-            return $this->getAllBuys();
+            return redirect()->route('Data Pembelian');
         } else {
-            return response()->json(['message' => "Delete Failed"], 400);
+            return redirect()->back()->withErrors('Delete Failed');
         }
     }
 
     public function getAllBuys()
     {
-        $buys = Buy::paginate(10);
+        $buys = Buy::paginate(10, ['*'], 'buys_page');
 
         if (request()->expectsJson() || request()->is('api/*')) {
             return response()->json([
@@ -213,6 +213,114 @@ class BuyController extends Controller
             ]);
         }
 
-        return view('Buy.data_pembelian', ['title' => 'Data Pembelian'], compact('buy'));
+        return view('Buy.edit_pembelian', ['title' => 'Data Pembelian'], compact('buy'));
+    }
+
+    public function getBuybyAttribute($user_id)
+    {
+        $validator = Validator::make(request()->all(), [
+            'name' => 'sometimes|string',
+            'email' => 'sometimes|string',
+            'number' => 'sometimes|int',
+        ]);
+
+        $name = request('name', null);
+        $email = request('email', null);
+        $number = request('number', null);
+
+        // Build query conditions based on provided arguments
+        $query = Buy::query();
+
+        if (!is_null($name)) {
+            $query->where('name', $name);
+        }
+
+        if (!is_null($email)) {
+            $query->where('email', $email);
+        }
+
+        if (!is_null($number)) {
+            $query->where('number', $number);
+        }
+
+        $query->where('user_id', $user_id);
+
+        // Get the results
+        $results = $query->get();
+
+        // Paginate the results for clothes
+        $perPage = 10;
+        $page = request()->get('buys_page', 1);
+        $offset = ($page - 1) * $perPage;
+        $paginatedResults = $results->slice($offset, $perPage);
+        $buys = new LengthAwarePaginator(
+            $paginatedResults,
+            $results->count(),
+            $perPage,
+            $page,
+            ['path' => request()->fullUrl(), 'pageName' => 'buys_page']
+        );
+
+        if (request()->expectsJson() || request()->is('api/*')) {
+            return response()->json([
+                'buys' => $buys
+            ]);
+        }
+
+        return view('Admin.detail_user', ['title' => 'Detail User'], compact('buys'));
+    }
+
+    public function getBuybyAttributeCustomer()
+    {
+        $validator = Validator::make(request()->all(), [
+            'payment_method' => 'sometimes',
+            'payment_status' => 'sometimes|in:0,1',
+            'confirmation_status' => 'sometimes|in:0,1,2',
+        ]);
+
+        $payment_method = request('payment_method', null);
+        $payment_status = request('payment_status', null);
+        $confirmation_status = request('confirmation_status', null);
+
+        // Build query conditions based on provided arguments
+        $query = Buy::query();
+
+        if (!is_null($payment_method)) {
+            $query->where('payment_method', $payment_method);
+        }
+
+        if (!is_null($payment_status)) {
+            $query->where('payment_status', $payment_status);
+        }
+
+        if (!is_null($confirmation_status)) {
+            $query->where('confirmation_status', $confirmation_status);
+        }
+
+        $query->where('user_id', auth()->user()->id);
+
+        // Get the results
+        $results = $query->get();
+
+        // Paginate the results for clothes
+        $perPage = 10;
+        $page = request()->get('buys_page', 1);
+        $offset = ($page - 1) * $perPage;
+        $paginatedResults = $results->slice($offset, $perPage);
+        $buys = new LengthAwarePaginator(
+            $paginatedResults,
+            $results->count(),
+            $perPage,
+            $page,
+            ['path' => request()->fullUrl(), 'pageName' => 'buys_page']
+        );
+
+        if (request()->expectsJson() || request()->is('api/*')) {
+            return response()->json([
+                'buys' => $buys
+            ]);
+        }
+
+        return view('Admin.detail_user', ['title' => 'Detail User'], compact('buys'));
     }
 }

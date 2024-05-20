@@ -24,7 +24,7 @@ class ClothesController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->messages()]);
+            return redirect()->back()->withErrors($validator->messages());
         }
 
         // Check if the same clothes exist
@@ -145,7 +145,7 @@ class ClothesController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->messages()]);
+            return redirect()->back()->withErrors($validator->messages());
         }
 
         // Find the cloth by ID
@@ -355,7 +355,7 @@ class ClothesController extends Controller
             $results->count(),
             $perPage,
             $page,
-            ['path' => request()->url(), 'pageName' => 'clothes_page']
+            ['path' => request()->fullUrl(), 'pageName' => 'clothes_page']
         );
 
         // Check if clothes exist
@@ -395,16 +395,16 @@ class ClothesController extends Controller
     {
         $clothes = Cloth::find($id);
 
+        // Check if the cloth exists
+        if (!$clothes) {
+            return redirect()->back()->withErrors(["Clothes not Found"]);
+        }
+
         // Iterate over each cloth
         $clothes->each(function ($cloth) {
             // Attach total quantity to the cloth object
             $cloth->total_quantity = (int) $this->findClothWithTotalQuantity($cloth->id);
         });
-
-        // Check if the cloth exists
-        if (!$clothes) {
-            return redirect()->back()->withErrors(["Clothes not Found"]);
-        }
 
         // Return the clothes with total quantities
         if (request()->expectsJson() || request()->is('api/*')) {

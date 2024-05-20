@@ -96,11 +96,12 @@ class StorageController extends Controller
     public function getAllStorage()
     {
         // Get all storages
-        $storages = Storage::paginate(10, ['*'], 'storages');
+        $storages = Storage::paginate(10, ['*'], 'storages_page');
 
         if (request()->is('api/*')) {
             return response()->json(['storages' => $storages], 200);
         }
+
         // Return the clothes with var
         return view('Storage.data_storage', ['title' => 'Data Storage'], compact('storages'));
     }
@@ -151,7 +152,7 @@ class StorageController extends Controller
             return redirect()->back()->withErrors(["Storage not Found"]);
         }
 
-        $stores = Store::where('storage_id', $storage->id);
+        $stores = Store::where('storage_id', $storage->id)->paginate(10, ['*'], 'stores');
 
         if (request()->is('api/*')) {
             return response()->json(['stores' => $stores], 200);

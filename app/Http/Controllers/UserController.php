@@ -10,13 +10,13 @@ class UserController extends Controller
 {
     public function getAllUsers()
     {
-        $users = User::all();
+        $users = User::paginate(10, ['*'], 'users_page');
 
         if (request()->expectsJson()) {
             return response()->json(['users' => $users], 200);
         }
+
         return view('Admin.data_pengguna', ['title' => 'Data Pengguna'], compact('users'));
-        // return response()->json(['users' => $users], 200);
     }
 
     public function getUserById($id)
@@ -27,9 +27,11 @@ class UserController extends Controller
                 ? response()->json(['message' => 'User not found'], 404)
                 : redirect()->back()->withErrors(['message' => 'User not found']);
         }
+
         if (request()->expectsJson()) {
             return response()->json(['user' => $user], 200);
         }
+
         return view('profile', ['title' => 'Profil'], compact('user'));
     }
 
@@ -93,5 +95,27 @@ class UserController extends Controller
             return redirect()->back()->withErrors(["User not found"]);
         }
         return view('Admin.data-Pengguna-edit', ['title' => 'Edit Pengguna'], compact('user'));
+    }
+
+    public function getUserbyName()
+    {
+        $validator = Validator::make(request()->all(), [
+            'name' => 'sometimes|string'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->messages());
+        }
+
+        $users = User::where('name', 'LIKE', request('name') . '%')->paginate(10);
+
+        // Return the clothes with total quantities
+        if (request()->expectsJson() || request()->is('api/*')) {
+            return response()->json([
+                'users' => $users,
+            ]);
+        }
+
+        return view('Admin.data_pengguna', ['title' => 'Data Pengguna'], compact('users'));
     }
 }

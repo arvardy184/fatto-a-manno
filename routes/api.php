@@ -50,9 +50,10 @@ Route::group([
 Route::group([
     'prefix' => 'user'
 ], function () {
-    Route::get('/all', [UserController::class, 'getAllUsers']);
+    Route::get('/', [UserController::class, 'getAllUsers']);
     Route::get('/{id}', [UserController::class, 'getUserbyId']);
     Route::get('/profile', [UserController::class, 'getProfile']);
+    Route::post('/', [UserController::class, 'getUserbyName']);
 });
 
 //BUY ===========================================================================================
@@ -62,7 +63,8 @@ Route::group(['prefix' => 'buy'], function () {
     Route::put('/edit/{id}', [BuyController::class, 'editBuy']);
     Route::delete('/delete/{id}', [BuyController::class, 'deleteBuy']);
     Route::get('/', [BuyController::class, 'getAllBuys']);
-    Route::get('/{id}', [BuyController::class, 'getBuybyId']);
+    Route::get('/data/{id}', [BuyController::class, 'getBuybyId']);
+    Route::get('/{user_id}', [BuyController::class, 'getBuybyAttribute']);
 });
 
 
