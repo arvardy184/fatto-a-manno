@@ -219,28 +219,28 @@ class BuyController extends Controller
     public function getBuybyAttribute($user_id)
     {
         $validator = Validator::make(request()->all(), [
-            'name' => 'sometimes|string',
-            'email' => 'sometimes|string',
-            'number' => 'sometimes|int',
+            'payment_method' => 'sometimes',
+            'payment_status' => 'sometimes|in:0,1',
+            'confirmation_status' => 'sometimes|in:0,1,2',
         ]);
 
-        $name = request('name', null);
-        $email = request('email', null);
-        $number = request('number', null);
+        $payment_method = request('payment_method', null);
+        $payment_status = request('payment_status', null);
+        $confirmation_status = request('confirmation_status', null);
 
         // Build query conditions based on provided arguments
         $query = Buy::query();
 
-        if (!is_null($name)) {
-            $query->where('name', $name);
+        if (!is_null($payment_method)) {
+            $query->where('payment_method', $payment_method);
         }
 
-        if (!is_null($email)) {
-            $query->where('email', $email);
+        if (!is_null($payment_status)) {
+            $query->where('payment_status', $payment_status);
         }
 
-        if (!is_null($number)) {
-            $query->where('number', $number);
+        if (!is_null($confirmation_status)) {
+            $query->where('confirmation_status', $confirmation_status);
         }
 
         $query->where('user_id', $user_id);
