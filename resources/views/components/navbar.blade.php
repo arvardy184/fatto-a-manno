@@ -62,10 +62,12 @@
                                         role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
                                         tabindex="-1">
                                         <!-- Active: "bg-gray-100", Not Active: "" -->
-                                        <a href="/dashboard/profile" class="block px-4 py-2 text-sm text-gray-700"
+                                        <a href="/dashboard/profile"
+                                            class="block px-4 py-2 text-sm hover:bg-slate-200 text-gray-700 hover:text-black"
                                             role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-                                        <a href="/logout" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
-                                            tabindex="-1" id="user-menu-item-2">Sign out</a>
+                                        <a href="/logout"
+                                            class="block px-4 py-2 text-sm hover:bg-slate-200 text-gray-700 hover:text-black"
+                                            role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
                                     </div>
                                 </div>
                             </div>
@@ -117,7 +119,6 @@
                                 <div class="text-sm font-medium leading-none text-gray-400">{{ auth()->user()->email }}
                                 </div>
                             </div>
-
                         </div>
                         <div class="mt-3 space-y-1 px-2">
                             <a href="/dashboard/profile"
@@ -184,10 +185,12 @@
                                         role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
                                         tabindex="-1">
                                         <!-- Active: "bg-gray-100", Not Active: "" -->
-                                        <a href="/dashboard/profile" class="block px-4 py-2 text-sm text-gray-700"
+                                        <a href="/dashboard/profile"
+                                            class="block px-4 py-2 text-sm hover:bg-slate-200 text-gray-700 hover:text-black"
                                             role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-                                        <a href="/logout" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
-                                            tabindex="-1" id="user-menu-item-2">Sign out</a>
+                                        <a href="/logout"
+                                            class="block px-4 py-2 text-sm hover:bg-slate-200 text-gray-700 hover:text-black"
+                                            role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
                                     </div>
                                 </div>
                             </div>
@@ -221,16 +224,7 @@
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                         <a href="/dashboard"
                             class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
-                            aria-current="page">Dashboard</a>
-                        <a href="/dashboard/data_pakaian"
-                            class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">View
-                            Clothing information</a>
-                        <a href="/storage/"
-                            class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">View
-                            Storage Information</a>
-                        <a href="/dashboard/data_pengguna"
-                            class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">View
-                            User Information</a>
+                            aria-current="page">Home</a>
                     </div>
                     <div class="border-t border-gray-700 pb-3 pt-4">
                         <div class="flex items-center px-5">
