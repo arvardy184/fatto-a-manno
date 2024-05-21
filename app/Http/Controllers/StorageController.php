@@ -255,6 +255,6 @@ class StorageController extends Controller
         $store->delete();
 
         // Return the clothes with var
-        return redirect()->route('Detail Items');
+        return redirect()->to('/storage/clothes/' . $store->id);
     }
 }
