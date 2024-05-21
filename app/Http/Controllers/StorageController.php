@@ -223,7 +223,6 @@ class StorageController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->messages());
         }
-
         //Find Store
         $store = Store::find($id);
         $store->update([

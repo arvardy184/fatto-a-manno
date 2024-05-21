@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
-    <div class="container mt-5">
+    <div class="container mx-auto mt-5">
         <h1 class="text-center text-2xl font-bold mb-4">Data User</h1>
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white border text-center">
@@ -26,6 +26,10 @@
                                     <button
                                         class="inline-block w-full px-4 py-2 text-xs font-semibold leading-6 text-white uppercase bg-red-600 rounded hover:bg-red-700 focus:outline-none focus:bg-red-700">Delete</button>
                                 </form>
+                                <form action=""> <button
+                                        class="mt-1 inline-block w-full px-4 py-2 text-xs font-semibold leading-6 text-white uppercase bg-yellow-500 rounded hover:bg-yellow-300 focus:outline-none focus:bg-red-700">
+                                        Purchase History </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
@@ -33,9 +37,9 @@
             </table>
         </div>
         <div class="mt-3 justify-between">
-            {{ $user->appends(['users_page' => request()->users_page, 'storages_page' => request()->storages_page])->fragment('clothes')->links() }}
+            {{ $users->appends(['users_page' => request()->users_page, 'storages_page' => request()->storages_page])->fragment('clothes')->links() }}
         </div>
         <a href="/dashboard"
-            class="block w-full max-w-xs mx-auto mt-4 px-4 py-2 border text-sm font-semibold leading-6 text-center text-white uppercase bg-gray-600 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700">Back</a>
+            class="block mb-5 w-full max-w-xs mx-auto mt-4 px-4 py-2 border text-sm font-semibold leading-6 text-center text-white uppercase bg-gray-600 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700">Back</a>
     </div>
 </x-layout>
