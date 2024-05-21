@@ -239,7 +239,7 @@ class StorageController extends Controller
         }
 
         // Return the clothes with var
-        return redirect()->to('/storage/clothes/' . $store->id);
+        return redirect()->to('/storage/clothes/' . $store->storage_id);
     }
 
     public function deleteStock($id)
@@ -255,6 +255,6 @@ class StorageController extends Controller
         $store->delete();
 
         // Return the clothes with var
-        return redirect()->to('/storage/clothes/' . $store->id);
+        return redirect()->to('/storage/clothes/' . $store->storage_id);
     }
 }
