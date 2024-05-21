@@ -238,13 +238,6 @@ class ClothesController extends Controller
             $cloth->total_quantity = (int) $this->findClothWithTotalQuantity($cloth->id);
         });
 
-        // Paginate the results
-        $perPage = 10;
-        $page = request()->get('page', 1);
-        $offset = ($page - 1) * $perPage;
-        // Slice the results to get the subset for the current page
-        $paginatedResults = $clothes->slice($offset, $perPage);
-
         // Paginate the results for clothes
         $perPage = 10;
         $page = request()->get('clothes_page', 1);

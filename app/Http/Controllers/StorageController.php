@@ -195,6 +195,24 @@ class StorageController extends Controller
         }
     }
 
+    public function getDataEditStock($id)
+    {
+        // Find storage by ID
+        $stores = Store::find($id);
+
+        // Check if storage exists
+        if (!$stores) {
+            return redirect()->back()->withErrors(["Storage not Found"]);
+        }
+
+        if (request()->is('api/*')) {
+            return response()->json(['storage' => $stores], 200);
+        }
+
+        // Return the clothes with var
+        return view('Storage.edit_stock', ['title' => 'Data Storage'], compact('stores'));
+    }
+
     public function editStock($id)
     {
         $validator = Validator::make(request()->all(), [
