@@ -225,7 +225,7 @@ class StorageController extends Controller
         }
 
         //Find Store
-        $store = Store::find('id', $id);
+        $store = Store::find($id);
         $store->update([
             'quantity' => request('quantity')
         ]);
