@@ -20,7 +20,7 @@
                             <td class="px-4 py-2 border">{{ $storage['address'] }}</td>
                             <td class="px-4 py-2 border">
                                 <button>
-                                    <a href="/dashboard/detail_items"
+                                    <a href="/storage/clothes/{{ $storage['id'] }}"
                                         class="block w-full bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mb-2">Detail</a>
                                 </button>
                                 <button>

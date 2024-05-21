@@ -7,13 +7,16 @@
     <div class="mt-4 flex justify-between">
         <div>
             <h3 class="text-sm text-gray-700">
-                <a href="#">
+                <a href="/deskripsi_pakaian/  {{ $cloth['id'] }}">
                     <span aria-hidden="true" class="absolute inset-0"></span>
                     {{ $cloth['name'] }}
                 </a>
             </h3>
             <p class="mt-1 text-sm text-gray-500"> {{ $cloth['color'] }} </p>
         </div>
-        <p class="text-sm font-medium text-gray-900">{{ $cloth['price_per_piece'] }} </p>
+        <div class="grid justify-items-end">
+            <p class="text-sm font-medium text-gray-900">{{ $cloth['price_per_piece'] }} </p>
+            <p class="text-sm font-medium text-gray-900">{{ $cloth['size'] }} </p>
+        </div>
     </div>
 </div>

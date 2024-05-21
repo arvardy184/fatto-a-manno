@@ -41,12 +41,12 @@ Route::group([], function () {
 
     Route::get('/dashboard', [AdminController::class, 'getAllData'])->name('dashboard');
     Route::get('/all_products', [ClothesController::class, 'getClothesbyAttribute'])->name('All Products');
+    Route::get('/deskripsi_pakaian/{id}', [ClothesController::class, 'getClothesDetail'])->name('Deskripsi Pakaian');
 });
 
 Route::group([
     'prefix' => 'dashboard'
 ], function () {
-
     //user dan admin
     Route::get('/profile', function () {
         return view('profile', ['title' => 'Profil']);
@@ -74,9 +74,7 @@ Route::group([
         return view('Storage.tambah_storage', ['title' => 'Tambah Gudang']);
     })->name('Tambah Gudang');
 
-    Route::get('/detail_items', function () {
-        return view('Storage.detail_items', ['title' => 'Detail Items']);
-    })->name('Detail Items');
+    Route::get('/detail_items', [StorageController::class, 'getStorageDetail'])->name('Detail Items');
 });
 
 
@@ -120,7 +118,7 @@ Route::group([
     Route::get('/data/{id}', [StorageController::class, 'getDataEditStorage']);
     Route::get('/clothes/{id}', [StorageController::class, 'getStorageDetail']);
     Route::get('/clothes/data/{id}', [StorageController::class, 'getDataEditStock']);
-    Route::get('/clothes/edit/{id}', [StorageController::class, 'editStock']);
+    Route::post('/clothes/edit/{id}', [StorageController::class, 'editStock']);
     Route::get('/clothes/delete/{id}', [StorageController::class, 'deleteStock']);
 });
 

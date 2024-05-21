@@ -1,4 +1,4 @@
-<footer class="footer footer-center p-10 bg-gray-800 text-base-content rounded text-white text-center">
+<footer class="footer footer-center p-10 bg-gray-800 text-base-content rounded text-white text-center mt-5">
     <nav class="flex justify-center w-full text-sm gap-4 sm:gap-4 sm:text-lg">
         <a href="" class="link link-hover">About us</a>
         <a href="" class="link link-hover">Contact</a>
