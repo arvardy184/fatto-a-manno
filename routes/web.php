@@ -121,6 +121,7 @@ Route::group([
     Route::get('/clothes/{id}', [StorageController::class, 'getStorageDetail']);
     Route::get('/clothes/data/{id}', [StorageController::class, 'getDataEditStock']);
     Route::get('/clothes/edit/{id}', [StorageController::class, 'editStock']);
+    Route::get('/clothes/delete/{id}', [StorageController::class, 'deleteStock']);
 });
 
 //BUY ===========================================================================================

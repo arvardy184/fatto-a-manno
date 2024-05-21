@@ -242,4 +242,20 @@ class StorageController extends Controller
         // Return the clothes with var
         return redirect()->route('Detail Items');
     }
+
+    public function deleteStock($id)
+    {
+        // Find storage by ID
+        $store = Store::find($id);
+
+        // Check if storage exists
+        if (!$store) {
+            return redirect()->back()->withErrors(["Storage not Found"]);
+        }
+
+        $store->delete();
+
+        // Return the clothes with var
+        return redirect()->route('Detail Items');
+    }
 }
