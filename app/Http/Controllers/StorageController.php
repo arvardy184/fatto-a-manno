@@ -236,11 +236,11 @@ class StorageController extends Controller
         }
 
         if (request()->is('api/*')) {
-            return response()->json(['stores' => $store], 200);
+            return response()->json(['stores' => '/storage/clothes/' . $store->id], 200);
         }
 
         // Return the clothes with var
-        return redirect()->route('Detail Items');
+        return redirect()->to('/storage/clothes/' . $store->id);
     }
 
     public function deleteStock($id)
