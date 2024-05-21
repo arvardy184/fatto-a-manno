@@ -7,6 +7,7 @@ use App\Models\Store;
 use App\Models\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class StorageController extends Controller
 {
@@ -152,7 +153,26 @@ class StorageController extends Controller
             return redirect()->back()->withErrors(["Storage not Found"]);
         }
 
-        $stores = Store::where('storage_id', $storage->id)->paginate(10, ['*'], 'stores');
+        $stores = Store::where('storage_id', $storage->id)->get();
+
+        $stores->each(function ($store) {
+            // Attach total quantity to the cloth object
+            $clothes = Cloth::find($store->cloth_id);
+            $store->clothes = $clothes;
+        });
+
+        // Paginate the results for clothes
+        $perPage = 10;
+        $page = request()->get('clothes_page', 1);
+        $offset = ($page - 1) * $perPage;
+        $paginatedResults = $stores->slice($offset, $perPage);
+        $stores = new LengthAwarePaginator(
+            $paginatedResults,
+            $stores->count(),
+            $perPage,
+            $page,
+            ['path' => request()->url(), 'pageName' => 'stores_page']
+        );
 
         if (request()->is('api/*')) {
             return response()->json(['stores' => $stores], 200);
@@ -160,6 +180,19 @@ class StorageController extends Controller
 
         // Return the clothes with var
         return view('Storage.detail_items', ['title' => 'Detail Item'], compact('stores'));
+    }
+
+    private function findClothWithTotalQuantity($clothId)
+    {
+        $cloth = Cloth::find($clothId);
+
+        $totalQuantity = $cloth->storages()->sum('stores.quantity');
+
+        if ($totalQuantity) {
+            return $totalQuantity;
+        } else {
+            return 0;
+        }
     }
 
     public function editStock($id)
