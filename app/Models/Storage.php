@@ -15,7 +15,7 @@ class Storage extends Model
         'address',
     ];
 
-    public function clothes()
+    public function cloth()
     {
         return $this->belongsToMany(Cloth::class, 'stores')->withPivot('quantity')->withTimestamps();
     }

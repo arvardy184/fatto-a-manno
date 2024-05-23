@@ -64,7 +64,8 @@ Route::group(['prefix' => 'buy'], function () {
     Route::delete('/delete/{id}', [BuyController::class, 'deleteBuy']);
     Route::get('/', [BuyController::class, 'getAllBuys']);
     Route::get('/data/{id}', [BuyController::class, 'getBuybyId']);
-    Route::get('/{user_id}', [BuyController::class, 'getBuybyAttribute']);
+    Route::get('/detail/{user_id}', [BuyController::class, 'getBuybyAttribute']);
+    Route::get('/cart', [BuyController::class, 'getKeranjang']);
 });
 
 

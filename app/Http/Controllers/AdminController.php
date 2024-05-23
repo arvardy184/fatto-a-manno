@@ -27,7 +27,6 @@ class AdminController extends Controller
         $buy = Buy::find($id);
         $clothes = Cloth::find($buy->cloth_id);
 
-        // return response()->json($buy);
 
         $params = [
             "transaction_details" => [
@@ -35,8 +34,6 @@ class AdminController extends Controller
                 "gross_amount" => (float) $clothes->price_per_piece * (float) $buy->quantity
             ]
         ];
-
-        // return response()->json($params);
 
         $auth = base64_encode(env('MIDTRANS_SERVER_KEY'));
 
@@ -46,7 +43,7 @@ class AdminController extends Controller
             'Authorization' => "Basic $auth"
         ])->post('https://app.sandbox.midtrans.com/snap/v1/transactions', $params);
 
-        $response = json_decode($response->body());
+        $response = json_decode($response->body())->redirect_url;
 
         return redirect()->route("$response->redirect_url");
 
