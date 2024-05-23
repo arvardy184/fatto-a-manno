@@ -62,6 +62,7 @@ Route::group([
 
     //admin
     Route::get('/data_pengguna', [UserController::class, 'getAllUsers'])->name('Data Pengguna');
+    Route::get('/histori_pengguna/{user_id}', [BuyController::class, 'getBuybyAttribute'])->name('Detail User');
 
     //clothes
     Route::get('/data_pakaian', [ClothesController::class, 'getAllClothes'])->name('Data Pakaian');
@@ -130,7 +131,6 @@ Route::group(['prefix' => 'buy'], function () {
     Route::get('/', [BuyController::class, 'getAllBuys']);
     Route::get('/{id}', [BuyController::class, 'getBuybyId']);
     Route::get('/payment/{id}', [BuyController::class, 'editPayment']);
-    Route::post('/find/{user_id}', [BuyController::class, 'getBuybyAttribute']);
     Route::post('/find', [BuyController::class, 'getBuybyAttributeCustomer']);
 });
 

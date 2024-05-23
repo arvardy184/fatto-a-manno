@@ -2,6 +2,9 @@
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="container mx-auto mt-5">
         <h1 class="text-center text-2xl font-bold mb-4">Data User</h1>
+        @if (session('errors'))
+            @include('modal.view_modal')
+        @endif
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white border text-center">
                 <thead>
@@ -26,9 +29,9 @@
                                     <button
                                         class="inline-block w-full px-4 py-2 text-xs font-semibold leading-6 text-white uppercase bg-red-600 rounded hover:bg-red-700 focus:outline-none focus:bg-red-700">Delete</button>
                                 </form>
-                                <form action=""> <button
-                                        class="mt-1 inline-block w-full px-4 py-2 text-xs font-semibold leading-6 text-white uppercase bg-yellow-500 rounded hover:bg-yellow-300 focus:outline-none focus:bg-red-700">
-                                        Purchase History </button>
+                                <form action="/dashboard/histori_pengguna/{{ $user['id'] }}"> <button
+                                        class="mt-1 inline-block w-full px-4 py-2 text-xs font-semibold leading-6 text-white uppercase bg-yellow-500 rounded hover:bg-yellow-300 focus:outline-none focus:bg-yellow-700">
+                                        History Transaction </button>
                                 </form>
                             </td>
                         </tr>
