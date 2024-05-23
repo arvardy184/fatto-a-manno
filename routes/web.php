@@ -131,7 +131,9 @@ Route::group(['prefix' => 'buy'], function () {
     Route::get('/', [BuyController::class, 'getAllBuys']);
     Route::get('/{id}', [BuyController::class, 'getBuybyId']);
     Route::get('/payment/{id}', [BuyController::class, 'editPayment']);
-    Route::post('/find', [BuyController::class, 'getBuybyAttributeCustomer']);
+    Route::post('/find/{user_id}', [BuyController::class, 'getBuybyAttribute']);
+    Route::post('/history', [BuyController::class, 'getBuybyAttributeCustomer']);
+    Route::post('/cart', [BuyController::class, 'getKeranjang']);
 });
 
 Route::group(['prefix' => 'user'], function () {

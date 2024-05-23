@@ -25,7 +25,7 @@ class Store extends Pivot
     /**
      * Get the cloth that owns the buy.
      */
-    public function clothe()
+    public function cloth()
     {
         return $this->belongsTo(Cloth::class);
     }

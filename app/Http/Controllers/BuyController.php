@@ -8,6 +8,7 @@ use App\Models\Cloth;
 use App\Models\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -22,9 +23,8 @@ class BuyController extends Controller
             'user_id' => 'sometimes|exists:users,id',
             'cloth_id' => 'required|exists:cloths,id',
             'quantity' => 'required|integer|min:1',
-            'payment_method' => 'required|string',
-            'payment_status' => 'integer',
-            'confirmation_status' => 'integer',
+            'payment_method' => 'required|int|in:0,1,2',
+            'payment_status' => 'integer|in:0,1'
         ]);
 
         // Check if the user exists
@@ -70,7 +70,7 @@ class BuyController extends Controller
             $cloth->users()->attach($user, [
                 'quantity' => $request->quantity,
                 'payment_method' => $request->payment_method,
-                'payment_status' => 0,
+                'payment_status' => $request->payment_status,
                 'confirmation_status' => 0
             ]);
 
@@ -79,12 +79,6 @@ class BuyController extends Controller
             $storage->save();
         });
 
-        // 
-        // $buy = Buy::where('quantity', $request->quantity) 
-        // ->where('payment_method', $request->payment_method)
-        // ->where( 'payment_status' , $request->payment_status)
-        // ->where( 'confirmation_status' , $request->confirmation_status)->first();
-        // Retrieve the latest buy record for the user and cloth
         $buy = $cloth->users()->wherePivot('user_id', $user->id)->latest('pivot_created_at')->first();
 
         // Update the storage quantity
@@ -105,7 +99,73 @@ class BuyController extends Controller
             return response()->json(['buy' => $buy], 201);
         }
 
-        return redirect()->route('Data Pembelian');
+        if ($request->payment_method == 1) {
+            $params = [
+                "transaction_details" => [
+                    "order_id" => "ORDER-" . $buy->id,
+                    "gross_amount" => (float) $cloth->price_per_piece * (float) $buy->quantity
+                ]
+            ];
+
+            $auth = base64_encode(env('MIDTRANS_SERVER_KEY'));
+
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'Authorization' => "Basic $auth"
+            ])->post('https://app.sandbox.midtrans.com/snap/v1/transactions', $params);
+
+            $url = json_decode($response->body())->redirect_url;
+
+            return redirect()->back()->with('url', $url);
+        } else
+            return redirect()->back();
+    }
+
+    public function payBatch(Request $request)
+    {
+        //Validate Request
+        $validator = Validator::make($request->all(), [
+            'buys_id' => 'required|array',
+            'total_price' => 'required|int',
+            'payment_method' => 'required|int|in:0,1',
+        ]);
+
+        // Check if validation fails
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->messages());
+        }
+
+        $buysId = request('buys_id');
+
+        $affectedRows = Buy::whereIn('id', $buysId)->update(
+            [
+                'payment_status' => 1
+            ]
+        );
+
+        if ($request->payment_method == 1) {
+            $params = [
+                "transaction_details" => [
+                    "order_id" => "ORDER-B-" . implode('', $buysId),
+                    "gross_amount" => (float) request('total_price')
+                ]
+            ];
+
+            $auth = base64_encode(env('MIDTRANS_SERVER_KEY'));
+
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'Authorization' => "Basic $auth"
+            ])->post('https://app.sandbox.midtrans.com/snap/v1/transactions', $params);
+
+            $url = json_decode($response->body())->redirect_url;
+
+            return redirect()->back()->with('url', $url);
+        } else {
+            return redirect()->back();
+        }
     }
 
     public function editBuy($id, Request $request)
@@ -248,6 +308,11 @@ class BuyController extends Controller
         // Get the results
         $results = $query->get();
 
+        // Iterate over each cloth
+        $results->each(function ($buy) {
+            // Attach total total price to the cloth object
+            $buy->total_price = (int) $buy->cloth->price_per_piece * (int) $buy->quantity;
+        });
 
         // Paginate the results for clothes
         $perPage = 10;
@@ -284,7 +349,7 @@ class BuyController extends Controller
         $confirmation_status = request('confirmation_status', null);
 
         // Build query conditions based on provided arguments
-        $query = Buy::query();
+        $query = Buy::with('clothe');
 
         if (!is_null($payment_method)) {
             $query->where('payment_method', $payment_method);
@@ -302,6 +367,12 @@ class BuyController extends Controller
 
         // Get the results
         $results = $query->get();
+
+        // Iterate over each cloth
+        $results->each(function ($buy) {
+            // Attach total total price to the cloth object
+            $buy->total_price = (int) $buy->cloth->price_per_piece * (int) $buy->quantity;
+        });
 
         // Paginate the results for clothes
         $perPage = 10;
@@ -322,6 +393,65 @@ class BuyController extends Controller
             ]);
         }
 
-        return view('Admin.detail_user', ['title' => 'Detail User'], compact('buys'));
+        return view('User.histori_user', ['title' => 'Histori User'], compact('buys'));
+    }
+
+    public function getKeranjang()
+    {
+        $validator = Validator::make(request()->all(), [
+            'payment_method' => 'sometimes',
+            'confirmation_status' => 'sometimes|in:0,1,2',
+        ]);
+
+        $payment_method = request('payment_method', null);
+        $payment_status = request('payment_status', null);
+        $confirmation_status = request('confirmation_status', null);
+
+        // Build query conditions based on provided arguments
+        $query = Buy::with('cloth');
+
+        if (!is_null($payment_method)) {
+            $query->where('payment_method', $payment_method);
+        }
+
+
+        if (!is_null($confirmation_status)) {
+            $query->where('confirmation_status', $confirmation_status);
+        }
+
+        $query->where('user_id', 1);
+
+        $query->where('payment_status', 1);
+
+        // Get the results
+        $results = $query->get();
+
+        // Iterate over each cloth
+        $results->each(function ($buy) {
+            // Attach total total price to the cloth object
+            $buy->total_price = (int) $buy->cloth->price_per_piece * (int) $buy->quantity;
+        });
+
+
+        // Paginate the results for clothes
+        $perPage = 10;
+        $page = request()->get('buys_page', 1);
+        $offset = ($page - 1) * $perPage;
+        $paginatedResults = $results->slice($offset, $perPage);
+        $buys = new LengthAwarePaginator(
+            $paginatedResults,
+            $results->count(),
+            $perPage,
+            $page,
+            ['path' => request()->fullUrl(), 'pageName' => 'buys_page']
+        );
+
+        if (request()->expectsJson() || request()->is('api/*')) {
+            return response()->json([
+                'buys' => $buys
+            ]);
+        }
+
+        return view('User.keranjang_user', ['title' => 'Keranjang User'], compact('buys'));
     }
 }
