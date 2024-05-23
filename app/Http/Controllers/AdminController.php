@@ -153,7 +153,7 @@ class AdminController extends Controller
         }
 
         $buy->update([
-            'confirmation_status' => 1
+            'confirmation_status' => request('confirmation_status')
         ]);
 
         if ($buy) {

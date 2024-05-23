@@ -6,13 +6,13 @@
             <table class="min-w-full bg-white border text-center">
                 <thead>
                     <tr>
+                        <th class="px-4 py-2 border">Image</th>
                         <th class="px-4 py-2 border">Type</th>
                         <th class="px-4 py-2 border">Name</th>
                         <th class="px-4 py-2 border">Size</th>
                         <th class="px-4 py-2 border">Color</th>
                         <th class="px-4 py-2 border">Price</th>
                         <th class="px-4 py-2 border">Description</th>
-                        <th class="px-4 py-2 border">Image</th>
                         <th class="px-4 py-2 border">Quantity</th>
                         <th class="px-4 py-2 border">Action</th>
                     </tr>
@@ -20,16 +20,16 @@
                 <tbody>
                     @foreach ($clothes as $cloth)
                         <tr class="bg-gray-100 even:bg-gray-200">
+                            <td class="px-4 py-2 border">
+                                <img src="{{ $cloth['image_url'] }}" alt="Cloth Image"
+                                    class="max-w-24 max-h-24 mx-auto">
+                            </td>
                             <td class="px-4 py-2 border">{{ $cloth['type'] }}</td>
                             <td class="px-4 py-2 border">{{ $cloth['name'] }}</td>
                             <td class="px-4 py-2 border">{{ $cloth['size'] }}</td>
                             <td class="px-4 py-2 border">{{ $cloth['color'] }}</td>
                             <td class="px-4 py-2 border">{{ $cloth['price_per_piece'] }}</td>
                             <td class="px-4 py-2 border">{{ $cloth['description'] }}</td>
-                            <td class="px-4 py-2 border">
-                                <img src="{{ $cloth['image_url'] }}" alt="Cloth Image"
-                                    class="max-w-24 max-h-24 mx-auto">
-                            </td>
                             <td class="px-4 py-2 border">{{ $cloth['total_quantity'] }}</td>
                             <td class="px-4 py-2 border">
                                 <button>
