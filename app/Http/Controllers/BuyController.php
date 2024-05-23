@@ -398,30 +398,10 @@ class BuyController extends Controller
 
     public function getKeranjang()
     {
-        $validator = Validator::make(request()->all(), [
-            'payment_method' => 'sometimes',
-            'confirmation_status' => 'sometimes|in:0,1,2',
-        ]);
-
-        $payment_method = request('payment_method', null);
-        $payment_status = request('payment_status', null);
-        $confirmation_status = request('confirmation_status', null);
 
         // Build query conditions based on provided arguments
-        $query = Buy::with('cloth');
-
-        if (!is_null($payment_method)) {
-            $query->where('payment_method', $payment_method);
-        }
-
-
-        if (!is_null($confirmation_status)) {
-            $query->where('confirmation_status', $confirmation_status);
-        }
-
-        $query->where('user_id', 1);
-
-        $query->where('payment_status', 1);
+        $query = Buy::with('cloth')->where('user_id', auth()->user()->id)
+            ->where('payment_status', 0)->where('payment_method', 2);
 
         // Get the results
         $results = $query->get();
