@@ -229,7 +229,7 @@ class BuyController extends Controller
         $confirmation_status = request('confirmation_status', null);
 
         // Build query conditions based on provided arguments
-        $query = Buy::query();
+        $query = Buy::with('user'); // Eager load the user relationship
 
         if (!is_null($payment_method)) {
             $query->where('payment_method', $payment_method);
@@ -247,6 +247,7 @@ class BuyController extends Controller
 
         // Get the results
         $results = $query->get();
+
 
         // Paginate the results for clothes
         $perPage = 10;

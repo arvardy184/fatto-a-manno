@@ -160,7 +160,7 @@ class AdminController extends Controller
             if (request()->is('api/*')) {
                 return response()->json(['message' => "Successfully Confirmed"], 200);
             }
-            return redirect()->route('Data Pembelian');
+            return redirect()->back();
         } else {
             return redirect()->back()->withErrors('Function Failed');
         }
