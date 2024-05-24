@@ -5,6 +5,11 @@
             @if (session('errors'))
                 @include('components.view_modal')
             @endif
+            @if (session('url'))
+                <script>
+                    window.open('{{ session('url') }}', '_blank');
+                </script>
+            @endif
             <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8">
                 <!-- Image -->
                 <div
