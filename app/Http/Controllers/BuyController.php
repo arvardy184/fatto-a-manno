@@ -20,7 +20,6 @@ class BuyController extends Controller
     {
         //Validate Request
         $validator = Validator::make($request->all(), [
-            'user_id' => 'sometimes|exists:users,id',
             'cloth_id' => 'required|exists:cloths,id',
             'quantity' => 'required|integer|min:1',
             'payment_method' => 'required|int|in:0,1,2',
@@ -38,7 +37,7 @@ class BuyController extends Controller
             return redirect()->back()->withErrors($validator->messages());
         }
 
-        $user = User::find($request->user_id);
+        $user = auth()->user();
         // Find the cloth
         $cloth = Cloth::find($request->cloth_id);
         $storage = $cloth->storages()->first();
