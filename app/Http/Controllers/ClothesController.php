@@ -289,11 +289,8 @@ class ClothesController extends Controller
     {
         $clothes = Cloth::find($id);
 
-        // Iterate over each cloth
-        $clothes->each(function ($cloth) {
-            // Attach total quantity to the cloth object
-            $cloth->total_quantity = (int) $this->findClothWithTotalQuantity($cloth->id);
-        });
+        // Attach total quantity to the cloth object
+        $clothes->total_quantity = (int) $this->findClothWithTotalQuantity($clothes->id);
 
         // Check if the cloth exists
         if (!$clothes) {
