@@ -49,12 +49,12 @@ class BuyController extends Controller
 
         // Check if the storage exists
         if (!$storage) {
-            return redirect()->back()->withErrors('Storage not Found');
+            return redirect()->back()->withErrors(['Storage not Found']);
         }
 
         //check if the quantity exceed the storage limit
         if ($storage->quantity_limit < $request->quantity) {
-            return redirect()->back()->withErrors('Storage Quantity Exceeded!');
+            return redirect()->back()->withErrors(['Storage Quantity Exceeded!']);
         }
 
         // // Create the buy record
@@ -348,7 +348,7 @@ class BuyController extends Controller
         $confirmation_status = request('confirmation_status', null);
 
         // Build query conditions based on provided arguments
-        $query = Buy::with('clothe');
+        $query = Buy::with('cloth');
 
         if (!is_null($payment_method)) {
             $query->where('payment_method', $payment_method);
