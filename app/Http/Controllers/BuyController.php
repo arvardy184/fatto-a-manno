@@ -53,8 +53,7 @@ class BuyController extends Controller
             return redirect()->back()->withErrors(['Storage not Found']);
         }
 
-        //check if the quantity exceed the storage limit
-        if ($storage->quantity_limit < $request->quantity) {
+        if ($this->findClothWithTotalQuantity($cloth->id) < $request->quantity) {
             return redirect()->back()->withErrors(['Storage Quantity Exceeded!']);
         }
 
@@ -85,23 +84,26 @@ class BuyController extends Controller
                     'confirmation_status' => 0
                 ]);
             });
+
+            $buy = Buy::where('user_id', $user->id)
+                ->where('cloth_id', $cloth->id)
+                ->where('payment_method', $request->payment_method)
+                ->where('payment_status', $request->payment_status)
+                ->where('confirmation_status', 0)
+                ->orderBy('updated_at', 'desc') // Sort by updated_at in descending order
+                ->first();
         }
 
         // Update the stock
-        $store = Store::where('storage_id', $storage->id)->first();
+        $store = Store::where('storage_id', $storage->id)->where('cloth_id', $cloth->id)->first();
         $store->quantity -= $request->quantity;
         $store->save();
 
-        // $buy = Buy::orderBy('id', 'desc')->first();
+        // $buy = Buy::orderBy('id', 'desc')->first()
 
-        //check if the quantity exceed the storage limit
-        if ($storage->quantity_limit < 0) {
-            return redirect()->back()->withErrors('Storage Quantity Exceeded!');
-        }
-
-        if ($request->is('api/*')) {
-            return response()->json(['buy' => $buy], 201);
-        }
+        // if ($request->is('api/*')) {
+        //     return response()->json(['buy' => $buy], 201);
+        // }
 
         if ($request->payment_method == 1) {
             $params = [
@@ -120,6 +122,10 @@ class BuyController extends Controller
             ])->post('https://app.sandbox.midtrans.com/snap/v1/transactions', $params);
 
             $url = json_decode($response->body())->redirect_url;
+
+            if ($request->is('api/*')) {
+                return response()->json(['url' => $url], 201);
+            }
 
             return redirect()->back()->with('url', $url);
         } else
@@ -436,5 +442,18 @@ class BuyController extends Controller
         }
 
         return view('User.keranjang_user', ['title' => 'Keranjang User'], compact('buys'));
+    }
+
+    private function findClothWithTotalQuantity($clothId)
+    {
+        $cloth = Cloth::find($clothId);
+
+        $totalQuantity = $cloth->storages()->sum('stores.quantity');
+
+        if ($totalQuantity) {
+            return $totalQuantity;
+        } else {
+            return 0;
+        }
     }
 }
