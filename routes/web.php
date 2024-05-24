@@ -103,7 +103,7 @@ Route::group([
     Route::get('/quantity/{id}', [ClothesController::class, 'findClothWithTotalQuantity']);
     Route::get('/delete/{id}', [ClothesController::class, 'deleteClothes']);
     Route::get('/', [ClothesController::class, 'getAllClothes']);
-    Route::get('/{id}', [ClothesController::class, 'getClothesbyId']);
+    Route::get('/{id}', [ClothesController::class, 'getClothesDetail']);
     Route::get('/data/{id}', [ClothesController::class, 'getDataEditClothes']);
 });
 

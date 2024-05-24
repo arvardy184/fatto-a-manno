@@ -412,7 +412,6 @@ class BuyController extends Controller
             $buy->total_price = (int) $buy->cloth->price_per_piece * (int) $buy->quantity;
         });
 
-
         // Paginate the results for clothes
         $perPage = 10;
         $page = request()->get('buys_page', 1);
