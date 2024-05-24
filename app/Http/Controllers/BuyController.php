@@ -348,7 +348,7 @@ class BuyController extends Controller
         $confirmation_status = request('confirmation_status', null);
 
         // Build query conditions based on provided arguments
-        $query = Buy::with('clothe');
+        $query = Buy::with('cloth');
 
         if (!is_null($payment_method)) {
             $query->where('payment_method', $payment_method);
