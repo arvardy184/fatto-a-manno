@@ -1,4 +1,4 @@
-<div class="bg-white border">
+<div class="bg-white">
     <div x-data="{ test: false }">
 
         {{-- mobile --}}
@@ -536,7 +536,11 @@
                                 @include('layouts.card')
                             @endforeach
                         </div>
+                        <div class="mt-3 justify-between">
+                            {{ $clothes->links() }}
+                        </div>
                     </div>
+
                 </div>
             </section>
         </main>

@@ -8,6 +8,9 @@
         </div>
 
         <div class="mt-3 sm:mx-auto sm:w-full sm:max-w-sm">
+            @if (session('errors'))
+                @include('components.view_modal')
+            @endif
             <form class="space-y-6" action="/signup" method="POST">
                 @csrf
                 <div class="mb-3">
@@ -40,8 +43,8 @@
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         placeholder="08111111111111">
                 </div>
-                <div class="space-y-2">
-                    <button type="submit"
+                <div x-data="{ back: false }" class="space-y-2">
+                    <button @click="back = true" type="submit"
                         class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                         Register
                     </button>
