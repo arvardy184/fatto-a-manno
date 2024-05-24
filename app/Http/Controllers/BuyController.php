@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Buy;
 use App\Models\User;
 use App\Models\Cloth;
+use App\Models\Store;
 use App\Models\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +21,6 @@ class BuyController extends Controller
     {
         //Validate Request
         $validator = Validator::make($request->all(), [
-            'user_id' => 'sometimes|exists:users,id',
             'cloth_id' => 'required|exists:cloths,id',
             'quantity' => 'required|integer|min:1',
             'payment_method' => 'required|int|in:0,1,2',
@@ -38,7 +38,7 @@ class BuyController extends Controller
             return redirect()->back()->withErrors($validator->messages());
         }
 
-        $user = User::find($request->user_id);
+        $user = auth()->user();
         // Find the cloth
         $cloth = Cloth::find($request->cloth_id);
         $storage = $cloth->storages()->first();
@@ -50,12 +50,12 @@ class BuyController extends Controller
 
         // Check if the storage exists
         if (!$storage) {
-            return redirect()->back()->withErrors('Storage not Found');
+            return redirect()->back()->withErrors(['Storage not Found']);
         }
 
         //check if the quantity exceed the storage limit
         if ($storage->quantity_limit < $request->quantity) {
-            return redirect()->back()->withErrors('Storage Quantity Exceeded!');
+            return redirect()->back()->withErrors(['Storage Quantity Exceeded!']);
         }
 
         // // Create the buy record
@@ -66,24 +66,31 @@ class BuyController extends Controller
         //     'confirmation_status' => 0
         // ]);
 
-        DB::transaction(function () use ($user, $cloth, $storage, $request) {
-            $cloth->users()->attach($user, [
-                'quantity' => $request->quantity,
-                'payment_method' => $request->payment_method,
-                'payment_status' => $request->payment_status,
-                'confirmation_status' => 0
-            ]);
+        $buy = Buy::where('user_id', $user->id)->where('cloth_id', $cloth->id)
+            ->where('payment_method', 2)->where('payment_status', $request->payment_status)->where('confirmation_status', 0)->first();
 
-            // Update the storage quantity
-            $storage->quantity_limit -= $request->quantity;
-            $storage->save();
-        });
+        if ($buy) {
+            $buy->quantity += $request->quantity;
+            $buy->save();
 
-        $buy = $cloth->users()->wherePivot('user_id', $user->id)->latest('pivot_created_at')->first();
+            if ($request->is('api/*')) {
+                return response()->json(['buy2' => $buy], 201);
+            }
+        } else {
+            DB::transaction(function () use ($user, $cloth, $storage, $request) {
+                $cloth->users()->attach($user, [
+                    'quantity' => $request->quantity,
+                    'payment_method' => $request->payment_method,
+                    'payment_status' => $request->payment_status,
+                    'confirmation_status' => 0
+                ]);
+            });
+        }
 
-        // Update the storage quantity
-        $storage->quantity_limit -= $request->quantity;
-        $storage->save();
+        // Update the stock
+        $store = Store::where('storage_id', $storage->id)->first();
+        $store->quantity -= $request->quantity;
+        $store->save();
 
         // $buy = Buy::orderBy('id', 'desc')->first();
 
@@ -91,9 +98,6 @@ class BuyController extends Controller
         if ($storage->quantity_limit < 0) {
             return redirect()->back()->withErrors('Storage Quantity Exceeded!');
         }
-
-        $buy = $cloth->users()->latest()->first();
-
 
         if ($request->is('api/*')) {
             return response()->json(['buy' => $buy], 201);
@@ -349,7 +353,7 @@ class BuyController extends Controller
         $confirmation_status = request('confirmation_status', null);
 
         // Build query conditions based on provided arguments
-        $query = Buy::with('clothe');
+        $query = Buy::with('cloth');
 
         if (!is_null($payment_method)) {
             $query->where('payment_method', $payment_method);

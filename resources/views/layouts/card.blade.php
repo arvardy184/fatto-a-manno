@@ -15,7 +15,7 @@
             <p class="mt-1 text-sm text-gray-500"> {{ $cloth['color'] }} </p>
         </div>
         <div class="grid justify-items-end">
-            <p class="text-sm font-medium text-gray-900">{{ $cloth['price_per_piece'] }} </p>
+            <p class="text-sm font-medium text-gray-900">Rp{{ formatRupiah($cloth['price_per_piece']) }} </p>
             <p class="text-sm font-medium text-gray-900">{{ $cloth['size'] }} </p>
         </div>
     </div>

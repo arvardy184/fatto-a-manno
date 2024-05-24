@@ -38,4 +38,12 @@
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById('bayarLangsung2').addEventListener('click', function() {
+            const quantity = document.getElementById('quantity').value;
+            const url =
+                `/tambah_pembayaran?cloth_id={{ $clothes['id'] }}&quantity=${quantity}&payment_method=0&payment_status=1`;
+            window.location.href = url;
+        });
+    </script>
 </div>
