@@ -42,6 +42,7 @@ Route::group([], function () {
     Route::get('/dashboard', [AdminController::class, 'getAllData'])->name('dashboard');
     Route::get('/all_products', [ClothesController::class, 'getClothesbyAttribute'])->name('All Products');
     Route::get('/deskripsi_pakaian/{id}', [ClothesController::class, 'getClothesDetail'])->name('Deskripsi Pakaian');
+    Route::get('/tambah_pembayaran', [BuyController::class, 'addBuy'])->name('Deskripsi Pakaian');
 });
 
 Route::group([
@@ -75,6 +76,8 @@ Route::group([
         return view('Storage.tambah_storage', ['title' => 'Tambah Gudang']);
     })->name('Tambah Gudang');
 
+    Route::get('/histori_user', [BuyController::class, 'getBuybyAttributeCustomer'])->name('Histori User');
+    Route::get('/keranjang_user', [BuyController::class, 'getKeranjang'])->name('Kerancang User');
     Route::get('/detail_items', [StorageController::class, 'getStorageDetail'])->name('Detail Items');
 });
 

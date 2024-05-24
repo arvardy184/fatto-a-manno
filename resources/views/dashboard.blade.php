@@ -2,6 +2,10 @@
     <x-slot:title>{{ $title }}</x-slot:title>
     @if (auth()->user()->role_id == 1)
         {{-- admin start --}}
+        <div id="users" class="container mt-5 mx-auto">
+            <h1 class="text-center text-2xl font-bold mb-4">Analisis Penjualan</h1>
+
+        </div>
         <div id="clothes" class="container mx-auto mt-5">
             <h1 class="text-center text-2xl font-bold mb-4">Data Pakaian</h1>
             <div class="overflow-x-auto">
@@ -111,8 +115,6 @@
                     class="block w-full bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mb-2">Detail</a>
             </button>
         </div>
-
-
         {{-- admin end --}}
     @else
         {{-- user start --}}

@@ -1,3 +1,6 @@
+{{-- 1= Bayar Langsung --}}
+{{-- 0=Manual --}}
+{{-- 2=Masi di keranjang --}}
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="container mx-auto mt-5">
@@ -25,7 +28,7 @@
                             <td class="px-4 py-2 border">{{ $buy->cloth->name }}</td>
                             <td class="px-4 py-2 border">{{ $buy->cloth->size }}</td>
                             <td class="px-4 py-2 border">{{ $buy->cloth->type }}</td>
-                            <td class="px-4 py-2 border">{{ formatRupiah($buy->total_price) }}</td>
+                            <td class="px-4 py-2 border">Rp{{ formatRupiah($buy->total_price) }}</td>
                             <td class="px-4 py-2 border">
                                 @if ($buy->payment_method == 1)
                                     Bayar tanpa melalui admin
