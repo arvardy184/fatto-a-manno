@@ -38,8 +38,6 @@ Route::group([], function () {
     Route::get('/register', function () {
         return view('Guest.register', ['title' => 'Register']);
     })->name('register');
-
-    Route::get('/dashboard', [AdminController::class, 'getAllData'])->name('dashboard');
     Route::get('/all_products', [ClothesController::class, 'getClothesbyAttribute'])->name('All Products');
     Route::get('/deskripsi_pakaian/{id}', [ClothesController::class, 'getClothesDetail'])->name('Deskripsi Pakaian');
     Route::get('/tambah_pembayaran', [BuyController::class, 'addBuy'])->name('Deskripsi Pakaian');
@@ -48,6 +46,7 @@ Route::group([], function () {
 Route::group([
     'prefix' => 'dashboard'
 ], function () {
+    Route::get('/', [AdminController::class, 'getAllData'])->name('dashboard');
     //user dan admin
     Route::get('/profile', function () {
         return view('profile', ['title' => 'Profil']);
