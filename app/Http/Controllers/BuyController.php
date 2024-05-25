@@ -134,8 +134,14 @@ class BuyController extends Controller
 
     public function payBatch(Request $request)
     {
-        //Validate Request
-        $validator = Validator::make($request->all(), [
+        $data = $request->all();
+
+        // Convert buys_id from a comma-separated string to an array of integers
+        if (isset($data['buys_id'])) {
+            $data['buys_id'] = array_map('intval', explode(',', $data['buys_id']));
+        }
+
+        $validator = Validator::make($data, [
             'buys_id' => 'required|array',
             'total_price' => 'required|int',
             'payment_method' => 'required|int|in:0,1',
@@ -158,7 +164,7 @@ class BuyController extends Controller
         if ($request->payment_method == 1) {
             $params = [
                 "transaction_details" => [
-                    "order_id" => "ORDER-B-" . implode('', $buysId),
+                    "order_id" => "ORDER-B-" . implode('-', $buysId),
                     "gross_amount" => (float) request('total_price')
                 ]
             ];
