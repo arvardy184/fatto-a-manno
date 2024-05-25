@@ -136,6 +136,10 @@ Route::group(['prefix' => 'buy'], function () {
     Route::post('/find/{user_id}', [BuyController::class, 'getBuybyAttribute']);
     Route::post('/history', [BuyController::class, 'getBuybyAttributeCustomer']);
     Route::post('/cart', [BuyController::class, 'getKeranjang']);
+    Route::post('/cart/buy', [BuyController::class, 'payBatch']);
+    Route::delete('/cart/delete/{id}', [BuyController::class, 'deleteKeranjang']); // Delete Keranjang + refresh page
+    Route::post('/cart/edit/{id}', [BuyController::class, 'getDataEditKeranjang']); // Redirect ke page edit + passing data
+    Route::post('/cart/edit/buy/{id}', [BuyController::class, 'editKeranjang']); // Edit keranjang + redirect ke halaman keranjang
 });
 
 Route::group(['prefix' => 'user'], function () {
