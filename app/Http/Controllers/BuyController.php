@@ -271,6 +271,13 @@ class BuyController extends Controller
             return response()->json(['message' => 'Buy not found'], 404);
         }
 
+        $storage = $buy->cloth->storages()->first();
+
+        // Update the stock
+        $store = Store::where('storage_id', $storage->id)->where('cloth_id', $buy->cloth->id)->first();
+        $store->quantity += (int) $buy->quantity;
+        $store->save();
+
         if ($buy->delete()) {
             if (request()->is('api/*')) {
                 return response()->json(['message' => "Successfully Deleted"], 200);
