@@ -153,7 +153,11 @@ class BuyController extends Controller
             return redirect()->back()->withErrors($validator->messages());
         }
 
-        $buysId = request('buys_id');
+        // Retrieve validated data
+        $validatedData = $validator->validated();
+
+        // Retrieve buys_id from validated data
+        $buysId = $validatedData['buys_id'];
 
         $affectedRows = Buy::whereIn('id', $buysId)->update(
             [
