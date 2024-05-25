@@ -236,7 +236,7 @@
                                 </div>
                             </div>
                             <button type="button" class="relative ml-auto flex-shrink-0 rounded-full">
-                                <a href="/dashboard/cart"><i class="fa-solid fa-cart-shopping"
+                                <a href="/dashboard/keranjang_user"><i class="fa-solid fa-cart-shopping"
                                         style="color: #ffffff;"></i></a>
                             </button>
                         </div>
