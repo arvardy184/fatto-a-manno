@@ -200,7 +200,7 @@ class BuyController extends Controller
 
         // Update the stock
         $store = Store::where('storage_id', $storage->id)->where('cloth_id', $buy->cloth->id)->first();
-        $current = $store->quantity;
+        $current = $buy->quantity;
 
         if ($this->findClothWithTotalQuantity($buy->cloth->id) + (int) $current < (int) request()->quantity) {
             return redirect()->back()->withErrors(['Storage Quantity Exceeded!']);
