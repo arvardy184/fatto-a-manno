@@ -76,8 +76,9 @@ Route::group([
     })->name('Tambah Gudang');
 
     Route::get('/histori_user', [BuyController::class, 'getBuybyAttributeCustomer'])->name('Histori User');
-    Route::get('/keranjang_user', [BuyController::class, 'getKeranjang'])->name('Kerancang User');
+    Route::get('/keranjang_user', [BuyController::class, 'getKeranjang'])->name('Keranjang User');
     Route::get('/detail_items', [StorageController::class, 'getStorageDetail'])->name('Detail Items');
+    Route::get('/edit_keranjang/{id}', [BuyController::class, 'getDataEditKeranjang'])->name('Edit Keranjang');
 });
 
 
@@ -128,7 +129,6 @@ Route::group([
 //BUY ===========================================================================================
 Route::group(['prefix' => 'buy'], function () {
     Route::post('/add', [BuyController::class, 'addBuy']);
-    Route::put('/edit/{id}', [BuyController::class, 'editBuy']);
     Route::delete('/delete/{id}', [BuyController::class, 'deleteBuy']);
     Route::get('/', [BuyController::class, 'getAllBuys']);
     Route::get('/{id}', [BuyController::class, 'getBuybyId']);
@@ -136,6 +136,10 @@ Route::group(['prefix' => 'buy'], function () {
     Route::post('/find/{user_id}', [BuyController::class, 'getBuybyAttribute']);
     Route::post('/history', [BuyController::class, 'getBuybyAttributeCustomer']);
     Route::post('/cart', [BuyController::class, 'getKeranjang']);
+    Route::post('/cart/buy', [BuyController::class, 'payBatch']);
+    Route::post('/cart/delete/{id}', [BuyController::class, 'deleteKeranjang']); // Delete Keranjang + refresh page
+    Route::get('/cart/edit/{id}', [BuyController::class, 'getDataEditKeranjang']); // Redirect ke page edit + passing data
+    Route::get('/cart/edit/buy/{id}', [BuyController::class, 'editBuy']); // Edit keranjang + redirect ke halaman keranjang
 });
 
 Route::group(['prefix' => 'user'], function () {
@@ -146,7 +150,6 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('/delete/{id}', [UserController::class, 'deleteUser']);
     Route::get('/data/{id}', [UserController::class, 'getDataEditUser']); // Ini return data 1 user to view
 });
-
 
 Route::post('/hook', [AdminController::class, 'webhook']);
 

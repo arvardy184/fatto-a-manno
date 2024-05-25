@@ -134,11 +134,18 @@ class BuyController extends Controller
 
     public function payBatch(Request $request)
     {
-        //Validate Request
-        $validator = Validator::make($request->all(), [
+        $data = $request->all();
+
+        // Convert buys_id from a comma-separated string to an array of integers
+        if (isset($data['buys_id'])) {
+            $data['buys_id'] = array_map('intval', explode(',', $data['buys_id']));
+        }
+
+        $validator = Validator::make($data, [
             'buys_id' => 'required|array',
-            'total_price' => 'required|int',
-            'payment_method' => 'required|int|in:0,1',
+            'buys_id.*' => 'integer',
+            'total_price' => 'required|integer',
+            'payment_method' => 'required|integer|in:0,1',
         ]);
 
         // Check if validation fails
@@ -146,18 +153,23 @@ class BuyController extends Controller
             return redirect()->back()->withErrors($validator->messages());
         }
 
-        $buysId = request('buys_id');
+        // Retrieve validated data
+        $validatedData = $validator->validated();
+
+        // Retrieve buys_id from validated data
+        $buysId = $validatedData['buys_id'];
 
         $affectedRows = Buy::whereIn('id', $buysId)->update(
             [
-                'payment_status' => 1
+                'payment_status' => 1,
+                'payment_method' => $request->payment_method
             ]
         );
 
         if ($request->payment_method == 1) {
             $params = [
                 "transaction_details" => [
-                    "order_id" => "ORDER-B-" . implode('', $buysId),
+                    "order_id" => "ORDER-B-" . implode('-', $buysId),
                     "gross_amount" => (float) request('total_price')
                 ]
             ];
@@ -178,14 +190,11 @@ class BuyController extends Controller
         }
     }
 
-    public function editBuy($id, Request $request)
+    public function editBuy($id)
     {
         //Validate Request
-        $validator = Validator::make($request->all(), [
-            'quantity' => 'integer|min:1',
-            'payment_method' => 'string',
-            'payment_status' => 'integer',
-            'confirmation_status' => 'integer',
+        $validator = Validator::make(request()->all(), [
+            'quantity' => 'required|integer|min:1',
         ]);
 
         if ($validator->fails()) {
@@ -198,20 +207,76 @@ class BuyController extends Controller
             return redirect()->back()->withErrors('Buy not Found');
         }
 
-        $buy->update($request->all());
+        $storage = $buy->cloth->storages()->first();
+
+        // Update the stock
+        $store = Store::where('storage_id', $storage->id)->where('cloth_id', $buy->cloth->id)->first();
+        $current = $buy->quantity;
+
+        if ($this->findClothWithTotalQuantity($buy->cloth->id) + (int) $current < (int) request()->quantity) {
+            return redirect()->back()->withErrors(['Storage Quantity Exceeded!']);
+        }
+
+        $store->quantity -= ((int) request()->quantity - (int) $current);
+        $store->save();
+
+
+        $buy->update(request()->all());
 
         if ($buy) {
             $res = response()->json([
                 'buy' => $buy,
             ]);
 
-            if ($request->is('api/*')) {
+            if (request()->is('api/*')) {
                 return response()->json(['buy' => $buy], 201);
             }
 
-            return redirect()->route('Data Pembelian');
+            return redirect()->route('Keranjang User');
         } else {
             return redirect()->back()->withErrors('Edit Failed');
+        }
+    }
+
+    public function getDataEditKeranjang($id)
+    {
+        $buy = Buy::with('cloth')->find($id);
+
+        $buy->cloth->total_quantity = (int) $this->findClothWithTotalQuantity($buy->cloth->id);
+
+        if (!$buy) {
+            return redirect()->back()->withErrors(['Buy not Found']);
+        }
+
+        if ($buy) {
+            $res = response()->json([
+                'buy' => $buy,
+            ]);
+
+            if (request()->is('api/*')) {
+                return response()->json(['buy' => $buy], 201);
+            }
+            return view('User.edit_keranjang', ['title' => 'Edit Keranjang'], compact('buy'));
+        } else {
+            return redirect()->back()->withErrors('Edit Failed');
+        }
+    }
+
+    public function deleteKeranjang($id)
+    {
+        $buy = Buy::find($id);
+
+        if (!$buy) {
+            return response()->json(['message' => 'Buy not found'], 404);
+        }
+
+        if ($buy->delete()) {
+            if (request()->is('api/*')) {
+                return response()->json(['message' => "Successfully Deleted"], 200);
+            }
+            return redirect()->route('Keranjang User');
+        } else {
+            return redirect()->back()->withErrors('Delete Failed');
         }
     }
 
@@ -241,6 +306,13 @@ class BuyController extends Controller
     public function deleteBuy($id)
     {
         $buy = Buy::find($id);
+
+        $storage = $buy->cloth->storages()->first();
+
+        // Update the stock
+        $store = Store::where('storage_id', $storage->id)->where('cloth_id', $buy->cloth->id)->first();
+        $store->quantity += (int) $buy->quantity;
+        $store->save();
 
         if (!$buy) {
             return response()->json(['message' => 'Buy not found'], 404);
