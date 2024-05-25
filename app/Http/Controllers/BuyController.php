@@ -143,8 +143,9 @@ class BuyController extends Controller
 
         $validator = Validator::make($data, [
             'buys_id' => 'required|array',
-            'total_price' => 'required|int',
-            'payment_method' => 'required|int|in:0,1',
+            'buys_id.*' => 'integer',
+            'total_price' => 'required|integer',
+            'payment_method' => 'required|integer|in:0,1',
         ]);
 
         // Check if validation fails
