@@ -184,9 +184,6 @@ class BuyController extends Controller
         //Validate Request
         $validator = Validator::make($request->all(), [
             'quantity' => 'integer|min:1',
-            'payment_method' => 'string',
-            'payment_status' => 'integer',
-            'confirmation_status' => 'integer',
         ]);
 
         if ($validator->fails()) {
@@ -218,15 +215,6 @@ class BuyController extends Controller
 
     public function getDataEditKeranjang($id, Request $request)
     {
-        //Validate Request
-        $validator = Validator::make($request->all(), [
-            'quantity' => 'integer|min:1',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator->messages());
-        }
-
         $buy = Buy::find($id);
 
         if (!$buy) {
