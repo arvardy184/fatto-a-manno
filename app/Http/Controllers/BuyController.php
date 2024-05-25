@@ -256,7 +256,6 @@ class BuyController extends Controller
             if (request()->is('api/*')) {
                 return response()->json(['buy' => $buy], 201);
             }
-
             return view('User.edit_keranjang', ['title' => 'Edit Keranjang'], compact('buy'));
         } else {
             return redirect()->back()->withErrors('Edit Failed');

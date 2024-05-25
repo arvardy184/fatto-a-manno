@@ -26,30 +26,10 @@
                     </div>
 
                     <!-- Options -->
-                    <div class="mt-1 lg:row-span-3 lg:mt-1">
+                    <div class="mt-1 lg:row-span-3 lg:mt-3">
                         <h2 class="sr-only">Product information</h2>
                         <p class="text-3xl tracking-tight text-gray-900">
                             Rp{{ formatRupiah($clothes['price_per_piece']) }}</p>
-                        <!-- Reviews -->
-                        <div class="mt-2 mb-2">
-                            <h3 class="sr-only">Reviews</h3>
-                            <div class="flex items-center">
-                                <div class="flex items-center">
-                                    @for ($i = 0; $i < 5; $i++)
-                                        <svg class="{{ $i < 4 ? 'text-gray-900' : 'text-gray-200' }} h-5 w-5 flex-shrink-0"
-                                            viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd"
-                                                d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    @endfor
-                                </div>
-                                <p class="sr-only">4 out of 5 stars</p>
-                                <a href="#"
-                                    class="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">117
-                                    reviews</a>
-                            </div>
-                        </div>
                         <div class=" mt-3 lg:border-gray-200">
                             <!-- Description and details -->
                             <div>
@@ -60,7 +40,7 @@
                             </div>
                         </div>
 
-                        <form class="mt-2">
+                        <form class="mt-3">
                             <!-- Colors -->
                             <div>
                                 <div class="flex items-center justify-between">
@@ -70,19 +50,19 @@
                             </div>
 
                             <!-- Sizes -->
-                            <div class="mt-10">
+                            <div class="mt-3">
                                 <div class="flex items-center justify-between">
                                     <h1 class="text-lg font-medium text-gray-900">Size</h1>
                                     <h3 class="text-sm">{{ $clothes['size'] }}</h3>
                                 </div>
                             </div>
-                            <div class="mt-10">
+                            <div class="mt-3">
                                 <div class="flex items-center justify-between">
                                     <h1 class="text-lg font-medium text-gray-900">Stok</h1>
                                     <h3 class="text-sm">{{ $clothes['total_quantity'] }}</h3>
                                 </div>
                             </div>
-                            <div class="mt-10">
+                            <div class="mt-3">
                                 <div class="flex items-center justify-between">
                                     <h1 class="text-lg font-medium text-gray-900">Quantity</h1>
                                     <div class="mb-1">
