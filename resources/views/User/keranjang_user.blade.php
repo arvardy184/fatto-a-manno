@@ -1,13 +1,23 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="container mx-auto mt-5">
+        @if (session('errors'))
+            @include('components.view_modal')
+        @endif
+        @if (session('url'))
+            <script>
+                window.open('{{ session('url') }}', '_blank');
+            </script>
+        @endif
         <div class="bg-white">
             @php
                 $sum = 0;
                 $text = '';
+                $pembayaran = [];
             @endphp
             @foreach ($buys as $key => $buy)
                 <div class="pt-6">
+
                     <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8">
                         <!-- Image -->
                         <div class="justify-center flex">
@@ -25,7 +35,7 @@
 
                             <!-- Options -->
                             <div class="mt-1 lg:row-span-3 lg:mt-3">
-                                <form class="mt-3">
+                                <div class="mt-3">
                                     <!-- Colors -->
                                     <div>
                                         <div class="flex items-center justify-between">
@@ -65,13 +75,21 @@
                                             <h3 class="text-base">Rp{{ formatRupiah($buy->total_price) }}</h3>
                                         </div>
                                     </div>
-                                    <div class="flex justify-end mt-4">
-                                        <button
-                                            class="inline-block w-20 px-4 py-2 text-xs font-semibold leading-6 text-white uppercase bg-red-600 rounded hover:bg-red-700 focus:outline-none focus:bg-red-700">
-                                            Delete
+                                    <div class="flex justify-end mt-4 gap-4">
+                                        <button type="submit"
+                                            class="inline-block w-20 px-4 py-2 text-xs font-semibold leading-6 text-white uppercase bg-blue-600 rounded hover:bg-blue-700 focus:outline-none focus:bg-blue-700">
+                                            <a href="/dashboard/edit_keranjang/{{ $buy->id }}">Edit</a>
                                         </button>
+                                        <form action="/buy/cart/delete/{{ $buy->id }}" method="post">
+                                            @csrf
+                                            <button
+                                                class="inline-block w-20 px-4 py-2 text-xs font-semibold leading-6 text-white uppercase bg-red-600 rounded hover:bg-red-700 focus:outline-none focus:bg-red-700">
+                                                Delete
+                                            </button>
+                                        </form>
                                     </div>
-                                </form>
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -86,17 +104,18 @@
                         // Jika item terakhir, tanpa koma
                         $text .= $buy->cloth->name . '.';
                     }
+                    $pembayaran[] = $buy->id;
                 @endphp
             @endforeach
         </div>
-
         <div class="flex justify-end mt-3 px-5">
             <div class="bg-gray-600 text-white px-4 py-2 rounded-md">
                 <p class="text-lg font-semibold">Total harga seluruhnya: Rp{{ formatRupiah($sum) }}</p>
             </div>
         </div>
         <div x-data="{ pilihPembayaran: false }">
-            <button type="button" @click="pilihPembayaran = true"
+
+            <button type="submit" @click="pilihPembayaran = true"
                 class="block mb-5 w-full max-w-xs mx-auto mt-4 px-4 py-2 border text-base font-semibold leading-6 text-center text-white uppercase bg-green-600 rounded-md hover:bg-green-700 focus:outline-none focus:bg-green-700">Pilihan
                 Pembayaran</button>
             @include('modal.modal_cart')

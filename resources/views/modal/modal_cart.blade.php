@@ -18,20 +18,31 @@
                 <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                     <div class="sm:flex sm:items-center sm:justify-center">
                         <div class="text-center sm:ml-4 sm:mt-0">
-                            <button id="bayarLangsung1" type="button"
-                                class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-1 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"><a
-                                    href="https://wa.me/6281335760738/?text=Halo!%2C%20saya%20ingin%20membeli%20baju%20{{ $text }}%20dengan%20total%20harga%20Rp{{ formatRupiah($sum) }}">Bayar
-                                    Melalui Admin</a></button>
+                            <form id="formBayarLangsung1" method="POST" action="/buy/cart/buy">
+                                @csrf
+                                <input type="hidden" name="buys_id" value="{{ implode(',', $pembayaran) }}">
+                                <input type="hidden" name="total_price" value="{{ $sum }}">
+                                <input type="hidden" name="payment_method" value="0">
+                                <button type="submit"
+                                    class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-1 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"><a
+                                        href="https://wa.me/6281335760738/?text=Halo!%2C%20saya%20ingin%20membeli%20baju%20{{ $text }}%20dengan%20total%20harga%20Rp{{ formatRupiah($sum) }}">Bayar
+                                        Melalui Admin</a></button>
+                            </form>
                         </div>
                         <div class="text-center sm:ml-4 sm:mt-0">
-                            <button id="bayarLangsung2" type="button"
-                                class="sm:mt-0 mt-3 flex w-full items-center justify-center rounded-md border border-transparent bg-yellow-600 px-8 py-1 text-base font-medium text-white hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2">Bayar
-                                Tanpa Melalui Admin</button>
+                            <form id="formBayarLangsung2" method="POST" action="/buy/cart/buy">
+                                @csrf
+                                <input type="hidden" name="buys_id" value="{{ implode(',', $pembayaran) }}">
+                                <input type="hidden" name="total_price" value="{{ $sum }}">
+                                <input type="hidden" name="payment_method" value="1">
+                                <button type="submit"
+                                    class="sm:mt-0 mt-3 flex w-full items-center justify-center rounded-md border border-transparent bg-yellow-600 px-8 py-1 text-base font-medium text-white hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2">Bayar
+                                    Tanpa Melalui Admin</button>
+                            </form>
                         </div>
                     </div>
                 </div>
                 <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-
                     <button @click="pilihPembayaran = false" type="button"
                         class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
                 </div>
@@ -39,3 +50,17 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('formBayarLangsung1').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+        // Submit the form programmatically
+        this.submit();
+    });
+
+    document.getElementById('formBayarLangsung2').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+        // Submit the form programmatically
+        this.submit();
+    });
+</script>

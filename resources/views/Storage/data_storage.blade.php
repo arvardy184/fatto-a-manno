@@ -25,8 +25,7 @@
                                 </button>
                                 <button>
                                     <a href="/storage/data/{{ $storage['id'] }}"
-                                        class="block w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2"
-                                        onclick="return confirm('Are you sure to edit this storage?')">Edit</a>
+                                        class="block w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2">Edit</a>
                                 </button>
                                 <form action="/storage/delete/{{ $storage['id'] }}" method="POST" class="inline-block">
                                     @csrf
