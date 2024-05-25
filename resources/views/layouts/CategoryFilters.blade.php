@@ -28,19 +28,23 @@
                         <h3 class="sr-only">Categories</h3>
                         <ul role="list" class="px-2 py-3 font-medium text-gray-900">
                             <li>
-                                <a href="#" class="block px-2 py-3">Totes</a>
+                                <a href="#" class="block px-2 py-3 hover:bg-gray-100 hover:text-black">Totes</a>
                             </li>
                             <li>
-                                <a href="#" class="block px-2 py-3">Backpacks</a>
+                                <a href="#"
+                                    class="block px-2 py-3 hover:bg-gray-100 hover:text-black">Backpacks</a>
                             </li>
                             <li>
-                                <a href="#" class="block px-2 py-3">Travel Bags</a>
+                                <a href="#" class="block px-2 py-3 hover:bg-gray-100 hover:text-black">Travel
+                                    Bags</a>
                             </li>
                             <li>
-                                <a href="#" class="block px-2 py-3">Hip Bags</a>
+                                <a href="#" class="block px-2 py-3 hover:bg-gray-100 hover:text-black">Hip
+                                    Bags</a>
                             </li>
                             <li>
-                                <a href="#" class="block px-2 py-3">Laptop Sleeves</a>
+                                <a href="#" class="block px-2 py-3 hover:bg-gray-100 hover:text-black">Laptop
+                                    Sleeves</a>
                             </li>
                         </ul>
 
@@ -250,6 +254,10 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="px-5">
+                            <button type="button"
+                                class="w-full rounded-md border border-transparent bg-green-600 px-8 py-3 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">Submit</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -324,19 +332,23 @@
                         <ul role="list"
                             class="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
                             <li>
-                                <a href="#">Totes</a>
+                                <a href="#" class="block px-2 py-3 hover:bg-gray-100 hover:text-black">Totes</a>
                             </li>
                             <li>
-                                <a href="#">Backpacks</a>
+                                <a href="#"
+                                    class="block px-2 py-3 hover:bg-gray-100 hover:text-black">Backpacks</a>
                             </li>
                             <li>
-                                <a href="#">Travel Bags</a>
+                                <a href="#" class="block px-2 py-3 hover:bg-gray-100 hover:text-black">Travel
+                                    Bags</a>
                             </li>
                             <li>
-                                <a href="#">Hip Bags</a>
+                                <a href="#" class="block px-2 py-3 hover:bg-gray-100 hover:text-black">Hip
+                                    Bags</a>
                             </li>
                             <li>
-                                <a href="#">Laptop Sleeves</a>
+                                <a href="#" class="block px-2 py-3 hover:bg-gray-100 hover:text-black">Laptop
+                                    Sleeves</a>
                             </li>
                         </ul>
 
@@ -527,6 +539,8 @@
                                 </div>
                             </div>
                         </div>
+                        <button type="button"
+                            class="mt-3 w-full rounded-md border border-transparent bg-green-600 px-8 py-3 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">Submit</button>
                     </form>
 
                     <!-- Product grid -->
