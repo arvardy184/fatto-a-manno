@@ -179,10 +179,10 @@ class BuyController extends Controller
         }
     }
 
-    public function editBuy($id, Request $request)
+    public function editBuy($id)
     {
         //Validate Request
-        $validator = Validator::make($request->all(), [
+        $validator = Validator::make(request()->all(), [
             'quantity' => 'integer|min:1',
         ]);
 
@@ -196,14 +196,14 @@ class BuyController extends Controller
             return redirect()->back()->withErrors('Buy not Found');
         }
 
-        $buy->update($request->all());
+        $buy->update(request()->all());
 
         if ($buy) {
             $res = response()->json([
                 'buy' => $buy,
             ]);
 
-            if ($request->is('api/*')) {
+            if (request()->is('api/*')) {
                 return response()->json(['buy' => $buy], 201);
             }
 
@@ -213,7 +213,7 @@ class BuyController extends Controller
         }
     }
 
-    public function getDataEditKeranjang($id, Request $request)
+    public function getDataEditKeranjang($id)
     {
         $buy = Buy::find($id);
 
@@ -226,7 +226,7 @@ class BuyController extends Controller
                 'buy' => $buy,
             ]);
 
-            if ($request->is('api/*')) {
+            if (request()->is('api/*')) {
                 return response()->json(['buy' => $buy], 201);
             }
 
