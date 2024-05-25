@@ -183,7 +183,7 @@ class BuyController extends Controller
     {
         //Validate Request
         $validator = Validator::make(request()->all(), [
-            'quantity' => 'integer|min:1',
+            'quantity' => 'required|integer|min:1',
         ]);
 
         if ($validator->fails()) {
@@ -195,6 +195,20 @@ class BuyController extends Controller
         if (!$buy) {
             return redirect()->back()->withErrors('Buy not Found');
         }
+
+        $storage = $buy->cloth->storages()->first();
+
+        // Update the stock
+        $store = Store::where('storage_id', $storage->id)->where('cloth_id', $buy->cloth->id)->first();
+        $current = $store->quantity;
+
+        if ($this->findClothWithTotalQuantity($buy->cloth->id) + (int) $current < (int) request()->quantity) {
+            return redirect()->back()->withErrors(['Storage Quantity Exceeded!']);
+        }
+
+        $store->quantity -= ((int) request()->quantity - (int) $current);
+        $store->save();
+
 
         $buy->update(request()->all());
 
@@ -215,7 +229,9 @@ class BuyController extends Controller
 
     public function getDataEditKeranjang($id)
     {
-        $buy = Buy::find($id);
+        $buy = Buy::with('cloth')->find($id);
+
+        $buy->cloth->total_quantity = (int) $this->findClothWithTotalQuantity($buy->cloth->id);
 
         if (!$buy) {
             return redirect()->back()->withErrors(['Buy not Found']);
@@ -449,8 +465,7 @@ class BuyController extends Controller
     {
 
         // Build query conditions based on provided arguments
-        $query = Buy::with('cloth')->where('user_id', auth()->user()->id)
-            ->where('payment_status', 0)->where('payment_method', 2);
+        $query = Buy::with('cloth')->where('user_id', 2);
 
         // Get the results
         $results = $query->get();
