@@ -465,7 +465,8 @@ class BuyController extends Controller
     {
 
         // Build query conditions based on provided arguments
-        $query = Buy::with('cloth')->where('user_id', 2);
+        $query = Buy::with('cloth')->where('user_id', auth()->user()->id)
+            ->where('payment_status', 0)->where('payment_method', 2);
 
         // Get the results
         $results = $query->get();
