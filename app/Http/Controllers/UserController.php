@@ -107,7 +107,7 @@ class UserController extends Controller
             return redirect()->back()->withErrors($validator->messages());
         }
 
-        $users = User::where('name', 'LIKE', request('name') . '%')->paginate(10);
+        $users = User::where('name', 'LIKE', request('name') . '%')->paginate(10, ['*'], 'users_page');
 
         // Return the clothes with total quantities
         if (request()->expectsJson() || request()->is('api/*')) {
