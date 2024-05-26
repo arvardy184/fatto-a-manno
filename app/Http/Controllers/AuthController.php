@@ -91,6 +91,11 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (!$token = auth()->attempt($credentials)) {
+
+            // Return the clothes with total quantities
+            if (request()->expectsJson() || request()->is('api/*')) {
+                return response()->json(["User not Found"]);
+            }
             return redirect()->back()->withErrors(["User not Found"]);
         }
 
@@ -99,6 +104,11 @@ class AuthController extends Controller
         //     auth()->logout();
         //     return response()->json(['error' => 'User Not Found'], 401);
         // }
+
+        // Return the clothes with total quantities
+        if (request()->expectsJson() || request()->is('api/*')) {
+            return response()->json(["User Found"]);
+        }
 
         return redirect()->route('dashboard');
     }
@@ -168,8 +178,12 @@ class AuthController extends Controller
         //Change user password
         $user = User::where('email', request('email'))->first();
 
+        if (!$user) {
+            return redirect()->back()->withErrors(["User Not Found"]);
+        }
+
         // Hash the new password
-        $newHashed = Hash::make(request()->input('password'));
+        $newHashed = Hash::make($newPassword);
 
         // Update the user's password
         $user->update([
