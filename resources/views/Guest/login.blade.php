@@ -27,7 +27,8 @@
                         placeholder="Password">
                 </div>
                 <div class="text-sm text-end">
-                    <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+                    <a href="/forgotPass" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot
+                        password?</a>
                 </div>
                 <div x-data="{ back: false }">
                     <button @click="back = true" type="submit"

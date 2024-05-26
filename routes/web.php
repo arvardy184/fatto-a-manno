@@ -41,6 +41,9 @@ Route::group([], function () {
     Route::get('/all_products', [ClothesController::class, 'getClothesbyAttribute'])->name('All Products');
     Route::get('/deskripsi_pakaian/{id}', [ClothesController::class, 'getClothesDetail'])->name('Deskripsi Pakaian');
     Route::get('/tambah_pembayaran', [BuyController::class, 'addBuy'])->name('Deskripsi Pakaian');
+    Route::get('/forgotPass', function () {
+        return view('Guest.forgotPass', ['title' => 'Forgot Password']);
+    })->name('forgotPass');
 });
 
 Route::group([
@@ -56,8 +59,8 @@ Route::group([
     Route::get('/edit_profil', function () {
         return view('edit_profil', ['title' => 'Edit Profil']);
     })->name('Edit Profil');
-    Route::get('/ubah_password', function () {
-        return view('edit_profil', ['title' => 'Ubah Password']);
+    Route::get('/ubah_pw', function () {
+        return view('User.ubah_pw', ['title' => 'Ubah Password']);
     })->name('Ubah Password');
 
     //admin
@@ -90,7 +93,7 @@ Route::post('/signin', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 Route::get('/email/verify/{id}', [AuthController::class, 'mailVerification'])->name('verifyMail');
 Route::post('/change-password', [AuthController::class, 'changePassword']);
-Route::post('/forgot/{id}', [AuthController::class, 'forgotPassword'])->name('forgotPass'); // Forgot Pass
+Route::post('/forgot', [AuthController::class, 'forgotPassword'])->name('forgotPass'); // Forgot Pass
 Route::any('/test', function () {
     return response()->json([
         'data' => 'aaaaaaaaaa'
