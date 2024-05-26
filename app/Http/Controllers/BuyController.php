@@ -159,13 +159,6 @@ class BuyController extends Controller
         // Retrieve buys_id from validated data
         $buysId = $validatedData['buys_id'];
 
-        $affectedRows = Buy::whereIn('id', $buysId)->update(
-            [
-                'payment_status' => 1,
-                'payment_method' => $request->payment_method
-            ]
-        );
-
         if ($request->payment_method == 1) {
             $params = [
                 "transaction_details" => [
@@ -184,8 +177,22 @@ class BuyController extends Controller
 
             $url = json_decode($response->body())->redirect_url;
 
+            $affectedRows = Buy::whereIn('id', $buysId)->update(
+                [
+                    'payment_status' => 1,
+                    'payment_method' => $request->payment_method,
+                    'payment_url' => $url
+                ]
+            );
+
             return redirect()->back()->with('url', $url);
         } else {
+            $affectedRows = Buy::whereIn('id', $buysId)->update(
+                [
+                    'payment_status' => 1,
+                    'payment_method' => $request->payment_method
+                ]
+            );
             return redirect()->back();
         }
     }
@@ -395,7 +402,7 @@ class BuyController extends Controller
         $query->where('user_id', $user_id);
 
         // Get the results
-        $results = $query->get();
+        $results = $query->orderBy('created_at', 'desc')->get();
 
         // Iterate over each cloth
         $results->each(function ($buy) {
@@ -455,7 +462,7 @@ class BuyController extends Controller
         $query->where('user_id', auth()->user()->id);
 
         // Get the results
-        $results = $query->get();
+        $results = $query->orderBy('created_at', 'desc')->get();
 
         // Iterate over each cloth
         $results->each(function ($buy) {
@@ -493,7 +500,7 @@ class BuyController extends Controller
             ->where('payment_status', 0)->where('payment_method', 2);
 
         // Get the results
-        $results = $query->get();
+        $results = $query->orderBy('created_at', 'desc')->get();
 
         // Iterate over each cloth
         $results->each(function ($buy) {

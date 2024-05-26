@@ -20,68 +20,68 @@ class AdminController extends Controller
     // }
 
     //TEST MIDTRANS======================================================================================================================
-    public function test()
-    {
-        $id = 17;
+    // public function test()
+    // {
+    //     $id = 17;
 
-        $buy = Buy::find($id);
-        $clothes = Cloth::find($buy->cloth_id);
+    //     $buy = Buy::find($id);
+    //     $clothes = Cloth::find($buy->cloth_id);
 
 
-        $params = [
-            "transaction_details" => [
-                "order_id" => "ORDER-" . $buy->id,
-                "gross_amount" => (float) $clothes->price_per_piece * (float) $buy->quantity
-            ]
-        ];
+    //     $params = [
+    //         "transaction_details" => [
+    //             "order_id" => "ORDER-" . $buy->id,
+    //             "gross_amount" => (float) $clothes->price_per_piece * (float) $buy->quantity
+    //         ]
+    //     ];
 
-        $auth = base64_encode(env('MIDTRANS_SERVER_KEY'));
+    //     $auth = base64_encode(env('MIDTRANS_SERVER_KEY'));
 
-        $response = Http::withHeaders([
-            'Accept' => 'application/json',
-            'Content-Type' => 'application/json',
-            'Authorization' => "Basic $auth"
-        ])->post('https://app.sandbox.midtrans.com/snap/v1/transactions', $params);
+    //     $response = Http::withHeaders([
+    //         'Accept' => 'application/json',
+    //         'Content-Type' => 'application/json',
+    //         'Authorization' => "Basic $auth"
+    //     ])->post('https://app.sandbox.midtrans.com/snap/v1/transactions', $params);
 
-        $response = json_decode($response->body())->redirect_url;
+    //     $response = json_decode($response->body())->redirect_url;
 
-        return redirect()->route("$response->redirect_url");
+    //     return redirect()->route("$response->redirect_url");
 
-        // $cloth = Cloth::find(1);
-        // $user = User::find(1);
+    //     // $cloth = Cloth::find(1);
+    //     // $user = User::find(1);
 
-        // // Assuming $cloth and $user are already defined
-        // // Attach the Buy object to the Cloth and User relationship
-        // $cloth->users()->attach($user, [
-        //     'quantity' => 1,
-        //     'payment_method' => 1,
-        //     'payment_status' => 1,
-        //     'confirmation_status' => 1
-        // ]);
+    //     // // Assuming $cloth and $user are already defined
+    //     // // Attach the Buy object to the Cloth and User relationship
+    //     // $cloth->users()->attach($user, [
+    //     //     'quantity' => 1,
+    //     //     'payment_method' => 1,
+    //     //     'payment_status' => 1,
+    //     //     'confirmation_status' => 1
+    //     // ]);
 
-        // $buy = Buy::orderBy('id', 'desc')->first();
+    //     // $buy = Buy::orderBy('id', 'desc')->first();
 
-        // return response()->json($buy);
-    }
+    //     // return response()->json($buy);
+    // }
 
     public function webhook(Request $request)
     {
         $req = $request->order_id;
-        $id = (int) str_replace("ORDER-", "", $req);
-        $buy = Buy::find($id);
+        if (strpos($req, 'ORDER-B-') !== false) {
+            // Remove the prefix
+            $ids_string = str_replace('ORDER-B-', '', $req);
 
-        if (!$buy) {
-            return response()->json([
-                'error' => 'No transaction Found'
-            ]);
+            $ids = array_map('intval', explode('-', $ids_string));
+        } else {
+            $ids[] = (int) str_replace("ORDER-", "", $req);
         }
 
-        $buy->update([
+        $affectedRows = Buy::whereIn($ids)->update([
             'payment_status' => 1,
             'confirmation_status' => 1
         ]);
 
-        return response()->json($buy);
+        // return response()->json($affectedRows);
 
         return redirect('http://fatto-a-manno-production.up.railway.app/');
     }
