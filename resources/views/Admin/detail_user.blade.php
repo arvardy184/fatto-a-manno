@@ -15,6 +15,7 @@
                         <th class="px-4 py-2 border">Payment Status</th>
                         <th class="px-4 py-2 border">Confirmation Status</th>
                         <th class="px-4 py-2 border">Transaction Date</th>
+                        <th class="px-4 py-2 border">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,9 +38,9 @@
                             </td>
                             <td class="px-4 py-2 border">
                                 @if ($buy->payment_status == 1)
-                                    Sudah Dibayar
+                                    Sudah di checkout
                                 @else
-                                    Belum Dibayar
+                                    Masih di keranjang
                                 @endif
                             </td>
                             <td class="px-4 py-2 border">
@@ -52,6 +53,24 @@
                                 @endif
                             </td>
                             <td class="px-4 py-2 border">{{ $buy->user->created_at }} </td>
+
+                            {{-- confirm status ==0 && payment_status ==1, bisa di klik kedua button --}}
+                            <td class="px-4 py-2 border">
+                                @if ($buy->confirmation_status == 0 && $buy->payment_status == 1)
+                                    <form action="/buy/payment/{{ $buy->id }}" method="GET">
+                                        @csrf
+                                        <button type="submit"
+                                            class="block w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2">
+                                            Confirm
+                                        </button>
+                                    </form>
+                                    <form action="/buy/delete/{{ $buy->id }}" method="POST" class="inline-block">
+                                        @csrf
+                                        <button type="submit"
+                                            class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Cancel</button>
+                                    </form>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
-    <div class="container mx-auto mt-5">
+    <div class="container mx-auto p-12">
         <h1 class="text-center text-2xl font-bold mb-4">Data Storage</h1>
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white border text-center">

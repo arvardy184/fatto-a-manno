@@ -136,7 +136,7 @@ Route::group([
 //BUY ===========================================================================================
 Route::group(['prefix' => 'buy'], function () {
     Route::post('/add', [BuyController::class, 'addBuy']);
-    Route::delete('/delete/{id}', [BuyController::class, 'deleteBuy']);
+    Route::post('/delete/{id}', [BuyController::class, 'deleteBuy']);
     Route::get('/', [BuyController::class, 'getAllBuys']);
     Route::get('/{id}', [BuyController::class, 'getBuybyId']);
     Route::get('/payment/{id}', [BuyController::class, 'editPayment']);

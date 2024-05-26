@@ -24,9 +24,8 @@
                                 <input type="hidden" name="total_price" value="{{ $sum }}">
                                 <input type="hidden" name="payment_method" value="0">
                                 <button type="submit"
-                                    class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-1 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"><a
-                                        href="https://wa.me/6281335760738/?text=Halo!%2C%20saya%20ingin%20membeli%20baju%20{{ $text }}%20dengan%20total%20harga%20Rp{{ formatRupiah($sum) }}">Bayar
-                                        Melalui Admin</a></button>
+                                    class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-1 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Bayar
+                                    Melalui Admin</button>
                             </form>
                         </div>
                         <div class="text-center sm:ml-4 sm:mt-0">

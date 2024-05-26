@@ -1,3 +1,4 @@
+{{-- size, color, type, Stored In : dropdown --}}
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="flex items-center justify-center min-h-screen px-6 py-12 lg:px-8">
