@@ -12,13 +12,15 @@ use Illuminate\Queue\SerializesModels;
 class ForgotPasswordMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $verificationUrl;
+    public $url;
+    public $newPassword;
     /**
      * Create a new message instance.
      */
-    public function __construct($verificationUrl)
+    public function __construct($url, $newPassword)
     {
-        $this->verificationUrl = $verificationUrl;
+        $this->url = $url;
+        $this->newPassword = $newPassword;
     }
 
     /**
