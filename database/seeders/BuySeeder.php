@@ -28,7 +28,7 @@ class BuySeeder extends Seeder
             $quantity = rand(1, 5);
 
             // Attach a random cloth to the user with the specified quantity
-            $user->clothes()->attach($clothes[$idx], [
+            $user->cloth()->attach($clothes[$idx], [
                 'quantity' => $quantity,
                 'payment_method' => 'Credit Card', // Example payment method
                 'payment_status' => rand(0, 1), // Example payment status
