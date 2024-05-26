@@ -149,7 +149,6 @@ class AuthController extends Controller
         $user->update([
             'password' => $newPassword
         ]);
-
         return redirect()->route('Profile')->with('success', 'User updated successfully');
     }
 
