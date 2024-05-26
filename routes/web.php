@@ -111,6 +111,7 @@ Route::group([
     Route::get('/quantity/{id}', [ClothesController::class, 'findClothWithTotalQuantity']);
     Route::get('/delete/{id}', [ClothesController::class, 'deleteClothes']);
     Route::get('/', [ClothesController::class, 'getAllClothes']);
+    Route::get('/data_pakaian/att', [ClothesController::class, 'getClothesbyAttributeAdmin']);
     Route::get('/{id}', [ClothesController::class, 'getClothesDetail']);
     Route::get('/data/{id}', [ClothesController::class, 'getDataEditClothes']);
 });
@@ -123,6 +124,7 @@ Route::group([
     Route::post('/edit/{cloth_id}', [StorageController::class, 'editStorage']);
     Route::delete('/delete/{id}', [StorageController::class, 'deleteStorage']);
     Route::get('/', [StorageController::class, 'getAllStorage'])->name('Data Gudang');
+    Route::get('/name', [StorageController::class, 'getStoragebyName']);
     Route::get('/{id}', [StorageController::class, 'getStoragebyId']);
     Route::get('/data/{id}', [StorageController::class, 'getDataEditStorage']);
     Route::get('/clothes/{id}', [StorageController::class, 'getStorageDetail']);
@@ -149,6 +151,7 @@ Route::group(['prefix' => 'buy'], function () {
 
 Route::group(['prefix' => 'user'], function () {
     Route::get('/', [UserController::class, 'getAllUser']); //Ini return all user to view
+    Route::get('/name', [UserController::class, 'getUserbyName']); //Ini return all user to view
     Route::get('/{id}', [UserController::class, 'getUserbyId']);
     Route::post('/add', [UserController::class, 'createUser']);
     Route::put('/edit/{id}', [UserController::class, 'updateUser']);
