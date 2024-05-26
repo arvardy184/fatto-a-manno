@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('payment_status');
             $table->unsignedBigInteger('cloth_id');
             $table->unsignedBigInteger('user_id');
+            $table->string('payment_url')->nullable();
             $table->timestamps();
 
             $table->foreign('cloth_id')->references('id')->on('cloths')->onDelete('cascade');
