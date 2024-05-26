@@ -3,7 +3,7 @@
 {{-- 2=Masi di keranjang --}}
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
-    <div class="container mx-auto mt-5">
+    <div class="container mx-auto p-0.5">
         <h1 class="text-center text-2xl font-bold mb-4">History {{ auth()->user()->name }}</h1>
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white border text-center">
@@ -20,6 +20,7 @@
                         <th class="px-4 py-2 border">Payment Status</th>
                         <th class="px-4 py-2 border">Confirmation Status</th>
                         <th class="px-4 py-2 border">Transaction Date</th>
+                        <th class="px-4 py-2 border">Payment URL</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,6 +60,13 @@
                                 @endif
                             </td>
                             <td class="px-4 py-2 border">{{ $buy->user->created_at }} </td>
+                            @if ($buy->payment_url != null)
+                                <td class="px-4 py-2 border">
+                                    <button
+                                        class="inline-block mt-2 w-full px-4 py-2 text-xs font-semibold leading-6 text-white uppercase bg-yellow-600 rounded hover:bg-yellow-700 focus:outline-none focus:bg-yellow-700">
+                                        <a href="{{ $buy->payment_url }}">URL</a></button>
+                                </td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>

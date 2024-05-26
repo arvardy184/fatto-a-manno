@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
-    <div class="container mx-auto mt-5">
+    <div class="container mx-auto p-12">
         <h1 class="text-center text-2xl font-bold mb-4">Data User</h1>
         @if (session('errors'))
             @include('modal.view_modal')
@@ -24,14 +24,14 @@
                             <td class="px-4 py-2 border">{{ $user['address'] }}</td>
                             <td class="px-4 py-2 border">{{ $user['number'] }}</td>
                             <td class="px-4 py-2 border">
+                                <form action="/dashboard/histori_pengguna/{{ $user['id'] }}"> <button
+                                        class="inline-block w-full px-4 py-2 text-xs font-semibold leading-6 text-white uppercase bg-yellow-500 rounded hover:bg-yellow-300 focus:outline-none focus:bg-yellow-700">
+                                        History Transaction </button>
+                                </form>
                                 <form action="/user/delete/{{ $user['id'] }}" method="POST">
                                     @csrf
                                     <button
-                                        class="inline-block w-full px-4 py-2 text-xs font-semibold leading-6 text-white uppercase bg-red-600 rounded hover:bg-red-700 focus:outline-none focus:bg-red-700">Delete</button>
-                                </form>
-                                <form action="/dashboard/histori_pengguna/{{ $user['id'] }}"> <button
-                                        class="mt-1 inline-block w-full px-4 py-2 text-xs font-semibold leading-6 text-white uppercase bg-yellow-500 rounded hover:bg-yellow-300 focus:outline-none focus:bg-yellow-700">
-                                        History Transaction </button>
+                                        class="inline-block mt-2 w-full px-4 py-2 text-xs font-semibold leading-6 text-white uppercase bg-red-600 rounded hover:bg-red-700 focus:outline-none focus:bg-red-700">Delete</button>
                                 </form>
                             </td>
                         </tr>

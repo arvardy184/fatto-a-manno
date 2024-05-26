@@ -145,7 +145,7 @@
                                     <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                                     <a href="/dashboard/histori_user"
                                         class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                                        aria-current="page">History Transaction</a>
+                                        aria-current="page">Transaction History </a>
                                 </div>
                             </div>
                         </div>
@@ -220,7 +220,7 @@
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                         <a href="/dashboard/histori_user"
                             class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
-                            aria-current="page">History Transaction</a>
+                            aria-current="page">Transaction History </a>
                     </div>
                     <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
