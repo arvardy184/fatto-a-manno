@@ -90,7 +90,7 @@ Route::post('/signin', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 Route::get('/email/verify/{id}', [AuthController::class, 'mailVerification'])->name('verifyMail');
 Route::post('/change-password', [AuthController::class, 'changePassword']);
-Route::get('/forgot/{id}', [AuthController::class, 'forgotPassword'])->name('forgotPass'); // Forgot Pass
+Route::post('/forgot/{id}', [AuthController::class, 'forgotPassword'])->name('forgotPass'); // Forgot Pass
 Route::any('/test', function () {
     return response()->json([
         'data' => 'aaaaaaaaaa'
