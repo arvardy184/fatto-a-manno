@@ -170,11 +170,11 @@ class AuthController extends Controller
         $user = User::where('email', request('email'))->first();
 
         // Hash the new password
-        $newPassword = Hash::make(request()->input('password'));
+        $newHashed = Hash::make(request()->input('password'));
 
         // Update the user's password
         $user->update([
-            'password' => $newPassword
+            'password' => $newHashed
         ]);
 
         // Assuming $user is the user model instance
