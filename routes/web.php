@@ -64,11 +64,11 @@ Route::group([
     })->name('Ubah Password');
 
     //admin
-    Route::get('/data_pengguna', [UserController::class, 'getAllUsers'])->name('Data Pengguna');
+    Route::get('/data_pengguna', [UserController::class, 'getUserbyName'])->name('Data Pengguna');
     Route::get('/histori_pengguna/{user_id}', [BuyController::class, 'getBuybyAttribute'])->name('Detail User');
 
     //clothes
-    Route::get('/data_pakaian', [ClothesController::class, 'getAllClothes'])->name('Data Pakaian');
+    Route::get('/data_pakaian', [ClothesController::class, 'getClothesbyAttributeAdmin'])->name('Data Pakaian');
     Route::get('/data_pakaian/tambah', function () {
         return view('Clothes.tambah_pakaian', ['title' => 'Tambah Pakaian']);
     })->name('Tambah Pakaian');
@@ -82,6 +82,7 @@ Route::group([
     Route::get('/keranjang_user', [BuyController::class, 'getKeranjang'])->name('Keranjang User');
     Route::get('/detail_items', [StorageController::class, 'getStorageDetail'])->name('Detail Items');
     Route::get('/edit_keranjang/{id}', [BuyController::class, 'getDataEditKeranjang'])->name('Edit Keranjang');
+    Route::get('/data_storage', [StorageController::class, 'getStoragebyName']);
 });
 
 

@@ -304,36 +304,30 @@
         </div>
 
         <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex items-baseline justify-between border-gray-200 pb-6 pt-24 lg:pt-0">
+                <div class="flex-1"></div> <!-- Menambahkan elemen ini untuk mengambil ruang yang tersisa -->
+                <div x-data="{ isOpen: false }" class="flex justify-end ml-auto">
+                    {{-- button mobile --}}
+                    <button @click="test = true" type="button"
+                        class="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden">
+                        <span class="sr-only">Filters</span>
+                        <svg class="h-5 w-5" aria-hidden="true" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M2.628 1.601C5.028 1.206 7.49 1 10 1s4.973.206 7.372.601a.75.75 0 01.628.74v2.288a2.25 2.25 0 01-.659 1.59l-4.682 4.683a2.25 2.25 0 00-.659 1.59v3.037c0 .684-.31 1.33-.844 1.757l-1.937 1.55A.75.75 0 018 18.25v-5.757a2.25 2.25 0 00-.659-1.591L2.659 6.22A2.25 2.25 0 012 4.629V2.34a.75.75 0 01.628-.74z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
 
-            <section aria-labelledby="products-heading" class="pb-24 pt-6">
+
+            <section aria-labelledby="products-heading" class="pb-24 pt-0 lg:pt-3">
                 <h2 id="products-heading" class="sr-only">Products</h2>
 
                 <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4 ">
                     <!-- Filters -->
                     <form action="{{ route('All Products') }}" method="GET" class="hidden lg:block w-full">
-                        <h3 class="sr-only">Categories</h3>
-                        <ul role="list"
-                            class="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
-                            <li>
-                                <a href="#" class="block px-2 py-3 hover:bg-gray-100 hover:text-black">Totes</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="block px-2 py-3 hover:bg-gray-100 hover:text-black">Backpacks</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block px-2 py-3 hover:bg-gray-100 hover:text-black">Travel
-                                    Bags</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block px-2 py-3 hover:bg-gray-100 hover:text-black">Hip
-                                    Bags</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block px-2 py-3 hover:bg-gray-100 hover:text-black">Laptop
-                                    Sleeves</a>
-                            </li>
-                        </ul>
+
 
                         <div x-data="{ expanded: false }" class="border-b border-gray-200 py-6">
                             <h3 class="-my-3 flow-root">
