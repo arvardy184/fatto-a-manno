@@ -2,6 +2,9 @@
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+            @php
+                $storages = ['A', 'B', 'C', 'D', 'E', 'F'];
+            @endphp
 
             <h2 class="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Tambah Pakaian</h2>
         </div>
@@ -10,9 +13,24 @@
                 @csrf
                 <div class="mb-6">
                     <label for="type" class="block mb-1 text-sm font-semibold text-gray-700">Type</label>
-                    <input type="text" id="type" name="type"
-                        class="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <div class="relative">
+                        <select id="type" name="type"
+                            class="block w-full px-3 py-2 h-10 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            size="1">
+                            <option value=""></option>
+                            <option value="polo">Polo</option>
+                            <option value="turtleneck">Turtleneck</option>
+                            <option value="kaos polos">Kaos Polos</option>
+                            <option value="wallet">Wallet</option>
+                            <option value="hoodie">Hoodie</option>
+                            <option value="pants">Pants</option>
+                            <option value="caps">Caps</option>
+                            <option value="kemeja">Kemeja</option>
+                            <option value="sweater">Sweater</option>
+                        </select>
+                    </div>
                 </div>
+
 
                 <div class="mb-6">
                     <label for="name" class="block mb-1 text-sm font-semibold text-gray-700">Nama</label>
@@ -22,14 +40,34 @@
 
                 <div class="mb-6">
                     <label for="size" class="block mb-1 text-sm font-semibold text-gray-700">Size</label>
-                    <input type="text" id="size" name="size"
-                        class="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <div class="relative">
+                        <select id="size" name="size"
+                            class="block w-full px-3 py-2 h-10 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            size="1">
+                            <option value=""></option>
+                            <option class="p-96" value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                            <option value="XXL">XXL</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="mb-6">
                     <label for="color" class="block mb-1 text-sm font-semibold text-gray-700">Color</label>
-                    <input type="text" id="color" name="color"
-                        class="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <div class="relative">
+                        <select id="color" name="color"
+                            class="block w-full px-3 py-2 h-10 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            size="1">
+                            <option value=""></option>
+                            <option value="white">White</option>
+                            <option value="black">Black</option>
+                            <option value="blue">Blue</option>
+                            <option value="brown">Brown</option>
+                            <option value="sage">Sage</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="mb-6">

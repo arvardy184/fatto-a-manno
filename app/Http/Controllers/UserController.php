@@ -100,7 +100,7 @@ class UserController extends Controller
     public function getUserbyName()
     {
         $validator = Validator::make(request()->all(), [
-            'name' => 'sometimes|string'
+            'name' => 'sometimes'
         ]);
 
         if ($validator->fails()) {

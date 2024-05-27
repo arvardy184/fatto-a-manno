@@ -15,15 +15,28 @@
                                     <a href="/dashboard"
                                         class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                                         aria-current="page">Home</a>
-                                    <a href="/dashboard/data_pakaian"
-                                        class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">View
-                                        Clothing Information</a>
-                                    <a href="/storage/"
-                                        class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">View
-                                        Storage Information</a>
-                                    <a href="/dashboard/data_pengguna"
-                                        class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">View
-                                        User Information</a>
+                                    <form action="/dashboard/data_pakaian" method="GET" class="inline">
+                                        @csrf
+                                        <button type="submit"
+                                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+                                            View Clothing Information
+                                        </button>
+                                    </form>
+                                    <form action="/dashboard/data_storage" method="GET" class="inline">
+                                        @csrf
+                                        <button type="submit"
+                                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+                                            View Storage Information
+                                        </button>
+                                    </form>
+                                    <form action="/dashboard/data_pengguna" method="GET" class="inline">
+                                        @csrf
+                                        <button type="submit"
+                                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+                                            View
+                                            User Information
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -91,15 +104,28 @@
                         <a href="/dashboard"
                             class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
                             aria-current="page">Dashboard</a>
-                        <a href="/dashboard/data_pakaian"
-                            class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">View
-                            Clothing information</a>
-                        <a href="/storage/"
-                            class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">View
-                            Storage Information</a>
-                        <a href="/dashboard/data_pengguna"
-                            class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">View
-                            User Information</a>
+                        <form action="/dashboard/data_pakaian" method="GET" class="inline">
+                            @csrf
+                            <button type="submit"
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">View
+                                Clothing information
+                            </button>
+                        </form>
+                        <form action="/dashboard/data_storage" method="GET" class="inline">
+                            @csrf
+                            <button type="submit"
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">View
+                                Storage Information
+                            </button>
+                        </form>
+                        <form action="/dashboard/data_pengguna" method="GET" class="inline">
+                            @csrf
+                            <button type="submit"
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">
+                                View
+                                User Information
+                            </button>
+                        </form>
                     </div>
                     <div class="border-t border-gray-700 pb-3 pt-4">
                         <div class="flex items-center px-5">

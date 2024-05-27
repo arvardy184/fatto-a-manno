@@ -261,22 +261,22 @@ class StorageController extends Controller
     public function getStoragebyName()
     {
         $validator = Validator::make(request()->all(), [
-            'name' => 'sometimes|string'
+            'name' => 'sometimes'
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->messages());
         }
 
-        $users = Storage::where('name', 'LIKE', request('name') . '%')->paginate(10, ['*'], 'storages_page');
+        $storages = Storage::where('name', 'LIKE', request('name') . '%')->paginate(10, ['*'], 'storages_page');
 
         // Return the clothes with total quantities
         if (request()->expectsJson() || request()->is('api/*')) {
             return response()->json([
-                'users' => $users,
+                'users' => $storages,
             ]);
         }
 
-        return view('Admin.data_storage', ['title' => 'Data Storage'], compact('users'));
+        return view('Storage.data_storage', ['title' => 'Data Storage'], compact('storages'));
     }
 }
