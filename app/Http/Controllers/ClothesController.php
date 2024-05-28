@@ -311,35 +311,57 @@ class ClothesController extends Controller
     //The params are optional in the URL
     public function getClothesbyAttribute()
     {
-        $validator = Validator::make(request()->all(), [
-            'type' => 'sometimes|string',
-            'size' => 'sometimes|string',
-            'color' => 'sometimes|string',
+        $data = request()->all();
+
+        // Convert buys_id from a comma-separated string to an array of integers
+        if (isset($data['type'])) {
+            $data['type'] = explode(',', $data['type']);
+        }
+
+        if (isset($data['size'])) {
+            $data['size'] = explode(',', $data['size']);
+        }
+
+        if (isset($data['color'])) {
+            $data['color'] = explode(',', $data['color']);
+        }
+
+        $validator = Validator::make($data, [
+            'type' => 'sometimes|array',
+            'size' => 'sometimes|array',
+            'color' => 'sometimes|array',
             'price' => 'sometimes|numeric',
             'name' => 'sometimes|string',
             'sorting' => 'sometimes|in:0,1,2'
         ]);
 
-        $type = request('type', null);
-        $size = request('size', null);
-        $color = request('color', null);
-        $price = request('price', null);
-        $description = request('name', null);
-        $sorting = request('sorting', null);
+        if ($validator->fails()) {
+            // Handle validation failures
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $validatedData = $validator->validated();
+
+        $type = $validatedData['type'] ?? null;
+        $size = $validatedData['size'] ?? null;
+        $color = $validatedData['color'] ?? null;
+        $price = $validatedData['price'] ?? null;
+        $description = $validatedData['name'] ?? null;
+        $sorting = $validatedData['sorting'] ?? null;
 
         // Build query conditions based on provided arguments
         $query = Cloth::query();
 
         if (!is_null($type)) {
-            $query->where('type', $type);
+            $query->whereIn('type', $type);
         }
 
         if (!is_null($size)) {
-            $query->where('size', $size);
+            $query->whereIn('size', $size);
         }
 
         if (!is_null($color)) {
-            $query->where('color', $color);
+            $query->whereIn('color', $color);
         }
 
         if (!is_null($price)) {
@@ -445,35 +467,57 @@ class ClothesController extends Controller
     //The params are optional in the URL
     public function getClothesbyAttributeAdmin()
     {
-        $validator = Validator::make(request()->all(), [
-            'type' => 'sometimes|string',
-            'size' => 'sometimes|string',
-            'color' => 'sometimes|string',
+        $data = request()->all();
+
+        // Convert buys_id from a comma-separated string to an array of integers
+        if (isset($data['type'])) {
+            $data['type'] = explode(',', $data['type']);
+        }
+
+        if (isset($data['size'])) {
+            $data['size'] = explode(',', $data['size']);
+        }
+
+        if (isset($data['color'])) {
+            $data['color'] = explode(',', $data['color']);
+        }
+
+        $validator = Validator::make($data, [
+            'type' => 'sometimes|array',
+            'size' => 'sometimes|array',
+            'color' => 'sometimes|array',
             'price' => 'sometimes|numeric',
             'name' => 'sometimes|string',
             'sorting' => 'sometimes|in:0,1,2'
         ]);
 
-        $type = request('type', null);
-        $size = request('size', null);
-        $color = request('color', null);
-        $price = request('price', null);
-        $description = request('name', null);
-        $sorting = request('sorting', null);
+        if ($validator->fails()) {
+            // Handle validation failures
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $validatedData = $validator->validated();
+
+        $type = $validatedData['type'] ?? null;
+        $size = $validatedData['size'] ?? null;
+        $color = $validatedData['color'] ?? null;
+        $price = $validatedData['price'] ?? null;
+        $description = $validatedData['name'] ?? null;
+        $sorting = $validatedData['sorting'] ?? null;
 
         // Build query conditions based on provided arguments
         $query = Cloth::query();
 
         if (!is_null($type)) {
-            $query->where('type', $type);
+            $query->whereIn('type', $type);
         }
 
         if (!is_null($size)) {
-            $query->where('size', $size);
+            $query->whereIn('size', $size);
         }
 
         if (!is_null($color)) {
-            $query->where('color', $color);
+            $query->whereIn('color', $color);
         }
 
         if (!is_null($price)) {
