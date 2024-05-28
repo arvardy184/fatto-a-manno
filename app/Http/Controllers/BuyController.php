@@ -133,6 +133,10 @@ class BuyController extends Controller
 
             $redirect_url = json_decode($response->body())->redirect_url;
 
+            $buy->update([
+                'payment_url' => $redirect_url
+            ]);
+
             if ($request->is('api/*')) {
                 return response()->json(['url' => json_decode($response->body())], 201);
             }
