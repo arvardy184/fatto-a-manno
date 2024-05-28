@@ -38,8 +38,8 @@ class BuyController extends Controller
             return redirect()->back()->withErrors($validator->messages());
         }
 
-        // $user = auth()->user();
-        $user = User::find(1);
+        $user = auth()->user();
+        // $user = User::find(1);
         // Find the cloth
         $cloth = Cloth::find($request->cloth_id);
         $storage = $cloth->storages()->first();
