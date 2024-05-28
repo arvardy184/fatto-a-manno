@@ -38,7 +38,8 @@ class BuyController extends Controller
             return redirect()->back()->withErrors($validator->messages());
         }
 
-        $user = auth()->user();
+        // $user = auth()->user();
+        $user = User::find(1);
         // Find the cloth
         $cloth = Cloth::find($request->cloth_id);
         $storage = $cloth->storages()->first();
@@ -119,15 +120,24 @@ class BuyController extends Controller
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
                 'Authorization' => "Basic $auth"
-            ])->post('https://app.sandbox.midtrans.com/snap/v1/transactions', $params);
+            ])->timeout(30)
+                ->retry(3, 1000)
+                ->post('https://app.sandbox.midtrans.com/snap/v1/transactions', $params);
 
-            $url = json_decode($response->body())->redirect_url;
-
-            if ($request->is('api/*')) {
-                return response()->json(['url' => $url], 201);
+            if ($response->failed()) {
+                if ($request->is('api/*')) {
+                    return response()->json(['Error' => $response->status()], 201);
+                }
+                return redirect()->back()->withErrors(['Error Connecting to Midtrans']);
             }
 
-            return redirect()->back()->with('url', $url);
+            $redirect_url = json_decode($response->body())->redirect_url;
+
+            if ($request->is('api/*')) {
+                return response()->json(['url' => json_decode($response->body())], 201);
+            }
+
+            return redirect()->back()->with('url', $redirect_url);
         } else
             return redirect()->back();
     }
@@ -173,7 +183,9 @@ class BuyController extends Controller
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
                 'Authorization' => "Basic $auth"
-            ])->post('https://app.sandbox.midtrans.com/snap/v1/transactions', $params);
+            ])->timeout(30)
+                ->retry(3, 1000)
+                ->post('https://app.sandbox.midtrans.com/snap/v1/transactions', $params);
 
             $url = json_decode($response->body())->redirect_url;
 
