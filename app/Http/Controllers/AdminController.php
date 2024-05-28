@@ -76,14 +76,14 @@ class AdminController extends Controller
             $ids[] = (int) str_replace("ORDER-", "", $req);
         }
 
-        $affectedRows = Buy::whereIn($ids)->update([
+        $affectedRows = Buy::whereIn('id', $ids)->update([
             'payment_status' => 1,
             'confirmation_status' => 1
         ]);
 
-        // return response()->json($affectedRows);
+        return response()->json($affectedRows);
 
-        return redirect('http://fatto-a-manno-production.up.railway.app/');
+        // return redirect('http://fatto-a-manno-production.up.railway.app/');
     }
     //=============================================================================================================================
 
