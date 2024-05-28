@@ -120,7 +120,9 @@ class BuyController extends Controller
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
                 'Authorization' => "Basic $auth"
-            ])->post('https://app.sandbox.midtrans.com/snap/v1/transactions', $params);
+            ])->timeout(30)
+                ->retry(3, 1000)
+                ->post('https://app.sandbox.midtrans.com/snap/v1/transactions', $params);
 
             if ($response->failed()) {
                 if ($request->is('api/*')) {
@@ -181,7 +183,9 @@ class BuyController extends Controller
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
                 'Authorization' => "Basic $auth"
-            ])->post('https://app.sandbox.midtrans.com/snap/v1/transactions', $params);
+            ])->timeout(30)
+                ->retry(3, 1000)
+                ->post('https://app.sandbox.midtrans.com/snap/v1/transactions', $params);
 
             $url = json_decode($response->body())->redirect_url;
 
