@@ -51,7 +51,12 @@ class Chart
                 ->groupBy('date')
                 ->get()
                 ->toArray();
-            $counts = $this->getCountsArrayForMonth(Carbon::parse($data[0]['date']), $data);
+            if ($data) {
+                $counts = $this->getCountsArrayForMonth(Carbon::parse($data[0]['date']), $data);
+            } else {
+                $counts = [];
+            }
+
             $dates = $this->getAllDatesInMonth($year, $month);
         } else {
             // Group by month if month is not provided
@@ -65,11 +70,13 @@ class Chart
         }
 
 
-        return $this->chart->barChart()
+        return $this->chart->horizontalBarChart()
             ->setTitle('Transaction Analysis')
             ->setSubtitle('Clothes' . $clothes_type . $clothes_color)
+            ->setColors(['#FFC107', '#D32F2F'])
             ->addData('Quantity', $counts)
             ->setXAxis($dates);
+
     }
 
     public function getCountsArrayForMonth(?string $month, array $data): array

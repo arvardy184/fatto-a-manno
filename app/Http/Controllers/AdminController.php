@@ -245,7 +245,7 @@ class AdminController extends Controller
         return view();
     }
 
-    public function anal(Chart $chart)
+    public function analyze(Chart $chart)
     {
         // Define the validation rules
         $validator = Validator::make(request()->all(), [
