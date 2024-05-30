@@ -65,9 +65,9 @@ Route::group([
     })->name('Tambah Gudang');
 
     Route::get('/histori_user', [BuyController::class, 'getBuybyAttributeCustomer'])->name('Histori User');
-    Route::get('/keranjang_user', [BuyController::class, 'getKeranjang'])->name('Keranjang User');
+    Route::get('/keranjang_user', [BuyController::class, 'getKeranjang'])->name('Keranjang User')->middleware('isUser');
     Route::get('/detail_items', [StorageController::class, 'getStorageDetail'])->name('Detail Items');
-    Route::get('/edit_keranjang/{id}', [BuyController::class, 'getDataEditKeranjang'])->name('Edit Keranjang');
+    Route::get('/edit_keranjang/{id}', [BuyController::class, 'getDataEditKeranjang'])->name('Edit Keranjang')->middleware('isUser');
     Route::get('/data_storage', [StorageController::class, 'getStoragebyName']);
 });
 

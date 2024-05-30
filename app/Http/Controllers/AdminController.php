@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Buy;
 use App\Models\User;
 use App\Models\Cloth;
+use App\Models\Store;
 use App\Models\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AdminController extends Controller
 {
@@ -153,6 +154,15 @@ class AdminController extends Controller
         $buy->update([
             'confirmation_status' => request('confirmation_status')
         ]);
+
+        if (request('confirmation_status') == 2) {
+            $storage = $buy->cloth->storages()->first();
+
+            // Update the stock
+            $store = Store::where('storage_id', $storage->id)->where('cloth_id', $buy->cloth->id)->first();
+            $store->quantity += (int) $buy->quantity;
+            $store->save();
+        }
 
         if ($buy) {
             if (request()->is('api/*')) {

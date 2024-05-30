@@ -15,12 +15,14 @@ class ClothesController extends Controller
     {
         //Validate Request
         $validator = Validator::make(request()->all(), [
-            'type' => 'required',
-            'name' => 'required',
-            'size' => 'required',
-            'color' => 'required',
+            'type' => 'required|string',
+            'name' => 'required|string',
+            'size' => 'required|string',
+            'color' => 'required|string',
             'stored_in' => 'required|exists:storages,name',
-            'quantity' => 'required'
+            'quantity' => 'required|numeric',
+            'price_per_piece' => 'required|numeric',
+            'image_url' => 'required|string'
         ]);
 
         if ($validator->fails()) {
@@ -91,13 +93,13 @@ class ClothesController extends Controller
     {
         //Validate Request
         $validator = Validator::make(request()->all(), [
-            'type' => 'required',
-            'name' => 'required',
-            'size' => 'required',
-            'color' => 'required',
-            'price_per_piece' => 'required',
-            'description' => 'required',
-            'image_url' => 'required'
+            'type' => 'required|string',
+            'name' => 'required|string',
+            'size' => 'required|string',
+            'color' => 'required|string',
+            'price_per_piece' => 'required|numeric|min:1',
+            'description' => 'required|string',
+            'image_url' => 'required|string'
         ]);
 
         if ($validator->fails()) {
@@ -330,7 +332,7 @@ class ClothesController extends Controller
             'type' => 'sometimes|array|nullable',
             'size' => 'sometimes|array|nullable',
             'color' => 'sometimes|array|nullable',
-            'price' => 'sometimes|numeric|nullable',
+            'price' => 'sometimes|numeric|nullable|min:1',
             'name' => 'sometimes|string|nullable',
             'sorting' => 'sometimes|in:0,1,2|nullable'
         ]);
@@ -486,7 +488,7 @@ class ClothesController extends Controller
             'type' => 'sometimes|array|nullable',
             'size' => 'sometimes|array|nullable',
             'color' => 'sometimes|array|nullable',
-            'price' => 'sometimes|numeric|nullable',
+            'price' => 'sometimes|numeric|nullable|min:1',
             'name' => 'sometimes|string|nullable',
             'sorting' => 'sometimes|in:0,1,2|nullable'
         ]);

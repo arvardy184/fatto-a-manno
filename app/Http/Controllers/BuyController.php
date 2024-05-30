@@ -312,7 +312,6 @@ class BuyController extends Controller
 
     public function editPayment($id)
     {
-
         $buy = Buy::find($id);
 
         if (!$buy) {
@@ -391,7 +390,7 @@ class BuyController extends Controller
     public function getBuybyAttribute($user_id)
     {
         $validator = Validator::make(request()->all(), [
-            'payment_method' => 'sometimes',
+            'payment_method' => 'sometimes|in:0,1,2',
             'payment_status' => 'sometimes|in:0,1',
             'confirmation_status' => 'sometimes|in:0,1,2',
         ]);
