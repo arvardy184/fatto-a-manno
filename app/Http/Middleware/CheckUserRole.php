@@ -19,6 +19,6 @@ class CheckUserRole
             return $next($request);
         }
 
-        return response()->json(['error' => 'Unauthorized'], 401);
+        return redirect()->back()->withErrors(['Invalid credentials']);
     }
 }
