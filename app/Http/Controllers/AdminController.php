@@ -249,7 +249,7 @@ class AdminController extends Controller
     {
         // Define the validation rules
         $validator = Validator::make(request()->all(), [
-            'month' => 'sometimes|integer|min:1|max:12|nullable',
+            'month' => 'sometimes|integer|min:0|max:12|nullable',
             'year' => 'sometimes|integer|nullable',
             'clothes_type' => 'sometimes|string|nullable',
             'clothes_color' => 'sometimes|string|nullable',
@@ -269,6 +269,10 @@ class AdminController extends Controller
         $clothesType = $validatedData['clothes_type'] ?? null;
         $clothesColor = $validatedData['clothes_color'] ?? null;
 
-        return view('Admin.chart', ['title' => 'Analisa', 'chart' => $chart->build(5, 2024, $clothesType, $clothesColor)]);
+        if ($month == 0) {
+            $month = null;
+        }
+
+        return view('Admin.chart', ['title' => 'Analisa', 'chart' => $chart->build($month, $year, $clothesType, $clothesColor)]);
     }
 }
