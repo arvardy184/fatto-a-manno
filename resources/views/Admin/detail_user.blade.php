@@ -3,6 +3,9 @@
     <div class="container mx-auto mt-5">
         <h1 class="text-center text-2xl font-bold mb-4">History {{ $user->name }}</h1>
         <div class="overflow-x-auto">
+            @if (session('errors'))
+                @include('components.view_modal')
+            @endif
             <table class="min-w-full bg-white border text-center">
                 <thead>
                     <tr>

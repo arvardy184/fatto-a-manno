@@ -12,6 +12,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Charts\MonthlyUsersChart;
 
 class AdminController extends Controller
 {
@@ -174,7 +175,7 @@ class AdminController extends Controller
         }
     }
 
-    public function getAnalysis()
+    public function getAnalysis(MonthlyUsersChart $chart)
     {
         // Define the validation rules
         $validator = Validator::make(request()->all(), [
@@ -186,8 +187,7 @@ class AdminController extends Controller
 
         if ($validator->fails()) {
             // Handle validation failures
-            // return redirect()->back()->withErrors($validator)->withInput();
-            return response()->json(['Error']);
+            return response()->json(['Error' => $validator->errors()]);
         }
 
         // Get the validated data
@@ -236,10 +236,23 @@ class AdminController extends Controller
                 ->get();
         }
 
+        // Generate the chart data
+        $chartData = $chart->build()->addData('Counts', $results->pluck('count')->toArray());
+
+        // Check if the request is for the API and return JSON response if so
         if (request()->is('api/*')) {
             return response()->json(['results' => $results]);
         }
-        // Return the results as JSON (or modify as needed)
-        return view();
+        $dataChart = [
+            'results' => $results,
+            'chart' => $chartData,
+            'month' => $month,
+            'year' => $year,
+            'clothesType' => $clothesType,
+            'clothesColor' => $clothesColor,
+        ];
+        // Return the results to the view
+        return redirect()->route('dashboard')->with('data', $dataChart);
     }
+
 }
