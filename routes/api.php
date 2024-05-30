@@ -72,3 +72,4 @@ Route::group(['prefix' => 'buy'], function () {
 
 Route::post('/pay', [AdminController::class, 'test']);
 Route::post('/hook', [AdminController::class, 'webhook']);
+Route::post('/analyze', [AdminController::class, 'getAnalysis']);

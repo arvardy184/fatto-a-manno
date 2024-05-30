@@ -327,12 +327,12 @@ class ClothesController extends Controller
         }
 
         $validator = Validator::make($data, [
-            'type' => 'sometimes|array',
-            'size' => 'sometimes|array',
-            'color' => 'sometimes|array',
-            'price' => 'sometimes|numeric',
-            'name' => 'sometimes|string',
-            'sorting' => 'sometimes|in:0,1,2'
+            'type' => 'sometimes|array|nullable',
+            'size' => 'sometimes|array|nullable',
+            'color' => 'sometimes|array|nullable',
+            'price' => 'sometimes|numeric|nullable',
+            'name' => 'sometimes|string|nullable',
+            'sorting' => 'sometimes|in:0,1,2|nullable'
         ]);
 
         if ($validator->fails()) {
@@ -483,12 +483,12 @@ class ClothesController extends Controller
         }
 
         $validator = Validator::make($data, [
-            'type' => 'sometimes|array',
-            'size' => 'sometimes|array',
-            'color' => 'sometimes|array',
-            'price' => 'sometimes|numeric',
-            'name' => 'sometimes|string',
-            'sorting' => 'sometimes|in:0,1,2'
+            'type' => 'sometimes|array|nullable',
+            'size' => 'sometimes|array|nullable',
+            'color' => 'sometimes|array|nullable',
+            'price' => 'sometimes|numeric|nullable',
+            'name' => 'sometimes|string|nullable',
+            'sorting' => 'sometimes|in:0,1,2|nullable'
         ]);
 
         if ($validator->fails()) {

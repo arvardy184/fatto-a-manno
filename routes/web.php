@@ -165,4 +165,5 @@ Route::post('/hook', [AdminController::class, 'webhook']);
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', [AdminController::class, 'getAllData']); //Ini return all user to view
     Route::post('/confirm/{id}', [AdminController::class, 'confirmPayment']);
+    Route::post('/analyze', [AdminController::class, 'getAnalysis']);
 });
