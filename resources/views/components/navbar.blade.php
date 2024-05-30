@@ -19,29 +19,29 @@
                                         @csrf
                                         <button type="submit"
                                             class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                                            View Clothing Information
+                                            Clothing Information
                                         </button>
                                     </form>
                                     <form action="/dashboard/data_storage" method="GET" class="inline">
                                         @csrf
                                         <button type="submit"
                                             class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                                            View Storage Information
+                                            Storage Information
                                         </button>
                                     </form>
                                     <form action="/dashboard/data_pengguna" method="GET" class="inline">
                                         @csrf
                                         <button type="submit"
                                             class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                                            View
+
                                             User Information
                                         </button>
                                     </form>
-                                    <form action="/dashboard/data_pengguna" method="GET" class="inline">
+                                    <form action="/dashboard/sales_analysis" method="POST" class="inline">
                                         @csrf
                                         <button type="submit"
                                             class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                                            View
+
                                             Sales Analysis
                                         </button>
                                     </form>
@@ -91,13 +91,13 @@
                                 <span class="sr-only">Open main menu</span>
                                 <!-- Menu open: "hidden", Menu closed: "block" -->
                                 <svg :class="{ 'hidded': isOpen, 'block': !isOpen }" class="block h-6 w-6" fill="none"
-                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                    Box="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                 </svg>
                                 <!-- Menu open: "block", Menu closed: "hidden" -->
                                 <svg :class="{ 'block': isOpen, 'hidden': !isOpen }" class="hidden h-6 w-6" fill="none"
-                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                    Box="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                             </button>
@@ -115,14 +115,14 @@
                         <form action="/dashboard/data_pakaian" method="GET" class="inline">
                             @csrf
                             <button type="submit"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">View
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">
                                 Clothing information
                             </button>
                         </form>
                         <form action="/dashboard/data_storage" method="GET" class="inline">
                             @csrf
                             <button type="submit"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">View
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">
                                 Storage Information
                             </button>
                         </form>
@@ -130,7 +130,7 @@
                             @csrf
                             <button type="submit"
                                 class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">
-                                View
+
                                 User Information
                             </button>
                         </form>
@@ -138,7 +138,7 @@
                             @csrf
                             <button type="submit"
                                 class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">
-                                View Sales Analysis
+                                Sales Analysis
                             </button>
                         </form>
 
@@ -236,13 +236,13 @@
                                 <span class="sr-only">Open main menu</span>
                                 <!-- Menu open: "hidden", Menu closed: "block" -->
                                 <svg :class="{ 'hidded': isOpen, 'block': !isOpen }" class="block h-6 w-6" fill="none"
-                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                    Box="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                 </svg>
                                 <!-- Menu open: "block", Menu closed: "hidden" -->
                                 <svg :class="{ 'block': isOpen, 'hidden': !isOpen }" class="hidden h-6 w-6" fill="none"
-                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                    Box="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                             </button>
@@ -334,13 +334,13 @@
                             <span class="sr-only">Open main menu</span>
                             <!-- Menu open: "hidden", Menu closed: "block" -->
                             <svg :class="{ 'hidded': isOpen, 'block': !isOpen }" class="block h-6 w-6" fill="none"
-                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                Box="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                             </svg>
                             <!-- Menu open: "block", Menu closed: "hidden" -->
                             <svg :class="{ 'block': isOpen, 'hidden': !isOpen }" class="hidden h-6 w-6" fill="none"
-                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                Box="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>

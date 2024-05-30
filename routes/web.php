@@ -69,6 +69,7 @@ Route::group([
     Route::get('/detail_items', [StorageController::class, 'getStorageDetail'])->name('Detail Items')->middleware('isAdmin');
     Route::get('/edit_keranjang/{id}', [BuyController::class, 'getDataEditKeranjang'])->name('Edit Keranjang')->middleware('isCustomer');
     Route::get('/data_storage', [StorageController::class, 'getStoragebyName'])->middleware('isAdmin');
+    Route::post('/sales_analysis', [AdminController::class, 'analyze'])->middleware('isAdmin');
 });
 
 
@@ -159,5 +160,5 @@ Route::post('/hook', [AdminController::class, 'webhook']);
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', [AdminController::class, 'getAllData'])->middleware('isAdmin'); //Ini return all user to view
     Route::post('/confirm/{id}', [AdminController::class, 'confirmPayment'])->middleware('isAdmin');
-    Route::post('/analyze', [AdminController::class, 'anal'])->middleware('isAdmin');
+    Route::post('/analyze', [AdminController::class, 'analyze'])->middleware('isAdmin');
 });
