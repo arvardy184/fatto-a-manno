@@ -18,11 +18,11 @@ Route::group([], function () {
 
     Route::get('/login', function () {
         return view('Guest.login', ['title' => 'Login']);
-    })->name('login');
+    })->name('login')->middleware('redirectDashboard');
 
     Route::get('/register', function () {
         return view('Guest.register', ['title' => 'Register']);
-    })->name('register');
+    })->name('register')->middleware('redirectDashboard');
     Route::get('/all_products', [ClothesController::class, 'getClothesbyAttribute'])->name('All Products');
     Route::get('/deskripsi_pakaian/{id}', [ClothesController::class, 'getClothesDetail'])->name('Deskripsi Pakaian');
     Route::get('/tambah_pembayaran', [BuyController::class, 'addBuy'])->name('Deskripsi Pakaian');
