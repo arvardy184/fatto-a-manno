@@ -376,9 +376,9 @@ class ClothesController extends Controller
             if ($sorting == 0) {
                 $query->orderBy('created_at', 'desc'); // Sort by created_at in descending order (newest first)
             } else if ($sorting == 1) {
-                $query->orderBy('price', 'asc'); // Sort by price in ascending order (low to high)
+                $query->orderBy('price_per_piece', 'asc'); // Sort by price in ascending order (low to high)
             } else if ($sorting == 2) {
-                $query->orderBy('price', 'desc'); // Sort by price in descending order (high to low)
+                $query->orderBy('price_per_piece', 'desc'); // Sort by price in descending order (high to low)
             }
         }
 
