@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Buy;
 use App\Models\User;
 use App\Models\Cloth;
+use App\Models\Store;
 use App\Models\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Pagination\LengthAwarePaginator;
+use App\Charts\MonthlyUsersChart;
 
 class AdminController extends Controller
 {
@@ -154,6 +156,15 @@ class AdminController extends Controller
             'confirmation_status' => request('confirmation_status')
         ]);
 
+        if (request('confirmation_status') == 2) {
+            $storage = $buy->cloth->storages()->first();
+
+            // Update the stock
+            $store = Store::where('storage_id', $storage->id)->where('cloth_id', $buy->cloth->id)->first();
+            $store->quantity += (int) $buy->quantity;
+            $store->save();
+        }
+
         if ($buy) {
             if (request()->is('api/*')) {
                 return response()->json(['message' => "Successfully Confirmed"], 200);
@@ -164,7 +175,7 @@ class AdminController extends Controller
         }
     }
 
-    public function getAnalysis()
+    public function getAnalysis(MonthlyUsersChart $chart)
     {
         // Define the validation rules
         $validator = Validator::make(request()->all(), [
@@ -176,8 +187,7 @@ class AdminController extends Controller
 
         if ($validator->fails()) {
             // Handle validation failures
-            // return redirect()->back()->withErrors($validator)->withInput();
-            return response()->json(['Error']);
+            return response()->json(['Error' => $validator->errors()]);
         }
 
         // Get the validated data
@@ -214,7 +224,7 @@ class AdminController extends Controller
         }
 
         // Determine how to group the results
-        if (is_null($month)) {
+        if (!is_null($month)) {
             // Group by day if month is provided
             $results = $query->selectRaw('DATE(created_at) as date, COUNT(*) as count')
                 ->groupBy('date')
@@ -226,10 +236,23 @@ class AdminController extends Controller
                 ->get();
         }
 
+        // Generate the chart data
+        $chartData = $chart->build()->addData('Counts', $results->pluck('count')->toArray());
+
+        // Check if the request is for the API and return JSON response if so
         if (request()->is('api/*')) {
             return response()->json(['results' => $results]);
         }
-        // Return the results as JSON (or modify as needed)
-        return view();
+        $dataChart = [
+            'results' => $results,
+            'chart' => $chartData,
+            'month' => $month,
+            'year' => $year,
+            'clothesType' => $clothesType,
+            'clothesColor' => $clothesColor,
+        ];
+        // Return the results to the view
+        return redirect()->route('dashboard')->with('data', $dataChart);
     }
+
 }
