@@ -224,7 +224,7 @@ class AdminController extends Controller
         }
 
         // Determine how to group the results
-        if (is_null($month)) {
+        if (!is_null($month)) {
             // Group by day if month is provided
             $results = $query->selectRaw('DATE(created_at) as date, COUNT(*) as count')
                 ->groupBy('date')
