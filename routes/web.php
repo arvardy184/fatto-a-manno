@@ -14,7 +14,7 @@ use App\Http\Controllers\UserController;
 Route::group([], function () {
     Route::get('/', function () {
         return view('Guest.home', ['title' => 'Home']);
-    })->name('home');
+    })->name('home')->middleware('redirectDashboard');
 
     Route::get('/login', function () {
         return view('Guest.login', ['title' => 'Login']);
@@ -50,11 +50,11 @@ Route::group([
     })->name('Ubah Password');
 
     //admin
-    Route::get('/data_pengguna', [UserController::class, 'getUserbyName'])->name('Data Pengguna');
-    Route::get('/histori_pengguna/{user_id}', [BuyController::class, 'getBuybyAttribute'])->name('Detail User');
+    Route::get('/data_pengguna', [UserController::class, 'getUserbyName'])->name('Data Pengguna')->middleware('isAdmin');
+    Route::get('/histori_pengguna/{user_id}', [BuyController::class, 'getBuybyAttribute'])->name('Detail User')->middleware('isAdmin');
 
     //clothes
-    Route::get('/data_pakaian', [ClothesController::class, 'getClothesbyAttributeAdmin'])->name('Data Pakaian');
+    Route::get('/data_pakaian', [ClothesController::class, 'getClothesbyAttributeAdmin'])->name('Data Pakaian')->middleware('isAdmin');
     Route::get('/data_pakaian/tambah', function () {
         return view('Clothes.tambah_pakaian', ['title' => 'Tambah Pakaian']);
     })->name('Tambah Pakaian');
@@ -64,11 +64,11 @@ Route::group([
         return view('Storage.tambah_storage', ['title' => 'Tambah Gudang']);
     })->name('Tambah Gudang');
 
-    Route::get('/histori_user', [BuyController::class, 'getBuybyAttributeCustomer'])->name('Histori User');
-    Route::get('/keranjang_user', [BuyController::class, 'getKeranjang'])->name('Keranjang User')->middleware('isUser');
-    Route::get('/detail_items', [StorageController::class, 'getStorageDetail'])->name('Detail Items');
-    Route::get('/edit_keranjang/{id}', [BuyController::class, 'getDataEditKeranjang'])->name('Edit Keranjang')->middleware('isUser');
-    Route::get('/data_storage', [StorageController::class, 'getStoragebyName']);
+    Route::get('/histori_user', [BuyController::class, 'getBuybyAttributeCustomer'])->name('Histori User')->middleware('isCustomer');
+    Route::get('/keranjang_user', [BuyController::class, 'getKeranjang'])->name('Keranjang User')->middleware('isCustomer');
+    Route::get('/detail_items', [StorageController::class, 'getStorageDetail'])->name('Detail Items')->middleware('isAdmin');
+    Route::get('/edit_keranjang/{id}', [BuyController::class, 'getDataEditKeranjang'])->name('Edit Keranjang')->middleware('isCustomer');
+    Route::get('/data_storage', [StorageController::class, 'getStoragebyName'])->middleware('isAdmin');
 });
 
 
@@ -90,25 +90,27 @@ Route::any('/test', function () {
 //ADMIN ===========================================================================================
 //Clothes
 Route::group([
-    'prefix' => 'clothes'
+    'prefix' => 'clothes',
+    'middleware' => 'loggedIn'
 ], function () {
-    Route::post('/add', [ClothesController::class, 'addClothes']);
-    Route::post('/edit/{cloth_id}', [ClothesController::class, 'editClothes']);
+    Route::post('/add', [ClothesController::class, 'addClothes'])->middleware('isAdmin');
+    Route::post('/edit/{cloth_id}', [ClothesController::class, 'editClothes'])->middleware('isAdmin');
     Route::post('/edit/stock/{cloth_id}/{storage_id}', [ClothesController::class, 'editStock']);
     Route::get('/quantity/{id}', [ClothesController::class, 'findClothWithTotalQuantity']);
-    Route::get('/delete/{id}', [ClothesController::class, 'deleteClothes']);
+    Route::get('/delete/{id}', [ClothesController::class, 'deleteClothes'])->middleware('isAdmin');
     Route::get('/', [ClothesController::class, 'getAllClothes']);
-    Route::get('/data_pakaian/att', [ClothesController::class, 'getClothesbyAttributeAdmin']);
+    Route::get('/data_pakaian/att', [ClothesController::class, 'getClothesbyAttributeAdmin'])->middleware('isAdmin');
     Route::get('/{id}', [ClothesController::class, 'getClothesDetail']);
     Route::get('/data/{id}', [ClothesController::class, 'getDataEditClothes']);
 });
 
 //Storage ===========================================================================================
 Route::group([
-    'prefix' => 'storage'
+    'prefix' => 'storage',
+    'middleware' => 'isAdmin'
 ], function () {
     Route::post('/add', [StorageController::class, 'addStorage']);
-    Route::post('/edit/{cloth_id}', [StorageController::class, 'editStorage']);
+    Route::post('/edit/{id}', [StorageController::class, 'editStorage']);
     Route::delete('/delete/{id}', [StorageController::class, 'deleteStorage']);
     Route::get('/', [StorageController::class, 'getAllStorage'])->name('Data Gudang');
     Route::get('/name', [StorageController::class, 'getStoragebyName']);
@@ -121,22 +123,28 @@ Route::group([
 });
 
 //BUY ===========================================================================================
-Route::group(['prefix' => 'buy'], function () {
-    Route::post('/add', [BuyController::class, 'addBuy']);
-    Route::post('/delete/{id}', [BuyController::class, 'deleteBuy']);
+Route::group([
+    'prefix' => 'buy',
+    'middleware' => 'loggedIn'
+], function () {
+    Route::post('/add', [BuyController::class, 'addBuy'])->middleware('isCustomer');
+    Route::post('/delete/{id}', [BuyController::class, 'deleteBuy'])->middleware('isCustomer');
     Route::get('/', [BuyController::class, 'getAllBuys']);
     Route::get('/{id}', [BuyController::class, 'getBuybyId']);
     Route::get('/payment/{id}', [BuyController::class, 'editPayment']);
-    Route::post('/find/{user_id}', [BuyController::class, 'getBuybyAttribute']);
-    Route::post('/history', [BuyController::class, 'getBuybyAttributeCustomer']);
-    Route::post('/cart', [BuyController::class, 'getKeranjang']);
-    Route::post('/cart/buy', [BuyController::class, 'payBatch']);
-    Route::post('/cart/delete/{id}', [BuyController::class, 'deleteKeranjang']); // Delete Keranjang + refresh page
-    Route::get('/cart/edit/{id}', [BuyController::class, 'getDataEditKeranjang']); // Redirect ke page edit + passing data
-    Route::get('/cart/edit/buy/{id}', [BuyController::class, 'editBuy']); // Edit keranjang + redirect ke halaman keranjang
+    Route::post('/find/{user_id}', [BuyController::class, 'getBuybyAttribute'])->middleware('isAdmin');
+    Route::post('/history', [BuyController::class, 'getBuybyAttributeCustomer'])->middleware('isCustomer');
+    Route::post('/cart', [BuyController::class, 'getKeranjang'])->middleware('isCustomer');
+    Route::post('/cart/buy', [BuyController::class, 'payBatch'])->middleware('isCustomer');
+    Route::post('/cart/delete/{id}', [BuyController::class, 'deleteKeranjang'])->middleware('isCustomer'); // Delete Keranjang + refresh page
+    Route::get('/cart/edit/{id}', [BuyController::class, 'getDataEditKeranjang'])->middleware('isCustomer'); // Redirect ke page edit + passing data
+    Route::get('/cart/edit/buy/{id}', [BuyController::class, 'editBuy'])->middleware('isCustomer'); // Edit keranjang + redirect ke halaman keranjang
 });
 
-Route::group(['prefix' => 'user'], function () {
+Route::group([
+    'prefix' => 'user',
+    'middleware' => 'isAdmin'
+], function () {
     Route::get('/', [UserController::class, 'getAllUser']); //Ini return all user to view
     Route::get('/name', [UserController::class, 'getUserbyName']); //Ini return all user to view
     Route::get('/{id}', [UserController::class, 'getUserbyId']);
@@ -149,7 +157,7 @@ Route::group(['prefix' => 'user'], function () {
 Route::post('/hook', [AdminController::class, 'webhook']);
 
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('/', [AdminController::class, 'getAllData']); //Ini return all user to view
-    Route::post('/confirm/{id}', [AdminController::class, 'confirmPayment']);
-    Route::post('/analyze', [AdminController::class, 'getAnalysis']);
+    Route::get('/', [AdminController::class, 'getAllData'])->middleware('isAdmin'); //Ini return all user to view
+    Route::post('/confirm/{id}', [AdminController::class, 'confirmPayment'])->middleware('isAdmin');
+    Route::post('/analyze', [AdminController::class, 'getAnalysis'])->middleware('isAdmin');
 });

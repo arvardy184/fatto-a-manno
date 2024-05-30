@@ -55,7 +55,7 @@ class BuyController extends Controller
         }
 
         if ($this->findClothWithTotalQuantity($cloth->id) < $request->quantity) {
-            return redirect()->back()->withErrors(['Storage Quantity Exceeded!']);
+            return redirect()->back()->withErrors(['Stock Not Enough!']);
         }
 
         // // Create the buy record
