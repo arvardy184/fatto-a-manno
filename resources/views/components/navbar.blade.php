@@ -37,6 +37,14 @@
                                             User Information
                                         </button>
                                     </form>
+                                    <form action="/dashboard/data_pengguna" method="GET" class="inline">
+                                        @csrf
+                                        <button type="submit"
+                                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+                                            View
+                                            Sales Analysis
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -126,6 +134,14 @@
                                 User Information
                             </button>
                         </form>
+                        <form action="/dashboard/data_pengguna" method="GET" class="inline">
+                            @csrf
+                            <button type="submit"
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">
+                                View Sales Analysis
+                            </button>
+                        </form>
+
                     </div>
                     <div class="border-t border-gray-700 pb-3 pt-4">
                         <div class="flex items-center px-5">
