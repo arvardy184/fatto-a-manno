@@ -1,27 +1,7 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
-    {{-- admin start --}}
-    @if (session('data'))
-        $chart = session('data');
-    @else
-        $chart=null;
-    @endif
     @if (auth()->user()->role_id == 1)
-
-        <div id="users" class="container mt-5 mx-auto">
-            <h1 class="text-center text-2xl font-bold mb-4">Analisis Penjualan</h1>
-            <div class="container px-4 mx-auto">
-
-                <div class="p-6 m-20 bg-white rounded shadow">
-                    {!! $chart->container() !!}
-                </div>
-
-            </div>
-
-            <script src="{{ $chart->cdn() }}"></script>
-
-            {{ $chart->script() }}
-        </div>
+        {{-- admin start --}}
         <div id="clothes" class="container mx-auto mt-5">
             <h1 class="text-center text-2xl font-bold mb-4">Data Pakaian</h1>
             <div class="overflow-x-auto">
