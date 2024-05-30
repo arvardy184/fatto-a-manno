@@ -19,9 +19,9 @@
                     <div class="sm:flex sm:items-center sm:justify-center">
                         <div class="text-center sm:ml-4 sm:mt-0">
                             <button id="bayarLangsung1" type="button"
-                                class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-1 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"><a
-                                    href="https://wa.me/6282334763809/?text=Halo!%2C%20saya%20ingin%20membeli%20baju%20{{ $clothes['name'] }}!">Bayar
-                                    Melalui Admin</a></button>
+                                class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-1 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Bayar
+                                Melalui Admin</button>
+
                         </div>
                         <div class="text-center sm:ml-4 sm:mt-0">
                             <button id="bayarLangsung2" type="button"
@@ -40,10 +40,15 @@
     </div>
     <script>
         document.getElementById('bayarLangsung1').addEventListener('click', function() {
+            var wa = encodeURIComponent("{{ $clothes['name'] }}");
             const quantity = document.getElementById('quantity').value;
             const url =
                 `/tambah_pembayaran?cloth_id={{ $clothes['id'] }}&quantity=${quantity}&payment_method=0&payment_status=1`;
-            window.location.href = url;
+            setTimeout(() => {
+                window.location.href = url;
+            }, 10);
+            window.open('https://wa.me/6282334763809/?text=Halo!%2C%20saya%20ingin%20membeli%20baju%20' + wa + '!',
+                '_blank')
         });
         document.getElementById('bayarLangsung2').addEventListener('click', function() {
             const quantity = document.getElementById('quantity').value;

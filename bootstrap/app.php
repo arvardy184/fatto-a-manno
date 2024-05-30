@@ -20,6 +20,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'isAdmin' => \App\Http\Middleware\CheckRole::class,
             'isVerified' => \App\Http\Middleware\CheckVerified::class,
+            'isUser' => \App\Http\Middleware\CheckUserRole::class,
+            'loggedIn' => \App\Http\Middleware\CheckAuth::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

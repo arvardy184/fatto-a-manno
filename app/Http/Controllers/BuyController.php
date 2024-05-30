@@ -420,6 +420,9 @@ class BuyController extends Controller
         // Get the results
         $results = $query->orderBy('created_at', 'desc')->get();
 
+        // Get user data
+        $user = User::find($user_id);
+
         // Iterate over each cloth
         $results->each(function ($buy) {
             // Attach total total price to the cloth object
@@ -445,7 +448,7 @@ class BuyController extends Controller
             ]);
         }
 
-        return view('Admin.detail_user', ['title' => 'Detail User'], compact('buys'));
+        return view('Admin.detail_user', ['title' => 'Detail User', 'user' => $user], compact('buys'));
     }
 
     public function getBuybyAttributeCustomer()

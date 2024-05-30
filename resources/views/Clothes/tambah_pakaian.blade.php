@@ -14,9 +14,9 @@
                 <div class="mb-6">
                     <label for="type" class="block mb-1 text-sm font-semibold text-gray-700">Type</label>
                     <div class="relative">
-                        <select id="type" name="type"
-                            class="block w-full px-3 py-2 h-10 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            size="1">
+                        <select id="type" name="type" size="1"
+                            class="block w-full px-3 py-2 h-10 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
                             <option value=""></option>
                             <option value="polo">Polo</option>
                             <option value="turtleneck">Turtleneck</option>
@@ -30,7 +30,6 @@
                         </select>
                     </div>
                 </div>
-
 
                 <div class="mb-6">
                     <label for="name" class="block mb-1 text-sm font-semibold text-gray-700">Nama</label>
