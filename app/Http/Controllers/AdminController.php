@@ -78,7 +78,8 @@ class AdminController extends Controller
 
         $affectedRows = Buy::whereIn('id', $ids)->update([
             'payment_status' => 1,
-            'confirmation_status' => 1
+            'confirmation_status' => 1,
+            'payment_url' => null
         ]);
 
         return response()->json($affectedRows);
@@ -161,5 +162,74 @@ class AdminController extends Controller
         } else {
             return redirect()->back()->withErrors('Function Failed');
         }
+    }
+
+    public function getAnalysis()
+    {
+        // Define the validation rules
+        $validator = Validator::make(request()->all(), [
+            'month' => 'sometimes|integer|min:1|max:12|nullable',
+            'year' => 'sometimes|integer|nullable',
+            'clothes_type' => 'sometimes|string|nullable',
+            'clothes_color' => 'sometimes|string|nullable',
+        ]);
+
+        if ($validator->fails()) {
+            // Handle validation failures
+            // return redirect()->back()->withErrors($validator)->withInput();
+            return response()->json(['Error']);
+        }
+
+        // Get the validated data
+        $validatedData = $validator->validated();
+
+        // Ensure all expected parameters are set, default to null if not provided
+        $month = $validatedData['month'] ?? null;
+        $year = $validatedData['year'] ?? date('Y');
+        $clothesType = $validatedData['clothes_type'] ?? null;
+        $clothesColor = $validatedData['clothes_color'] ?? null;
+
+        // Start building the query
+        $query = Buy::with('cloth');
+
+        // Apply filters based on validated data
+        if (!is_null($month)) {
+            $query->whereMonth('created_at', $month);
+            $query->whereYear('created_at', $year);
+        } else {
+            if (!is_null($year)) {
+                $query->whereYear('created_at', $year);
+            }
+        }
+
+        if (!is_null($clothesType) || !is_null($clothesColor)) {
+            $query->whereHas('cloth', function ($q) use ($clothesType, $clothesColor) {
+                if (!is_null($clothesType)) {
+                    $q->where('type', $clothesType);
+                }
+                if (!is_null($clothesColor)) {
+                    $q->where('color', $clothesColor);
+                }
+            });
+        }
+
+        // Determine how to group the results
+        if (is_null($month)) {
+            // Group by day if month is provided
+            $results = $query->selectRaw('DATE(created_at) as date, COUNT(*) as count')
+                ->groupBy('date')
+                ->get();
+        } else {
+            // Group by month if month is not provided
+            $results = $query->selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+                ->groupBy('month')
+                ->get();
+        }
+
+        if (request()->is('api/*')) {
+            return response()->json(['results' => $results]);
+        }
+        // Return the results as JSON (or modify as needed)
+        return view();
     }
 }
