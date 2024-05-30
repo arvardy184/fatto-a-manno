@@ -327,9 +327,12 @@
                 <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4 ">
                     <!-- Filters -->
                     <form action="{{ route('All Products') }}" method="GET" class="hidden lg:block w-full">
-
-
+                        @php
+                            $color = '';
+                            $size = '';
+                        @endphp
                         <div x-data="{ expanded: false }" class="border-b border-gray-200 py-6">
+
                             <h3 class="-my-3 flow-root">
                                 <!-- Expand/collapse section button -->
                                 <button @click="expanded = ! expanded" type="button"
@@ -389,6 +392,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                         <div x-data="{ expanded: false }" class="border-b border-gray-200 py-6">
                             <h3 class="-my-3 flow-root">
@@ -556,9 +560,67 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" id="color" name="color">
+                        <input type="hidden" id="size" name="size">
                         <button type="submit"
                             class="mt-3 w-full rounded-md border border-transparent bg-green-600 px-8 py-3 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">Submit</button>
                     </form>
+                    <script>
+                        // Ambil semua kotak centang dengan nama 'sorting'
+                        var sortingCheckboxes = document.querySelectorAll('input[name="sorting"]');
+
+                        sortingCheckboxes.forEach(function(checkbox) {
+                            // Tambahkan event listener pada setiap kotak centang
+                            checkbox.addEventListener('change', function() {
+                                // Jika kotak centang ini dicentang
+                                if (this.checked) {
+                                    // Nonaktifkan kotak centang lainnya
+                                    sortingCheckboxes.forEach(function(otherCheckbox) {
+                                        if (otherCheckbox !== checkbox) {
+                                            otherCheckbox.disabled = true;
+                                        }
+                                    });
+                                } else {
+                                    // Jika kotak centang ini tidak dicentang, aktifkan kembali kotak centang lainnya
+                                    sortingCheckboxes.forEach(function(otherCheckbox) {
+                                        if (otherCheckbox !== checkbox) {
+                                            otherCheckbox.disabled = false;
+                                        }
+                                    });
+                                }
+                            });
+                        });
+                        // Tambahkan event listener pada setiap kotak centang untuk mendeteksi perubahan
+                        document.querySelectorAll('input[name="color"]').forEach(function(checkbox) {
+                            checkbox.addEventListener('change', function() {
+                                updateHiddenInputValues('color');
+                            });
+                        });
+
+                        document.querySelectorAll('input[name="size"]').forEach(function(checkbox) {
+                            checkbox.addEventListener('change', function() {
+                                updateHiddenInputValues('size');
+                            });
+                        });
+
+                        function updateHiddenInputValues(attribute) {
+                            // Dapatkan semua kotak centang yang dicentang
+                            var checkedCheckboxes = document.querySelectorAll('input[name="' + attribute + '"]:checked');
+
+                            // Ambil nilai dari kotak centang yang dicentang dan gabungkan menjadi satu string
+                            var values = Array.from(checkedCheckboxes).map(function(checkbox) {
+                                return checkbox.value;
+                            });
+
+                            // Perbarui nilai dari variabel $color atau $size
+                            if (attribute === 'color') {
+                                document.getElementById('color').value = values.join(',');
+                            } else if (attribute === 'size') {
+                                document.getElementById('size').value = values.join(',');
+                            }
+                        }
+                    </script>
+
 
                     <!-- Product grid -->
                     <div class="lg:col-span-3">

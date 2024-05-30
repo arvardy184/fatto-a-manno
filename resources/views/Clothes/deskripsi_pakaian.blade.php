@@ -113,6 +113,21 @@
 
     <script>
         document.getElementById('addToCartButton').addEventListener('click', function() {
+            const quantityInput = document.getElementById('quantity');
+            const quantity = parseInt(quantityInput.value); // Mengonversi nilai ke integer
+
+            // Memeriksa apakah quantity lebih besar dari 0
+            if (quantity > 0) {
+                const url =
+                    `/tambah_pembayaran?cloth_id={{ $clothes['id'] }}&quantity=${quantity}&payment_method=2&payment_status=0`;
+                window.location.href = url;
+            } else {
+                // Menampilkan pesan kesalahan jika quantity kurang dari atau sama dengan 0
+                alert('Quantity tidak boleh kurang dari atau sama dengan 0.');
+                
+            }
+        });
+        document.getElementById('addToCartButton').addEventListener('click', function() {
             const quantity = document.getElementById('quantity').value;
             const url =
                 `/tambah_pembayaran?cloth_id={{ $clothes['id'] }}&quantity=${quantity}&payment_method=2&payment_status=0`;

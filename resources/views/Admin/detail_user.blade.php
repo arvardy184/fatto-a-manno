@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="container mx-auto mt-5">
-        <h1 class="text-center text-2xl font-bold mb-4">History {{ auth()->user()->name }}</h1>
+        <h1 class="text-center text-2xl font-bold mb-4">History {{ $user->name }}</h1>
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white border text-center">
                 <thead>
@@ -57,14 +57,17 @@
                             {{-- confirm status ==0 && payment_status ==1, bisa di klik kedua button --}}
                             <td class="px-4 py-2 border">
                                 @if ($buy->confirmation_status == 0 && $buy->payment_status == 1)
-                                    <form action="/buy/payment/{{ $buy->id }}" method="GET">
+                                    <form action="/admin/confirm/{{ $buy->id }}" method="POST">
+                                        <input type="hidden" name="confirmation_status" value="1">
                                         @csrf
                                         <button type="submit"
                                             class="block w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2">
                                             Confirm
                                         </button>
                                     </form>
-                                    <form action="/buy/delete/{{ $buy->id }}" method="POST" class="inline-block">
+                                    <form action="/admin/confirm/{{ $buy->id }}" method="POST"
+                                        class="inline-block">
+                                        <input type="hidden" name="confirmation_status" value="2">
                                         @csrf
                                         <button type="submit"
                                             class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Cancel</button>
@@ -79,7 +82,7 @@
         <div class="mt-3 justify-between">
 
         </div>
-        <a href="/dashboard"
+        <a href="/dashboard/data_pengguna"
             class="block mb-5 w-full max-w-xs mx-auto mt-4 px-4 py-2 border text-sm font-semibold leading-6 text-center text-white uppercase bg-gray-600 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700">Back</a>
     </div>
 </x-layout>
