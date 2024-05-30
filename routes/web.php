@@ -11,21 +11,6 @@ use App\Http\Controllers\UserController;
 
 // tolong linkan middleware ke semua nya 
 
-//TEST VIEW
-Route::prefix('page')->group(function () {
-    Route::get('/register', function () {
-        return view('test-endpoint.authe');
-    })->name('page-register');
-
-    Route::get('/login', function () {
-        return view('test-endpoint.logine');
-    })->name('page-login');
-
-    Route::get('/testing', function () {
-        return view('test-endpoint.test-func');
-    })->name('page-test');
-});
-
 Route::group([], function () {
     Route::get('/', function () {
         return view('Guest.home', ['title' => 'Home']);
@@ -47,7 +32,8 @@ Route::group([], function () {
 });
 
 Route::group([
-    'prefix' => 'dashboard'
+    'prefix' => 'dashboard',
+    'middleware' => 'loggedIn',
 ], function () {
     Route::get('/', [AdminController::class, 'getAllData'])->name('dashboard');
     //user dan admin
