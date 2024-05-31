@@ -100,10 +100,10 @@ class AuthController extends Controller
         }
 
         // //Check if user has already verified
-        // if (auth()->user()->email_verified_at == null) {
-        //     auth()->logout();
-        //     return response()->json(['error' => 'User Not Found'], 401);
-        // }
+        if (auth()->user()->email_verified_at == null) {
+            auth()->logout();
+            return redirect()->back()->withErrors(["User not Found"]);
+        }
 
         // Return the clothes with total quantities
         if (request()->expectsJson() || request()->is('api/*')) {
