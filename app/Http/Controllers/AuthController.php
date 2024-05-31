@@ -50,7 +50,7 @@ class AuthController extends Controller
                 now()->addMinutes(10), // Expiry time for the URL (e.g., 60 minutes)
                 ['id' => $user->id] // Route parameters
             );
-            // Mail::to($user->email)->send(new VerificationMail($verificationUrl));
+            Mail::to($user->email)->send(new VerificationMail($verificationUrl));
             return redirect()->route('login');
         } else {
             return redirect()->back()->withErrors(["User not Found"]);
