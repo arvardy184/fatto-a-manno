@@ -69,6 +69,7 @@ class AuthController extends Controller
 
         $user->email_verified_at = now();
         $user->save();
+        return redirect()->route('login');
     }
 
     /**
