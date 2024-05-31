@@ -307,20 +307,27 @@
                         <div class="hidden md:block">
                             <div class="ml-10 flex items-baseline space-x-4">
                                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+
                                 <a href="/"
-                                    class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                                    aria-current="page">Home</a>
+                                    class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Dashboard</a>
+                            </div>
+                        </div>
+                        <div class="hidden md:block">
+                            <div class="ml-10 flex items-baseline space-x-4">
+                                <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+
                                 <a href="/all_products"
                                     class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">All
                                     Products</a>
                             </div>
                         </div>
                     </div>
-                    <div class="hidden md:block">
+                    <div id="login" class="hidden md:block">
                         <div class="ml-4 flex items-center md:ml-6">
                             <div
                                 class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                                <a href="/login" class="text-sm font-semibold leading-6 text-slate-100">Log in<span
+                                <a id="login" href="/login"
+                                    class="text-sm font-semibold leading-6 text-slate-100">Log in<span
                                         aria-hidden="true">&rarr;</span></a>
                             </div>
                         </div>
@@ -353,13 +360,16 @@
                 <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                     <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                     <a href="/"
-                        class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
-                        aria-current="page">Home</a>
+                        class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Dashboard</a>
+                </div>
+                <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+                    <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+
                     <a href="/all_products"
                         class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">All
                         Product</a>
                 </div>
-                <div class="border-t border-gray-700 pb-3 pt-4">
+                <div id="login" class="border-t border-gray-700 pb-3 pt-4">
                     <div class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
                         <a href="/login" class="text-sm font-semibold leading-6 text-slate-100">Log in<span
                                 aria-hidden="true">&rarr;</span></a>
@@ -367,6 +377,7 @@
                 </div>
             </div>
         </nav>
+
     </div>
     {{-- Guest end --}}
 @endauth

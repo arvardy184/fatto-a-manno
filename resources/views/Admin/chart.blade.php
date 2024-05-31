@@ -9,7 +9,7 @@
                 <!-- Type Baju -->
                 <div>
                     <label for="clothes_type" class="block">Color</label>
-                    <select name="color" id="clothes_type" size="1"
+                    <select name="clothes_color" id="clothes_type" size="1"
                         class="block w-full rounded border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                         <option value=""></option>
                         <option value="white">White</option>
@@ -21,7 +21,7 @@
                 </div>
                 <div>
                     <label for="clothes_type" class="block">Type</label>
-                    <select name="type" id="clothes_type" size="1"
+                    <select name="clothes_type" id="clothes_type" size="1"
                         class="block w-full rounded border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                         <option value=""></option>
                         <option value="polo">Polo</option>
