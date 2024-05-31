@@ -21,11 +21,11 @@ class ClothFactory extends Factory
         $faker = Faker::create('id_ID');
 
         return [
-            'type' => $faker->randomElement(['shirt', 'pants', 'dress', 'jacket', 'skirt']),
-            'name' => $faker->word,
-            'size' => $faker->randomElement(['S', 'M', 'L', 'XL']),
-            'color' => $faker->colorName,
-            'price_per_piece' => $faker->numberBetween(10000, 500000), // Example range for price
+            'type' => $faker->randomElement(['Polo', 'Turtleneck', 'Kaos Polos', 'Wallet', 'Hoodie', 'Pants', 'Caps', 'Kemeja', 'Sweater']),
+            'name' => $faker->randomElement(['Polo', 'Turtleneck', 'Kaos Polos', 'Wallet', 'Hoodie', 'Pants', 'Caps', 'Kemeja', 'Sweater']) . ' ' . $faker->randomElement(['White', 'Black', 'Blue', 'Brown', 'Sage']),
+            'size' => $faker->randomElement(['S', 'M', 'L', 'XL', 'XXL']),
+            'color' => $faker->randomElement(['White', 'Black', 'Blue', 'Brown', 'Sage']),
+            'price_per_piece' => $faker->numberBetween(100000, 500000), // Example range for price
             'description' => $faker->sentence,
             'image_url' => $faker->imageUrl(), // Example image URL
         ];
