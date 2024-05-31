@@ -563,11 +563,6 @@ class ClothesController extends Controller
             ['path' => request()->fullUrl(), 'pageName' => 'clothes_page']
         );
 
-        // Check if clothes exist
-        if ($clothes->isEmpty()) {
-            return redirect()->back()->withErrors(["Clothes not Found"]);
-        }
-
         // Return the clothes with total quantities
         if (request()->expectsJson() || request()->is('api/*')) {
             return response()->json([
