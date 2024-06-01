@@ -16,6 +16,7 @@ Route::get('/user', function (Request $request) {
 Route::post('/signup', [AuthController::class, 'register']);
 Route::post('/signin', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
+Route::post('/resend-verif', [AuthController::class, 'resendVerification']);
 Route::post('/forgot', [AuthController::class, 'forgotPassword'])->name('forgotPass');
 
 //Clothes
