@@ -67,7 +67,7 @@
                                                 type="checkbox"
                                                 class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                             <label for="filter-mobile-color-0"
-                                                class="ml-3 min-w-0 flex-1 text-gray-500"> Bayar tanpa melalui
+                                                class="ml-3 min-w-0 flex-1 text-gray-500"> Pay without going through
                                                 admin</label>
                                         </div>
                                         <div class="flex items-center">
@@ -75,14 +75,14 @@
                                                 type="checkbox"
                                                 class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                             <label for="filter-mobile-color-1"
-                                                class="ml-3 min-w-0 flex-1 text-gray-500"> Bayar melalui admin</label>
+                                                class="ml-3 min-w-0 flex-1 text-gray-500">Pay via admin</label>
                                         </div>
                                         <div class="flex items-center">
                                             <input id="filter-mobile-color-2" name="payment_method" value="2"
                                                 type="checkbox"
                                                 class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                             <label for="filter-mobile-color-2"
-                                                class="ml-3 min-w-0 flex-1 text-gray-500">Masih di keranjang</label>
+                                                class="ml-3 min-w-0 flex-1 text-gray-500"> Still in the cart</label>
                                         </div>
                                     </div>
                                 </div>
@@ -119,14 +119,14 @@
                                                 type="checkbox"
                                                 class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                             <label for="filter-mobile-category-0"
-                                                class="ml-3 min-w-0 flex-1 text-gray-500">Sudah Dibayar</label>
+                                                class="ml-3 min-w-0 flex-1 text-gray-500"> Already paid</label>
                                         </div>
                                         <div class="flex items-center">
                                             <input id="filter-mobile-category-1" name="payment_status" value="0"
                                                 type="checkbox"
                                                 class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                             <label for="filter-mobile-category-1"
-                                                class="ml-3 min-w-0 flex-1 text-gray-500"> Belum Dibayar</label>
+                                                class="ml-3 min-w-0 flex-1 text-gray-500"> Not yet paid</label>
                                         </div>
                                     </div>
                                 </div>
@@ -163,21 +163,22 @@
                                                 value="1" type="checkbox"
                                                 class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                             <label for="filter-mobile-size-0"
-                                                class="ml-3 min-w-0 flex-1 text-gray-500"> Sudah Dikonfirmasi</label>
+                                                class="ml-3 min-w-0 flex-1 text-gray-500"> Has been confirmed</label>
                                         </div>
                                         <div class="flex items-center">
                                             <input id="filter-mobile-size-1" name="confirmation_status"
                                                 value="0" type="checkbox"
                                                 class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                             <label for="filter-mobile-size-1"
-                                                class="ml-3 min-w-0 flex-1 text-gray-500">Belum Dikonfirmasi</label>
+                                                class="ml-3 min-w-0 flex-1 text-gray-500">Has not been
+                                                confirmed</label>
                                         </div>
                                         <div class="flex items-center">
                                             <input id="filter-mobile-size-2" name="confirmation_status"
                                                 value="2" type="checkbox"
                                                 class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                             <label for="filter-mobile-size-2"
-                                                class="ml-3 min-w-0 flex-1 text-gray-500">Dibatalkan</label>
+                                                class="ml-3 min-w-0 flex-1 text-gray-500">Canceled</label>
                                         </div>
 
                                     </div>
@@ -313,22 +314,23 @@
                                                 <input id="filter-color-0" name="payment_method" value="1"
                                                     type="checkbox"
                                                     class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                                <label for="filter-color-0" class="ml-3 text-sm text-gray-600"> Bayar
-                                                    tanpa melalui admin</label>
+                                                <label for="filter-color-0" class="ml-3 text-sm text-gray-600"> Pay
+                                                    without going through
+                                                    admin</label>
                                             </div>
                                             <div class="flex items-center">
                                                 <input id="filter-color-1" name="payment_method" value="0"
                                                     type="checkbox"
                                                     class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                                <label for="filter-color-1" class="ml-3 text-sm text-gray-600"> Bayar
-                                                    melalui admin</label>
+                                                <label for="filter-color-1" class="ml-3 text-sm text-gray-600">Pay via
+                                                    admin</label>
                                             </div>
                                             <div class="flex items-center">
                                                 <input id="filter-color-2" name="payment_method" value="2"
                                                     type="checkbox"
                                                     class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                                <label for="filter-color-2" class="ml-3 text-sm text-gray-600">Masih
-                                                    di keranjang</label>
+                                                <label for="filter-color-2" class="ml-3 text-sm text-gray-600">Still
+                                                    in the cart</label>
                                             </div>
                                         </div>
                                     </div>
@@ -365,14 +367,14 @@
                                                     type="checkbox"
                                                     class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                                 <label for="filter-category-0" class="ml-3 text-sm text-gray-600">
-                                                    Sudah Dibayar</label>
+                                                    Already paid</label>
                                             </div>
                                             <div class="flex items-center">
                                                 <input id="filter-category-1" name="payment_status" value="0"
                                                     type="checkbox"
                                                     class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                                 <label for="filter-category-1" class="ml-3 text-sm text-gray-600">
-                                                    Belum Dibayar</label>
+                                                    Not yet paid</label>
                                             </div>
                                         </div>
                                     </div>
@@ -408,22 +410,22 @@
                                                 <input id="filter-size-0" name="confirmation_status" value="1"
                                                     type="checkbox"
                                                     class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                                <label for="filter-size-0" class="ml-3 text-sm text-gray-600">Sudah
-                                                    Dikonfirmasi</label>
+                                                <label for="filter-size-0" class="ml-3 text-sm text-gray-600">Has been
+                                                    confirmed</label>
                                             </div>
                                             <div class="flex items-center">
                                                 <input id="filter-size-1" name="confirmation_status" value="0"
                                                     type="checkbox"
                                                     class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                                <label for="filter-size-1" class="ml-3 text-sm text-gray-600">Belum
-                                                    Dikonfirmasi</label>
+                                                <label for="filter-size-1" class="ml-3 text-sm text-gray-600">Has not
+                                                    been confirmed</label>
                                             </div>
                                             <div class="flex items-center">
                                                 <input id="filter-size-2" name="confirmation_status" value="2"
                                                     type="checkbox"
                                                     class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                                 <label for="filter-size-2" class="ml-3 text-sm text-gray-600">
-                                                    Dibatalkan</label>
+                                                    Canceled</label>
                                             </div>
                                         </div>
                                     </div>
@@ -505,16 +507,16 @@
                             <div class="container mx-auto">
                                 <h1 class="text-center text-2xl font-bold mb-4">History {{ auth()->user()->name }}</h1>
                                 <div class="overflow-x-auto">
-                                    <table class="min-w-full bg-white border text-center">
+                                    <table class="min-w-full bg-white border text-center text-xs">
                                         <thead>
-                                            <tr class="text-sm">
-                                                <th class="px-4 py-2 border">Gambar</th>
+                                            <tr>
+                                                <th class="px-4 py-2 border">Image</th>
                                                 <th class="px-4 py-2 border">Name</th>
                                                 <th class="px-4 py-2 border">Size</th>
                                                 <th class="px-4 py-2 border">Type</th>
-                                                <th class="px-4 py-2 border">Harga Persatuan</th>
-                                                <th class="px-4 py-2 border">Jumlah barang</th>
-                                                <th class="px-4 py-2 border">Total Harga</th>
+                                                <th class="px-4 py-2 border">Unity Price</th>
+                                                <th class="px-4 py-2 border">Total number of item(s)</th>
+                                                <th class="px-4 py-2 border">Total price</th>
                                                 <th class="px-4 py-2 border">Payment Method</th>
                                                 <th class="px-4 py-2 border">Payment Status</th>
                                                 <th class="px-4 py-2 border">Confirmation Status</th>
@@ -538,27 +540,27 @@
                                                         Rp{{ formatRupiah($buy->total_price) }}</td>
                                                     <td class="px-4 py-2 border">
                                                         @if ($buy->payment_method == 1)
-                                                            Bayar tanpa melalui admin
+                                                            Pay without going through admin
                                                         @elseif ($buy->payment_method == 0)
-                                                            Bayar melalui admin
+                                                            Pay via admin
                                                         @else
-                                                            Masih di keranjang
+                                                            Still in the cart
                                                         @endif
                                                     </td>
                                                     <td class="px-4 py-2 border">
                                                         @if ($buy->payment_status == 1)
-                                                            Sudah Dibayar
+                                                            Already paid
                                                         @else
-                                                            Belum Dibayar
+                                                            Not yet paid
                                                         @endif
                                                     </td>
                                                     <td class="px-4 py-2 border">
                                                         @if ($buy->confirmation_status == 1)
-                                                            Sudah Dikonfirmasi
+                                                            Has been confirmed
                                                         @elseif($buy->confirmation_status == 0)
-                                                            Belum Dikonfirmasi
+                                                            Has not been confirmed
                                                         @else
-                                                            Dibatalkan
+                                                            Canceled
                                                         @endif
                                                     </td>
                                                     <td class="px-4 py-2 border">{{ $buy->user->created_at }} </td>

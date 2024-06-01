@@ -26,7 +26,7 @@
                         <option value=""></option>
                         <option value="polo">Polo</option>
                         <option value="turtleneck">Turtleneck</option>
-                        <option value="kaos polos">Kaos Polos</option>
+                        <option value="kaos polos">Plain t-shirt</option>
                         <option value="wallet">Wallet</option>
                         <option value="hoodie">Hoodie</option>
                         <option value="pants">Pants</option>
@@ -37,7 +37,7 @@
                 </div>
                 <!-- Bulan -->
                 <div>
-                    <label for="month" class="block">Bulan:</label>
+                    <label for="month" class="block">Bulan</label>
                     <select name="month" id="month" size="1"
                         class="block w-full rounded border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                         <option value="0"></option>

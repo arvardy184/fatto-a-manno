@@ -39,7 +39,7 @@
             </form>
 
             <p class="mt-10 text-center text-sm text-gray-500">
-                Belum punya akun?
+                Don't have an account yet?
                 <a href="/register" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Register</a>
             </p>
         </div>
