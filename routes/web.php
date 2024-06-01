@@ -29,6 +29,10 @@ Route::group([], function () {
     Route::get('/forgotPass', function () {
         return view('Guest.forgotPass', ['title' => 'Forgot Password']);
     })->name('forgotPass');
+    Route::get('/verification_registrasion', function () {
+        return view('Guest.verifikasi_register', ['title' => 'Verification Registrasion']);
+    })->name('Verification Registrasion');
+
 });
 
 Route::group([
