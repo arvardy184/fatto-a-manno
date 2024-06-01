@@ -37,7 +37,7 @@
                 </div>
                 <!-- Bulan -->
                 <div>
-                    <label for="month" class="block">Bulan</label>
+                    <label for="month" class="block">Month</label>
                     <select name="month" id="month" size="1"
                         class="block w-full rounded border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                         <option value="0"></option>
@@ -59,7 +59,7 @@
                 </div>
                 <!-- Tahun -->
                 <div>
-                    <label for="year" class="block">Tahun</label>
+                    <label for="year" class="block">Year</label>
                     <select name="year" id="year" size="1"
                         class="block w-full rounded border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                         <option value=""></option>
