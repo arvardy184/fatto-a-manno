@@ -27,9 +27,9 @@
                          </div>
                          <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                              <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">
-                                 Anda belum login</h3>
+                                 You are not logged in yet</h3>
                              <div class="mt-2">
-                                 <p class="text-sm text-gray-500">Silahkan login terlebih dahulu!</p>
+                                 <p class="text-sm text-gray-500">Please log in first!</p>
                              </div>
                          </div>
                      </div>

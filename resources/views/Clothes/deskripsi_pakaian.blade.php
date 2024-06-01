@@ -77,14 +77,13 @@
                                 @if (auth()->user()->role_id == 0)
                                     <div class="flex flex-col items-center gap-2" x-data="{ pilihPembayaran: false }">
                                         <button type="button" @click="pilihPembayaran = true"
-                                            class="mt-1 flex w-80 items-center justify-center rounded-md border border-transparent bg-green-600 px-8 py-3 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">Pilihan
-                                            Pembayaran</button>
+                                            class="mt-1 flex w-80 items-center justify-center rounded-md border border-transparent bg-green-600 px-8 py-3 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                                            Choose payment method</button>
                                         <button type="button" id="addToCartButton"
-                                            class="mt-1 flex w-80 items-center justify-center rounded-md border border-transparent bg-yellow-600 px-8 py-3 text-base font-medium text-white hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2">Masukkan
-                                            ke keranjang</button>
-                                        <button type="submit"
-                                            class="mt-1 flex w-80 items-center justify-center rounded-md border border-transparent bg-gray-400 px-8 py-3 text-base font-medium text-white hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"><a
-                                                href="/all_products">back</a></button>
+                                            class="mt-1 flex w-80 items-center justify-center rounded-md border border-transparent bg-yellow-600 px-8 py-3 text-base font-medium text-white hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2">Add
+                                            to cart</button>
+                                        <a href="/all_products"
+                                            class="mt-1 flex w-80 items-center justify-center rounded-md border border-transparent bg-gray-400 px-8 py-3 text-base font-medium text-white hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Back</a>
                                         {{-- modal udah login --}}
                                         @include('modal.modal_pembayaran')
                                     </div>
@@ -92,14 +91,13 @@
                             @else
                                 <div class="flex flex-col items-center gap-2" x-data="{ belumLogin: false }">
                                     <button type="button" @click="belumLogin = true"
-                                        class="mt-1 w-80 rounded-md border border-transparent bg-green-600 px-8 py-3 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">Pilihan
-                                        Pembayaran</button>
+                                        class="mt-1 w-80 rounded-md border border-transparent bg-green-600 px-8 py-3 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">Choose
+                                        payment method</button>
                                     <button @click="belumLogin = true" type="button"
-                                        class="mt-1  w-80 rounded-md border border-transparent bg-yellow-600 px-8 py-3 text-base font-medium text-white hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2">Masukkan
-                                        ke keranjang</button>
-                                    <button type="submit"
-                                        class="mt-1 w-80 items-center justify-center rounded-md border border-transparent bg-gray-400 px-8 py-3 text-base font-medium text-white hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"><a
-                                            href="/all_products">back</a></button>
+                                        class="mt-1  w-80 rounded-md border border-transparent bg-yellow-600 px-8 py-3 text-base font-medium text-white hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2">Add
+                                        to cart</button>
+                                    <a href="/all_products"
+                                        class="mt-1 flex w-80 items-center justify-center rounded-md border border-transparent bg-gray-400 px-8 py-3 text-base font-medium text-white hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Back</a>
                                     {{-- modal udah login --}}
                                     @include('modal.modal_guest')
                                 </div>

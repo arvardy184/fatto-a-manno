@@ -24,8 +24,8 @@
                                 <input type="hidden" name="total_price" value="{{ $sum }}">
                                 <input type="hidden" name="payment_method" value="0">
                                 <button type="submit"
-                                    class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-1 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Bayar
-                                    Melalui Admin</button>
+                                    class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-1 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Pay
+                                    via admin</button>
                             </form>
                         </div>
                         <div class="text-center sm:ml-4 sm:mt-0">
@@ -35,8 +35,8 @@
                                 <input type="hidden" name="total_price" value="{{ $sum }}">
                                 <input type="hidden" name="payment_method" value="1">
                                 <button type="submit"
-                                    class="sm:mt-0 mt-3 flex w-full items-center justify-center rounded-md border border-transparent bg-yellow-600 px-8 py-1 text-base font-medium text-white hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2">Bayar
-                                    Tanpa Melalui Admin</button>
+                                    class="sm:mt-0 mt-3 flex w-full items-center justify-center rounded-md border border-transparent bg-yellow-600 px-8 py-1 text-base font-medium text-white hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2">Pay
+                                    without going through Admin</button>
                             </form>
                         </div>
                     </div>
