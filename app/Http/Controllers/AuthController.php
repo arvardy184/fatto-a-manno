@@ -51,7 +51,7 @@ class AuthController extends Controller
                 ['id' => $user->id] // Route parameters
             );
             Mail::to($user->email)->send(new VerificationMail($verificationUrl));
-            return redirect()->route('login');
+            return redirect()->route('Verification Registrasion')->with('user_id', $user->id);
         } else {
             return redirect()->back()->withErrors(["User not Found"]);
         }
@@ -70,6 +70,19 @@ class AuthController extends Controller
         $user->email_verified_at = now();
         $user->save();
         return redirect()->route('login');
+    }
+
+    public function resendVerification($id)
+    {
+        $user = User::find($id);
+        // Assuming $user is the user model instance
+        $verificationUrl = URL::temporarySignedRoute(
+            "verifyMail", // Name of the verification route
+            now()->addMinutes(10), // Expiry time for the URL (e.g., 60 minutes)
+            ['id' => $user->id] // Route parameters
+        );
+        Mail::to($user->email)->send(new VerificationMail($verificationUrl));
+        return response('Success', 200);
     }
 
     /**
