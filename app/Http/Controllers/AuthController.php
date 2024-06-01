@@ -30,7 +30,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors([$validator->messages()]);
+            return redirect()->back()->withErrors($validator->messages()->all());
         }
 
         //Create User
