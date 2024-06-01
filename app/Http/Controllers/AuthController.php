@@ -30,7 +30,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors([$validator->messages()]);
+            return redirect()->back()->withErrors($validator->messages()->all());
         }
 
         //Create User
@@ -75,6 +75,11 @@ class AuthController extends Controller
     public function resendVerification($id)
     {
         $user = User::find($id);
+
+        if (!$user) {
+            return response('No user found', 404);
+        }
+
         // Assuming $user is the user model instance
         $verificationUrl = URL::temporarySignedRoute(
             "verifyMail", // Name of the verification route
@@ -82,6 +87,8 @@ class AuthController extends Controller
             ['id' => $user->id] // Route parameters
         );
         Mail::to($user->email)->send(new VerificationMail($verificationUrl));
+
+
         return response('Success', 200);
     }
 
