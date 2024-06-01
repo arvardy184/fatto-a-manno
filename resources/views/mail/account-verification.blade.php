@@ -5,6 +5,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name') }} - Email Verification</title>
+    <style>
+        button {
+            background-color: #3490dc;
+            color: #ffffff;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2779bd;
+        }
+    </style>
 </head>
 
 <body>
@@ -15,9 +31,7 @@
 
     <form method="GET" action="{{ $verificationUrl }}">
         @csrf
-        <button
-            style="background-color: #3490dc; color: #ffffff; font-weight: bold; padding: 0.5rem 1rem; border-radius: 0.25rem; border: none; cursor: pointer; transition: background-color 0.3s ease;"
-            type="submit">Verify Email Address</button>
+        <button type="submit">Verify Email Address</button>
     </form>
 
 </body>

@@ -3,7 +3,7 @@
     @if (auth()->user()->role_id == 1)
         {{-- admin start --}}
         <div id="clothes" class="container mx-auto mt-5">
-            <h1 class="text-center text-2xl font-bold mb-4">Data Pakaian</h1>
+            <h1 class="text-center text-2xl font-bold mb-4">Clothing Data</h1>
             <div class="overflow-x-auto">
                 <table class="min-w-full bg-white border text-center">
                     <thead>
@@ -47,7 +47,7 @@
         </div>
 
         <div id="storages" class="container mx-auto mt-5">
-            <h1 class="text-center text-2xl font-bold mb-4">Data Storage</h1>
+            <h1 class="text-center text-2xl font-bold mb-4">Storage Data</h1>
             <div class="overflow-x-auto">
                 <table class="min-w-full bg-white border text-center">
                     <thead>
@@ -80,7 +80,7 @@
         </div>
 
         <div id="users" class="container mt-5 mx-auto">
-            <h1 class="text-center text-2xl font-bold mb-4">Data User</h1>
+            <h1 class="text-center text-2xl font-bold mb-4">User Data</h1>
             <div class="overflow-x-auto">
                 <table class="min-w-full bg-white border text-center">
                     <thead>

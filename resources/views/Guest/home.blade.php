@@ -102,7 +102,6 @@
                 <div class="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
                     <div
                         class="grid grid-cols-1 gap-x-8 gap-y-6 text-base font-semibold leading-7 text-white sm:grid-cols-2 lg:flex lg:justify-center lg:gap-x-10">
-
                         <a href="/login">Log in <span aria-hidden="true">&rarr;</span></a>
                         <a href="/register">Register<span aria-hidden="true">&rarr;</span></a>
                     </div>
