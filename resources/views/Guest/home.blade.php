@@ -75,7 +75,7 @@
         </div>
     </nav>
     <div class="p-5 relative isolate overflow-hidden bg-gray-900 py-24 sm:py-32 h-[42.4rem]">
-        <img src="https://down-bs-id.img.susercontent.com/id-11134210-7r98w-luup76rehyk441.webp" alt=""
+        <img src="{{ asset('images/home.png') }}" alt=""
             class="absolute inset-0 -z-10 h-full w-full object-cover object-right md:object-center opacity-30 filter ">
 
         <div class="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
