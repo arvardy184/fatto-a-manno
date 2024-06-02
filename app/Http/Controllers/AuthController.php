@@ -77,7 +77,7 @@ class AuthController extends Controller
         $user = User::find($id);
 
         if (!$user) {
-            return response('No user found', 404);
+            return response('Failed', 200);
         }
 
         // Assuming $user is the user model instance
@@ -87,8 +87,6 @@ class AuthController extends Controller
             ['id' => $user->id] // Route parameters
         );
         Mail::to($user->email)->send(new VerificationMail($verificationUrl));
-
-
         return response('Success', 200);
     }
 
@@ -106,7 +104,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors([$validator->messages()]);
+            return redirect()->back()->withErrors($validator->messages()->all());
         }
 
         $credentials = request(['email', 'password']);
@@ -163,7 +161,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors([$validator->messages()]);
+            return redirect()->back()->withErrors($validator->messages()->all());
         }
 
         /** @var User $user */
@@ -190,7 +188,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors([$validator->messages()]);
+            return redirect()->back()->withErrors($validator->messages()->all());
         }
 
         //Generate Random Password

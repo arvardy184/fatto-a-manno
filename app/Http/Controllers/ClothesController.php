@@ -89,6 +89,15 @@ class ClothesController extends Controller
         }
     }
 
+    public function getDataAddClothes()
+    {
+        $temp = Storage::all();
+        $storages = $temp->map(function ($storage) {
+            return ['name' => $storage->name];
+        });
+        return view('Clothes.tambah_pakaian', ['title' => 'Tambah Pakaian'], compact('storages'));
+    }
+
     public function editClothes($id)
     {
         //Validate Request

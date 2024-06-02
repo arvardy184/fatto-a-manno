@@ -32,7 +32,6 @@ Route::group([], function () {
     Route::get('/verification_registrasion', function () {
         return view('Guest.verifikasi_register', ['title' => 'Verification Registrasion']);
     })->name('Verification Registrasion');
-
 });
 
 Route::group([
@@ -59,9 +58,7 @@ Route::group([
 
     //clothes
     Route::get('/data_pakaian', [ClothesController::class, 'getClothesbyAttributeAdmin'])->name('Data Pakaian')->middleware('isAdmin');
-    Route::get('/data_pakaian/tambah', function () {
-        return view('Clothes.tambah_pakaian', ['title' => 'Tambah Pakaian']);
-    })->name('Tambah Pakaian');
+    Route::get('/data_pakaian/tambah', [ClothesController::class, 'getDataAddClothes'])->name('Tambah Pakaian');
 
     //storage
     Route::get('/data_storage/tambah', function () {
