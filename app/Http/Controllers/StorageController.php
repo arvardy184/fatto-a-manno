@@ -163,7 +163,7 @@ class StorageController extends Controller
 
         // Paginate the results for clothes
         $perPage = 10;
-        $page = request()->get('clothes_page', 1);
+        $page = request()->get('stores_page', 1);
         $offset = ($page - 1) * $perPage;
         $paginatedResults = $stores->slice($offset, $perPage);
         $stores = new LengthAwarePaginator(
@@ -171,7 +171,7 @@ class StorageController extends Controller
             $stores->count(),
             $perPage,
             $page,
-            ['path' => request()->url(), 'pageName' => 'stores_page']
+            ['path' => request()->fullUrl(), 'pageName' => 'stores_page']
         );
 
         if (request()->is('api/*')) {
