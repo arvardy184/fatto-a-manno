@@ -24,7 +24,6 @@ class StoreSeeder extends Seeder
     {
         $clothes = Cloth::all();
         $storage = Storage::find($id);
-
         foreach ($clothes as $cloth) {
             $cloth->storages()->attach($storage, ['quantity' => rand(30, 50)]);
         }

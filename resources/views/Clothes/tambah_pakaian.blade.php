@@ -19,12 +19,12 @@
                             <option value=""></option>
                             <option value="polo">Polo</option>
                             <option value="turtleneck">Turtleneck</option>
-                            <option value="kaos polos">Kaos Polos</option>
+                            <option value="Plain t-shirt">Plain t-shirt</option>
                             <option value="wallet">Wallet</option>
                             <option value="hoodie">Hoodie</option>
                             <option value="pants">Pants</option>
                             <option value="caps">Caps</option>
-                            <option value="kemeja">Kemeja</option>
+                            <option value="Shirt">Shirt</option>
                             <option value="sweater">Sweater</option>
                         </select>
                     </div>
@@ -43,11 +43,12 @@
                             class="block w-full px-3 py-2 h-10 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             size="1">
                             <option value=""></option>
-                            <option class="p-96" value="S">S</option>
+                            <option value="S">S</option>
                             <option value="M">M</option>
                             <option value="L">L</option>
                             <option value="XL">XL</option>
                             <option value="XXL">XXL</option>
+                            <option value="-">-</option>
                         </select>
                     </div>
                 </div>

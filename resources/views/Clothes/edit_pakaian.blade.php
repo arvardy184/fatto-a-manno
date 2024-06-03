@@ -10,8 +10,17 @@
                 @csrf
                 <div class="mb-6">
                     <label for="type" class="block mb-1 text-sm font-semibold text-gray-700">Type</label>
-                    <input type="text" id="type" name="type" value="{{ $clothes->type }}"
-                        class="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <div class="relative">
+                        <select id="type" name="type" size="1"
+                            class="block w-full px-3 py-2 h-10 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <option value="{{ $clothes->type }}">{{ $clothes->type }}</option>
+                            @foreach (['polo', 'turtleneck', 'Plain t-shirt', 'wallet', 'hoodie', 'pants', 'caps', 'Shirt', 'sweater'] as $type)
+                                @if ($type !== $clothes->type)
+                                    <option value="{{ $type }}">{{ ucfirst($type) }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
 
                 <div class="mb-6">
@@ -24,14 +33,34 @@
 
                 <div class="mb-6">
                     <label for="size" class="block mb-1 text-sm font-semibold text-gray-700">Size</label>
-                    <input type="text" id="size" name="size" value="{{ $clothes->size }}"
-                        class="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <div class="relative">
+                        <select id="size" name="size"
+                            class="block w-full px-3 py-2 h-10 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            size="1">
+                            <option value="{{ $clothes->size }}">{{ $clothes->size }}</option>
+                            @foreach (['S', 'M', 'L', 'XL', 'XXL'] as $size)
+                                @if ($size !== $clothes->size)
+                                    <option value="{{ $size }}">{{ $size }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
 
                 <div class="mb-6">
                     <label for="color" class="block mb-1 text-sm font-semibold text-gray-700">Color</label>
-                    <input type="text" id="color" name="color" value="{{ $clothes->color }}"
-                        class="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <div class="relative">
+                        <select id="color" name="color"
+                            class="block w-full px-3 py-2 h-10 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            size="1">
+                            <option value="{{ $clothes->color }}">{{ $clothes->color }}</option>
+                            @foreach (['white', 'black', 'blue', 'brown', 'sage', 'navy'] as $color)
+                                @if ($color !== $clothes->color)
+                                    <option value="{{ $color }}">{{ ucfirst($color) }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
 
                 <div class="mb-6">

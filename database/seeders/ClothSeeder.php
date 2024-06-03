@@ -15,8 +15,8 @@ class ClothSeeder extends Seeder
     public function run(): void
     {
         // Define the possible values for each attribute
-        $types = ['Polo', 'Turtleneck', 'Kaos Polos', 'Wallet', 'Hoodie', 'Pants', 'Caps', 'Kemeja', 'Sweater'];
-        $colors = ['White', 'Black', 'Blue', 'Brown', 'Sage'];
+        $types = ['Polo'];
+        $colors = ['White'];
         $sizes = ['S', 'M', 'L', 'XL', 'XXL'];
 
         // Generate combinations and seed the database
