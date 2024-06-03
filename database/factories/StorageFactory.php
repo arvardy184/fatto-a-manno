@@ -22,7 +22,7 @@ class StorageFactory extends Factory
 
         return [
             'name' => $faker->lastName,
-            'quantity_limit' => $faker->numberBetween(100, 1000), // Example range for quantity limit
+            'quantity_limit' => $faker->numberBetween(10000, 20000), // Example range for quantity limit
             'address' => $faker->address,
         ];
     }

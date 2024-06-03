@@ -20,13 +20,49 @@ class ClothFactory extends Factory
         // Set the Faker locale to Indonesian (id)
         $faker = Faker::create('id_ID');
         return [
-            'type' => 'Polo',
-            'name' => 'Polo Shirt',
+            'type' => $faker->randomElement(['Polo', 'Turtleneck', 'Kaos Polos', 'Wallet', 'Hoodie', 'Pants', 'Caps', 'Kemeja', 'Sweater']),
+            'name' => $faker->randomElement(['Polo', 'Turtleneck', 'Kaos Polos', 'Wallet', 'Hoodie', 'Pants', 'Caps', 'Kemeja', 'Sweater']) . ' ' . $faker->randomElement(['White', 'Black', 'Blue', 'Brown', 'Sage']),
             'size' => $faker->randomElement(['S', 'M', 'L', 'XL', 'XXL']),
-            'color' => 'White',
-            'price_per_piece' => 75000,
-            'description' => "Fatto A Mano Men's Collar Polo Shirt, Regular Fit Boys' Top",
-            'image_url' => 'https://down-id.img.susercontent.com/file/sg-11134201-22110-m4sp896sd9jv00',
+            'color' => $faker->randomElement(['White', 'Black', 'Blue', 'Brown', 'Sage']),
+            'price_per_piece' => $faker->numberBetween(100000, 500000), // Example range for price
+            'description' => $faker->sentence,
+            'image_url' => $faker->imageUrl(), // Example image URL
         ];
+    }
+
+    public function withName($name)
+    {
+        return $this->state(function (array $attributes) use ($name) {
+            return [
+                'name' => $name,
+            ];
+        });
+    }
+
+    public function withType($type)
+    {
+        return $this->state(function (array $attributes) use ($type) {
+            return [
+                'type' => $type,
+            ];
+        });
+    }
+
+    public function withSize($size)
+    {
+        return $this->state(function (array $attributes) use ($size) {
+            return [
+                'size' => $size,
+            ];
+        });
+    }
+
+    public function withColor($color)
+    {
+        return $this->state(function (array $attributes) use ($color) {
+            return [
+                'color' => $color,
+            ];
+        });
     }
 }

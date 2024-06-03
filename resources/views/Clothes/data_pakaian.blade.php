@@ -764,8 +764,7 @@
                                     <td class="px-4 py-2 border">
                                         <button>
                                             <a href="/clothes/data/{{ $cloth['id'] }}"
-                                                class="block w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2"
-                                                onclick="return confirm('Are you sure to edit this clothes?')">Edit</a>
+                                                class="block w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2">Edit</a>
                                         </button>
                                         <div x-data="{ deletee: false }">
                                             <form action="/clothes/delete/{{ $cloth['id'] }}" method="GET"

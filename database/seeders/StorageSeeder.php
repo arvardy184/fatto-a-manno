@@ -13,6 +13,6 @@ class StorageSeeder extends Seeder
      */
     public function run(): void
     {
-        Storage::factory()->count(10)->create();
+        Storage::factory()->count(1)->create();
     }
 }
