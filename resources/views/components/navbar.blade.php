@@ -12,39 +12,49 @@
                             <div class="hidden md:block">
                                 <div class="ml-10 flex items-baseline space-x-4">
                                     <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                                    <a href="/dashboard"
-                                        class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                                        aria-current="page">Home</a>
-                                    <form action="/dashboard/data_pakaian" method="GET" class="inline">
-                                        @csrf
-                                        <button type="submit"
-                                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                                            Clothing Information
-                                        </button>
-                                    </form>
-                                    <form action="/dashboard/data_storage" method="GET" class="inline">
-                                        @csrf
-                                        <button type="submit"
-                                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                                            Storage Information
-                                        </button>
-                                    </form>
-                                    <form action="/dashboard/data_pengguna" method="GET" class="inline">
-                                        @csrf
-                                        <button type="submit"
-                                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+                                    @if (!request()->routeIs('dashboard'))
+                                        <a href="/dashboard"
+                                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                                            aria-current="page">Home</a>
+                                    @endif
+                                    @if (!request()->routeIs('Data Pakaian'))
+                                        <form action="/dashboard/data_pakaian" method="GET" class="inline">
+                                            @csrf
+                                            <button type="submit"
+                                                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+                                                Clothing Information
+                                            </button>
+                                        </form>
+                                    @endif
+                                    @if (!request()->routeIs('Data Storage'))
+                                        <form action="/dashboard/data_storage" method="GET" class="inline">
+                                            @csrf
+                                            <button type="submit"
+                                                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+                                                Storage Information
+                                            </button>
+                                        </form>
+                                    @endif
+                                    @if (!request()->routeIs('Data Pengguna'))
+                                        <form action="/dashboard/data_pengguna" method="GET" class="inline">
+                                            @csrf
+                                            <button type="submit"
+                                                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
 
-                                            User Information
-                                        </button>
-                                    </form>
-                                    <form action="/dashboard/sales_analysis" method="POST" class="inline">
-                                        @csrf
-                                        <button type="submit"
-                                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+                                                User Information
+                                            </button>
+                                        </form>
+                                    @endif
+                                    @if (!request()->routeIs('Sales Analysis'))
+                                        <form action="/dashboard/sales_analysis" method="POST" class="inline">
+                                            @csrf
+                                            <button type="submit"
+                                                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
 
-                                            Sales Analysis
-                                        </button>
-                                    </form>
+                                                Sales Analysis
+                                            </button>
+                                        </form>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -72,9 +82,11 @@
                                         role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
                                         tabindex="-1">
                                         <!-- Active: "bg-gray-100", Not Active: "" -->
-                                        <a href="/dashboard/profile"
-                                            class="block px-4 py-2 text-sm hover:bg-slate-200 text-gray-700 hover:text-black"
-                                            role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                                        @if (!request()->routeIs('Profile'))
+                                            <a href="/dashboard/profile"
+                                                class="block px-4 py-2 text-sm hover:bg-slate-200 text-gray-700 hover:text-black"
+                                                role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                                        @endif
                                         <a href="/logout"
                                             class="block px-4 py-2 text-sm hover:bg-slate-200 text-gray-700 hover:text-black"
                                             role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
@@ -109,38 +121,47 @@
                 <div x-show="isOpen" class="md:hidden" id="mobile-menu">
                     <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <a href="/dashboard"
-                            class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
-                            aria-current="page">Dashboard</a>
-                        <form action="/dashboard/data_pakaian" method="GET" class="inline">
-                            @csrf
-                            <button type="submit"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">
-                                Clothing information
-                            </button>
-                        </form>
-                        <form action="/dashboard/data_storage" method="GET" class="inline">
-                            @csrf
-                            <button type="submit"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">
-                                Storage Information
-                            </button>
-                        </form>
-                        <form action="/dashboard/data_pengguna" method="GET" class="inline">
-                            @csrf
-                            <button type="submit"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">
-
-                                User Information
-                            </button>
-                        </form>
-                        <form action="/dashboard/data_pengguna" method="GET" class="inline">
-                            @csrf
-                            <button type="submit"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">
-                                Sales Analysis
-                            </button>
-                        </form>
+                        @if (!request()->routeIs('dashboard'))
+                            <a href="/dashboard"
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+                                aria-current="page">Home</a>
+                        @endif
+                        @if (!request()->routeIs('Data Pakaian'))
+                            <form action="/dashboard/data_pakaian" method="GET" class="inline">
+                                @csrf
+                                <button type="submit"
+                                    class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">
+                                    Clothing information
+                                </button>
+                            </form>
+                        @endif
+                        @if (!request()->routeIs('Data Storage'))
+                            <form action="/dashboard/data_storage" method="GET" class="inline">
+                                @csrf
+                                <button type="submit"
+                                    class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">
+                                    Storage Information
+                                </button>
+                            </form>
+                        @endif
+                        @if (!request()->routeIs('Data Pengguna'))
+                            <form action="/dashboard/data_pengguna" method="GET" class="inline">
+                                @csrf
+                                <button type="submit"
+                                    class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">
+                                    User Information
+                                </button>
+                            </form>
+                        @endif
+                        @if (!request()->routeIs('Sales Analysis'))
+                            <form action="/dashboard/sales_analysis" method="POST" class="inline">
+                                @csrf
+                                <button type="submit"
+                                    class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">
+                                    Sales Analysis
+                                </button>
+                            </form>
+                        @endif
 
                     </div>
                     <div class="border-t border-gray-700 pb-3 pt-4">
@@ -152,9 +173,11 @@
                             </div>
                         </div>
                         <div class="mt-3 space-y-1 px-2">
-                            <a href="/dashboard/profile"
-                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your
-                                Profile</a>
+                            @if (!request()->routeIs('Profile'))
+                                <a href="/dashboard/profile"
+                                    class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your
+                                    Profile</a>
+                            @endif
                             <a href="/logout"
                                 class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Sign
                                 out</a>
@@ -174,29 +197,37 @@
                             <div class="flex-shrink-0">
                                 <img class="w-40" src="{{ asset('images/logo.png') }}" alt="Your Company">
                             </div>
-                            <div class="hidden md:block">
-                                <div class="ml-10 flex items-baseline space-x-4">
-                                    <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                                    <a href="/dashboard"
-                                        class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                                        aria-current="page">Home</a>
+                            @if (!request()->routeIs('dashboard'))
+                                <div class="hidden md:block">
+                                    <div class="ml-10 flex items-baseline space-x-4">
+                                        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                                        <a href="/dashboard"
+                                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                                            aria-current="page">Home</a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="hidden md:block">
-                                <div class="ml-10 flex items-baseline space-x-4">
-                                    <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                                    <a href="/dashboard/histori_user"
-                                        class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                                        aria-current="page">Transaction History </a>
+                            @endif
+
+                            @if (!request()->routeIs('Histori User'))
+                                <div class="hidden md:block">
+                                    <div class="ml-10 flex items-baseline space-x-4">
+                                        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                                        <a href="/dashboard/histori_user"
+                                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                                            aria-current="page">Transaction History </a>
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
+
                         </div>
                         <div class="hidden md:block">
                             <div class="ml-4 flex items-center md:ml-6">
-                                <button type="button" class="relative ml-auto flex-shrink-0 rounded-full">
-                                    <a href="/dashboard/keranjang_user"><i class="fa-solid fa-cart-shopping"
-                                            style="color: #ffffff;"></i></a>
-                                </button>
+                                @if (!request()->routeIs('Keranjang User'))
+                                    <button type="button" class="relative ml-auto flex-shrink-0 rounded-full">
+                                        <a href="/dashboard/keranjang_user"><i class="fa-solid fa-cart-shopping"
+                                                style="color: #ffffff;"></i></a>
+                                    </button>
+                                @endif
                                 <!-- Profile dropdown -->
                                 <div class="relative ml-3">
                                     <button type="button" @click="isOpen = !isOpen"
@@ -217,9 +248,11 @@
                                         role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
                                         tabindex="-1">
                                         <!-- Active: "bg-gray-100", Not Active: "" -->
-                                        <a href="/dashboard/profile"
-                                            class="block px-4 py-2 text-sm hover:bg-slate-200 text-gray-700 hover:text-black"
-                                            role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                                        @if (!request()->routeIs('Profile'))
+                                            <a href="/dashboard/profile"
+                                                class="block px-4 py-2 text-sm hover:bg-slate-200 text-gray-700 hover:text-black"
+                                                role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                                        @endif
                                         <a href="/logout"
                                             class="block px-4 py-2 text-sm hover:bg-slate-200 text-gray-700 hover:text-black"
                                             role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
@@ -252,40 +285,45 @@
 
                 <!-- Mobile menu, show/hide based on menu state. -->
                 <div x-show="isOpen" class="md:hidden" id="mobile-menu">
-                    <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-                        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <a href="/dashboard"
-                            class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
-                            aria-current="page">Home</a>
-                    </div>
-                    <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-                        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <a href="/dashboard/histori_user"
-                            class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
-                            aria-current="page">Transaction History </a>
-                    </div>
-                    <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-                        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <a href="/dashboard/histori_user"
-                            class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
-                            aria-current="page"></a>
-                    </div>
+                    @if (!request()->routeIs('dashboard'))
+                        <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+                            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                            <a href="/dashboard"
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+                                aria-current="page">Home</a>
+                        </div>
+                    @endif
+
+                    @if (!request()->routeIs('Histori User'))
+                        <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+                            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                            <a href="/dashboard/histori_user"
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+                                aria-current="page">Transaction History </a>
+                        </div>
+                    @endif
+
                     <div x-data="{ cart: false }" class="border-t border-gray-700 pb-3 pt-4">
                         <div class="flex items-center px-5">
                             <div class="ml-3">
-                                <div class="text-base font-medium leading-none text-white">{{ auth()->user()->name }}</div>
+                                <div class="text-base font-medium leading-none text-white">{{ auth()->user()->name }}
+                                </div>
                                 <div class="text-sm font-medium leading-none text-gray-400">{{ auth()->user()->email }}
                                 </div>
                             </div>
-                            <button type="button" class="relative ml-auto flex-shrink-0 rounded-full">
-                                <a href="/dashboard/keranjang_user"><i class="fa-solid fa-cart-shopping"
-                                        style="color: #ffffff;"></i></a>
-                            </button>
+                            @if (!request()->routeIs('Keranjang User'))
+                                <button type="button" class="relative ml-auto flex-shrink-0 rounded-full">
+                                    <a href="/dashboard/keranjang_user"><i class="fa-solid fa-cart-shopping"
+                                            style="color: #ffffff;"></i></a>
+                                </button>
+                            @endif
                         </div>
                         <div class="mt-3 space-y-1 px-2">
-                            <a href="/dashboard/profile"
-                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your
-                                Profile</a>
+                            @if (!request()->routeIs('Profile'))
+                                <a href="/dashboard/profile"
+                                    class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your
+                                    Profile</a>
+                            @endif
                             <a href="/logout"
                                 class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Sign
                                 out</a>
@@ -304,34 +342,39 @@
                 <div class="flex h-16 items-center justify-between">
                     <div class="flex items-center">
                         <img class="w-40" src="{{ asset('images/logo.png') }}" alt="Your Company">
-                        <div class="hidden md:block">
-                            <div class="ml-10 flex items-baseline space-x-4">
-                                <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                        @if (!request()->routeIs('dashboard'))
+                            <div class="hidden md:block">
+                                <div class="ml-10 flex items-baseline space-x-4">
+                                    <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                                    <a href="/"
+                                        class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Dashboard</a>
+                                </div>
+                            </div>
+                        @endif
+                        @if (!request()->routeIs('All Products'))
+                            <div class="hidden md:block">
+                                <div class="ml-10 flex items-baseline space-x-4">
+                                    <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
 
-                                <a href="/"
-                                    class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Dashboard</a>
+                                    <a href="/all_products"
+                                        class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">All
+                                        Products</a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="hidden md:block">
-                            <div class="ml-10 flex items-baseline space-x-4">
-                                <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-
-                                <a href="/all_products"
-                                    class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">All
-                                    Products</a>
-                            </div>
-                        </div>
+                        @endif
                     </div>
-                    <div id="login" class="hidden md:block">
-                        <div class="ml-4 flex items-center md:ml-6">
-                            <div
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                                <a id="login" href="/login"
-                                    class="text-sm font-semibold leading-6 text-slate-100">Log in<span
-                                        aria-hidden="true">&rarr;</span></a>
+                    @if (!request()->routeIs('login'))
+                        <div id="login" class="hidden md:block">
+                            <div class="ml-4 flex items-center md:ml-6">
+                                <div
+                                    class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+                                    <a id="login" href="/login"
+                                        class="text-sm font-semibold leading-6 text-slate-100">Log in<span
+                                            aria-hidden="true">&rarr;</span></a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                     <div class="-mr-2 flex md:hidden">
                         <!-- Mobile menu button -->
                         <button type="button" @click="isOpen = !isOpen"
@@ -357,24 +400,31 @@
 
             <!-- Mobile menu, show/hide based on menu state. -->
             <div x-show="isOpen" class="md:hidden" id="mobile-menu">
-                <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-                    <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                    <a href="/"
-                        class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Dashboard</a>
-                </div>
-                <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-                    <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-
-                    <a href="/all_products"
-                        class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">All
-                        Product</a>
-                </div>
-                <div id="login" class="border-t border-gray-700 pb-3 pt-4">
-                    <div class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                        <a href="/login" class="text-sm font-semibold leading-6 text-slate-100">Log in<span
-                                aria-hidden="true">&rarr;</span></a>
+                @if (!request()->routeIs('dashboard'))
+                    <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+                        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                        <a href="/"
+                            class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Dashboard</a>
                     </div>
-                </div>
+                @endif
+                @if (!request()->routeIs('All Products'))
+                    <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+                        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+
+                        <a href="/all_products"
+                            class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">All
+                            Product</a>
+                    </div>
+                @endif
+                @if (!request()->routeIs('login'))
+                    <div id="login" class="border-t border-gray-700 pb-3 pt-4">
+                        <div
+                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+                            <a href="/login" class="text-sm font-semibold leading-6 text-slate-100">Log in<span
+                                    aria-hidden="true">&rarr;</span></a>
+                        </div>
+                    </div>
+                @endif
             </div>
         </nav>
 
