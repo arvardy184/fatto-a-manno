@@ -46,6 +46,9 @@
                 </tbody>
             </table>
         </div>
+        <div class="mt-3 justify-between">
+            {{ $stores->links() }}
+        </div>
         <div class="mt-6 flex justify-between">
             <a href="/storage/" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Back</a>
         </div>

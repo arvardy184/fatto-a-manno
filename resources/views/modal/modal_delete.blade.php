@@ -1,5 +1,5 @@
  {{-- modal belum login --}}
- <div x-show="back" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+ <div x-show="deletee" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
      <div x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0"
          x-transition:enter-end="opacity-100 " x-transition:leave="ease-in duration-200"
          x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
@@ -27,12 +27,15 @@
                          </div>
                          <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                              <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">
-                                 {{ session('errors')->first() }}</h3>
+                                 Are you sure you want to delete it?</h3>
                          </div>
                      </div>
                  </div>
                  <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                     <button x-on:click="$dispatch('close')"
+                     <button @click="$refs.submitButton.click()" type="submit"
+                         class="inline-flex w-full justify-center rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-700 sm:ml-3 sm:w-auto">Delete</button>
+
+                     <button @click="deletee = false" type="button"
                          class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Back</button>
                  </div>
              </div>

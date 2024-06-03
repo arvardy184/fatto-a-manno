@@ -39,13 +39,16 @@
                                     <a href="/storage/data/{{ $storage['id'] }}"
                                         class="block w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2">Edit</a>
                                 </button>
-                                <form action="/storage/delete/{{ $storage['id'] }}" method="POST" class="inline-block">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit"
-                                        class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                                        onclick="return confirm('Are you sure to delete this storage?')">Delete</button>
-                                </form>
+                                <div x-data="{ deletee: false }">
+                                    <form id="delete-form-template" action="/storage/delete/{{ $storage['id'] }}"
+                                        method="POST" class="inline-block">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="button" @click="deletee = true"
+                                            class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
+                                        @include('modal.modal_delete')
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @endforeach

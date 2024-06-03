@@ -83,7 +83,7 @@
             </table>
         </div>
         <div class="mt-3 justify-between">
-
+            {{ $buys->links() }}
         </div>
         <a href="/dashboard/data_pengguna"
             class="block mb-5 w-full max-w-xs mx-auto mt-4 px-4 py-2 border text-sm font-semibold leading-6 text-center text-white uppercase bg-gray-600 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700">Back</a>

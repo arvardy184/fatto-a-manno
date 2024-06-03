@@ -19,15 +19,14 @@ class ClothFactory extends Factory
     {
         // Set the Faker locale to Indonesian (id)
         $faker = Faker::create('id_ID');
-
         return [
-            'type' => $faker->randomElement(['Polo', 'Turtleneck', 'Kaos Polos', 'Wallet', 'Hoodie', 'Pants', 'Caps', 'Kemeja', 'Sweater']),
-            'name' => $faker->randomElement(['Polo', 'Turtleneck', 'Kaos Polos', 'Wallet', 'Hoodie', 'Pants', 'Caps', 'Kemeja', 'Sweater']) . ' ' . $faker->randomElement(['White', 'Black', 'Blue', 'Brown', 'Sage']),
+            'type' => 'Polo',
+            'name' => 'Polo Shirt',
             'size' => $faker->randomElement(['S', 'M', 'L', 'XL', 'XXL']),
-            'color' => $faker->randomElement(['White', 'Black', 'Blue', 'Brown', 'Sage']),
-            'price_per_piece' => $faker->numberBetween(100000, 500000), // Example range for price
-            'description' => $faker->sentence,
-            'image_url' => $faker->imageUrl(), // Example image URL
+            'color' => 'White',
+            'price_per_piece' => 75000,
+            'description' => "Fatto A Mano Men's Collar Polo Shirt, Regular Fit Boys' Top",
+            'image_url' => 'https://down-id.img.susercontent.com/file/sg-11134201-22110-m4sp896sd9jv00',
         ];
     }
 }

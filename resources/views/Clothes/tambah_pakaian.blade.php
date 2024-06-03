@@ -64,6 +64,7 @@
                             <option value="blue">Blue</option>
                             <option value="brown">Brown</option>
                             <option value="sage">Sage</option>
+                            <option value="navy">Navy</option>
                         </select>
                     </div>
                 </div>
@@ -86,11 +87,17 @@
                     <input type="text" id="image_url" name="image_url"
                         class="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                 </div>
-
                 <div class="mb-6">
-                    <label for="stored_in" class="block mb-1 text-sm font-semibold text-gray-700">Stored In</label>
-                    <input type="text" id="stored_in" name="stored_in"
-                        class="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <label for="type" class="block mb-1 text-sm font-semibold text-gray-700">Stored In</label>
+                    <div class="relative">
+                        <select id="type" name="stored_in" size="1"
+                            class="block w-full px-3 py-2 h-10 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <option value=""></option>
+                            @foreach ($storages as $storage)
+                                <option value="{{ $storage['name'] }}">{{ $storage['name'] }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
 
                 <div class="mb-6">
