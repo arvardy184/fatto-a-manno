@@ -69,8 +69,8 @@ Route::group([
     Route::get('/keranjang_user', [BuyController::class, 'getKeranjang'])->name('Keranjang User')->middleware('isCustomer');
     Route::get('/detail_items', [StorageController::class, 'getStorageDetail'])->name('Detail Items')->middleware('isAdmin');
     Route::get('/edit_keranjang/{id}', [BuyController::class, 'getDataEditKeranjang'])->name('Edit Keranjang')->middleware('isCustomer');
-    Route::get('/data_storage', [StorageController::class, 'getStoragebyName'])->middleware('isAdmin');
-    Route::post('/sales_analysis', [AdminController::class, 'analyze'])->middleware('isAdmin');
+    Route::get('/data_storage', [StorageController::class, 'getStoragebyName'])->name('Data Storage')->middleware('isAdmin');
+    Route::post('/sales_analysis', [AdminController::class, 'analyze'])->name('Sales Analysis')->middleware('isAdmin');
 });
 
 
