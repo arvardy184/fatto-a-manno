@@ -10,7 +10,7 @@
                 {{-- seno: tampilkan data-data user disini --}}
                 @csrf
                 <div class="mb-5">
-                    <label for="" class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
+                    <label for="" class="block text-sm font-medium text-gray-700">Full Name</label>
                     <div class="border border-gray-300 rounded-md p-2">{{ auth()->user()->name }}</div>
                 </div>
                 <div class="mb-5">
@@ -18,17 +18,18 @@
                     <div class="border border-gray-300 rounded-md p-2">{{ auth()->user()->email }}</div>
                 </div>
                 <div class="mb-5">
-                    <label for="" class="block text-sm font-medium text-gray-700">Alamat</label>
+                    <label for="" class="block text-sm font-medium text-gray-700">
+                        Address
+                    </label>
                     <div class="border border-gray-300 rounded-md p-2">{{ auth()->user()->address }}</div>
                 </div>
                 <div class="mb-5">
-                    <label for="" class="block text-sm font-medium text-gray-700">No HP</label>
+                    <label for="" class="block text-sm font-medium text-gray-700">Phone Number</label>
                     <div class="border border-gray-300 rounded-md p-2">{{ auth()->user()->number }}</div>
                 </div>
                 <div>
-
                     <a class="mt-1 flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        href="/dashboard/ubah_pw">Ubah Password</a>
+                        href="/dashboard/ubah_pw">Change password</a>
 
                     <a class="mt-1 flex w-full justify-center rounded-md bg-gray-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
                         href="/dashboard">Back</a>
@@ -46,7 +47,7 @@
                 @csrf
 
                 <div class="mb-5">
-                    <label for="" class="block text-sm font-medium text-gray-700">Nama</label>
+                    <label for="" class="block text-sm font-medium text-gray-700">Full Name</label>
                     <div class="border border-gray-300 rounded-md p-2">{{ auth()->user()->name }}</div>
                 </div>
                 <div class="mb-5">
@@ -54,18 +55,18 @@
                     <div class="border border-gray-300 rounded-md p-2">{{ auth()->user()->email }}</div>
                 </div>
                 <div class="mb-5">
-                    <label for="" class="block text-sm font-medium text-gray-700">Alamat</label>
+                    <label for="" class="block text-sm font-medium text-gray-700">Address</label>
                     <div class="border border-gray-300 rounded-md p-2">{{ auth()->user()->address }}</div>
                 </div>
                 <div class="mb-5">
-                    <label for="" class="block text-sm font-medium text-gray-700">No HP</label>
+                    <label for="" class="block text-sm font-medium text-gray-700">Phone Number</label>
                     <div class="border border-gray-300 rounded-md p-2">{{ auth()->user()->number }}</div>
                 </div>
                 <div>
                     <a class="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
-                        href="/dashboard/edit_profil">Edit Profil</a>
+                        href="/dashboard/edit_profil">Edit profile</a>
                     <a class="mt-1 flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        href="/dashboard/ubah_pw">Ubah Password</a>
+                        href="/dashboard/ubah_pw">Change password</a>
                     <a class="mt-1 flex w-full justify-center rounded-md bg-gray-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
                         href="/dashboard">Back</a>
                 </div>

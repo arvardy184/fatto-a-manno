@@ -85,7 +85,7 @@
                 <table class="min-w-full bg-white border text-center">
                     <thead>
                         <tr>
-                            <th class="px-4 py-2 border">Nama</th>
+                            <th class="px-4 py-2 border">Name</th>
                             <th class="px-4 py-2 border">Email</th>
                             <th class="px-4 py-2 border">Address</th>
                             <th class="px-4 py-2 border">Number</th>

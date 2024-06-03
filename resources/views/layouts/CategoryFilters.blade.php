@@ -154,11 +154,11 @@
                                             class="ml-3 min-w-0 flex-1 text-gray-500">White</label>
                                     </div>
                                     <div class="flex items-center">
-                                        <input id="filter-mobile-color-1" name="color" value="beige"
+                                        <input id="filter-mobile-color-1" name="color" value="black"
                                             type="checkbox"
                                             class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                         <label for="filter-mobile-color-1"
-                                            class="ml-3 min-w-0 flex-1 text-gray-500">Beige</label>
+                                            class="ml-3 min-w-0 flex-1 text-gray-500">Black</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input id="filter-mobile-color-2" name="color" value="blue"
@@ -175,18 +175,18 @@
                                             class="ml-3 min-w-0 flex-1 text-gray-500">Brown</label>
                                     </div>
                                     <div class="flex items-center">
-                                        <input id="filter-mobile-color-4" name="color" value="green"
+                                        <input id="filter-mobile-color-4" name="color" value="sage"
                                             type="checkbox"
                                             class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                         <label for="filter-mobile-color-4"
-                                            class="ml-3 min-w-0 flex-1 text-gray-500">Green</label>
+                                            class="ml-3 min-w-0 flex-1 text-gray-500">sage</label>
                                     </div>
                                     <div class="flex items-center">
-                                        <input id="filter-mobile-color-5" name="color" value="purple"
+                                        <input id="filter-mobile-color-5" name="color" value="navy"
                                             type="checkbox"
                                             class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                         <label for="filter-mobile-color-5"
-                                            class="ml-3 min-w-0 flex-1 text-gray-500">Purple</label>
+                                            class="ml-3 min-w-0 flex-1 text-gray-500">Navy</label>
                                     </div>
                                 </div>
                             </div>
@@ -459,9 +459,9 @@
                                         <label for="filter-color-0" class="ml-3 text-sm text-gray-600">White</label>
                                     </div>
                                     <div class="flex items-center">
-                                        <input id="filter-color-1" name="color" value="beige" type="checkbox"
+                                        <input id="filter-color-1" name="color" value="black" type="checkbox"
                                             class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                        <label for="filter-color-1" class="ml-3 text-sm text-gray-600">Beige</label>
+                                        <label for="filter-color-1" class="ml-3 text-sm text-gray-600">Black</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input id="filter-color-2" name="color" value="blue" type="checkbox"
@@ -474,14 +474,14 @@
                                         <label for="filter-color-3" class="ml-3 text-sm text-gray-600">Brown</label>
                                     </div>
                                     <div class="flex items-center">
-                                        <input id="filter-color-4" name="color" value="green" type="checkbox"
+                                        <input id="filter-color-4" name="color" value="sage" type="checkbox"
                                             class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                        <label for="filter-color-4" class="ml-3 text-sm text-gray-600">Green</label>
+                                        <label for="filter-color-4" class="ml-3 text-sm text-gray-600">Sage</label>
                                     </div>
                                     <div class="flex items-center">
-                                        <input id="filter-color-5" name="color" value="purple" type="checkbox"
+                                        <input id="filter-color-5" name="color" value="navy" type="checkbox"
                                             class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                        <label for="filter-color-5" class="ml-3 text-sm text-gray-600">Purple</label>
+                                        <label for="filter-color-5" class="ml-3 text-sm text-gray-600">Navy</label>
                                     </div>
                                 </div>
                             </div>
