@@ -96,9 +96,8 @@
                 <h2 class="md:text-4xl text-xl font-bold tracking-tight text-white sm:text-6xl">Fatto A Mano
                     Official
                     Shop</h2>
-                <p class="mt-6 md:text-lg text-sm leading-8 text-gray-300">Anim aute id magna aliqua ad ad non deserunt
-                    sunt. Qui
-                    irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.</p>
+                <p class="mt-6 md:text-lg text-sm leading-8 text-gray-300">Jl Kadaka No. 7A, Jatimulyo, Lowokwaru,
+                    Malang City, East Java</p>
                 <div class="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
                     <div
                         class="grid grid-cols-1 gap-x-8 gap-y-6 text-base font-semibold leading-7 text-white sm:grid-cols-2 lg:flex lg:justify-center lg:gap-x-10">

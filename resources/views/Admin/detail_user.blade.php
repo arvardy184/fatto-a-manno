@@ -9,11 +9,11 @@
             <table class="min-w-full bg-white border text-center">
                 <thead>
                     <tr>
-                        <th class="px-4 py-2 border">Gambar</th>
+                        <th class="px-4 py-2 border">Image</th>
                         <th class="px-4 py-2 border">Name</th>
                         <th class="px-4 py-2 border">Size</th>
                         <th class="px-4 py-2 border">Type</th>
-                        <th class="px-4 py-2 border">Total Harga</th>
+                        <th class="px-4 py-2 border">Total price</th>
                         <th class="px-4 py-2 border">Payment Method</th>
                         <th class="px-4 py-2 border">Payment Status</th>
                         <th class="px-4 py-2 border">Confirmation Status</th>
@@ -32,27 +32,27 @@
                             <td class="px-4 py-2 border">{{ formatRupiah($buy->total_price) }}</td>
                             <td class="px-4 py-2 border">
                                 @if ($buy->payment_method == 1)
-                                    Bayar tanpa melalui admin
+                                    Pay without going through admin
                                 @elseif ($buy->payment_method == 0)
-                                    Bayar melalui admin
+                                    Pay via admin
                                 @else
-                                    Masih di keranjang
+                                    Still in the cart
                                 @endif
                             </td>
                             <td class="px-4 py-2 border">
                                 @if ($buy->payment_status == 1)
-                                    Sudah di checkout
+                                    Already paid
                                 @else
-                                    Masih di keranjang
+                                    Not yet paid
                                 @endif
                             </td>
                             <td class="px-4 py-2 border">
                                 @if ($buy->confirmation_status == 1)
-                                    Sudah Dikonfirmasi
+                                    Has been confirmed
                                 @elseif($buy->confirmation_status == 0)
-                                    Belum Dikonfirmasi
+                                    Has not been confirmed
                                 @else
-                                    Dibatalkan
+                                    Canceled
                                 @endif
                             </td>
                             <td class="px-4 py-2 border">{{ $buy->user->created_at }} </td>
@@ -85,7 +85,7 @@
         <div class="mt-3 justify-between">
             {{ $buys->links() }}
         </div>
-        <a href="/dashboard/data_pengguna"
+        <a href="{{ url()->previous() }}"
             class="block mb-5 w-full max-w-xs mx-auto mt-4 px-4 py-2 border text-sm font-semibold leading-6 text-center text-white uppercase bg-gray-600 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700">Back</a>
     </div>
 </x-layout>

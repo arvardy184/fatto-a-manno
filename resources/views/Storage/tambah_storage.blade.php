@@ -5,13 +5,13 @@
             @if (session('errors'))
                 @include('components.view_modal')
             @endif
-            <h2 class="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Tambah Storage</h2>
+            <h2 class="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Add Storage</h2>
         </div>
         <div class="mt-1 sm:mx-auto sm:w-full sm:max-w-sm">
             <form class="space-y-6" action="/storage/add" method="POST">
                 @csrf
                 <div class="mb-6">
-                    <label for="type" class="block mb-1 text-sm font-semibold text-gray-700">Nama</label>
+                    <label for="type" class="block mb-1 text-sm font-semibold text-gray-700">Name</label>
                     <input type="text" id="type" name="name"
                         class="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                 </div>
