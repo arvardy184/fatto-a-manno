@@ -72,7 +72,7 @@ class Chart
 
         return $this->chart->horizontalBarChart()
             ->setTitle('Transaction Analysis')
-            ->setSubtitle('Clothes ' . $clothes_type . ' ' . $clothes_color)
+            ->setSubtitle($clothes_type . ' ' . $clothes_color)
             ->setColors(['#FFC107', '#D32F2F'])
             ->addData('Quantity', $counts)
             ->setXAxis($dates);
