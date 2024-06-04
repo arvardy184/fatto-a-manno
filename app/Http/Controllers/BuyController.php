@@ -512,7 +512,6 @@ class BuyController extends Controller
 
     public function getKeranjang()
     {
-
         // Build query conditions based on provided arguments
         $query = Buy::with('cloth')->where('user_id', auth()->user()->id)
             ->where('payment_status', 0)->where('payment_method', 2);
@@ -550,6 +549,16 @@ class BuyController extends Controller
 
     public function getKeranjangAJAX()
     {
+        $user = auth()->user();
+
+        if (!$user) {
+            return response()->json([
+                'errors' => 'Something went wrong'
+            ]);
+        }
+
+        $userId = $user->id;
+
         // Build query conditions based on provided arguments
         $query = Buy::with('cloth')->where('user_id', auth()->user()->id)
             ->where('payment_status', 0)->where('payment_method', 2);
