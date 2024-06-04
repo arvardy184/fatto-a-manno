@@ -548,9 +548,9 @@ class BuyController extends Controller
         return view('User.keranjang_user', ['title' => 'Keranjang User'], compact('buys'));
     }
 
-    public function getKeranjangAJAX(Request $request)
+    public function getKeranjangAJAX()
     {
-        $user = $request->user();
+        $user = auth()->user();
 
         if (!$user) {
             Log::warning('Unauthenticated access attempt.');
