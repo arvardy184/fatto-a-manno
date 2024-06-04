@@ -548,6 +548,26 @@ class BuyController extends Controller
         return view('User.keranjang_user', ['title' => 'Keranjang User'], compact('buys'));
     }
 
+    public function getKeranjangAJAX()
+    {
+        // Build query conditions based on provided arguments
+        $query = Buy::with('cloth')->where('user_id', auth()->user()->id)
+            ->where('payment_status', 0)->where('payment_method', 2);
+
+        // Get the results
+        $buys = $query->orderBy('created_at', 'desc')->get();
+
+        // Iterate over each cloth
+        $buys->each(function ($buy) {
+            // Attach total total price to the cloth object
+            $buy->total_price = (int) $buy->cloth->price_per_piece * (int) $buy->quantity;
+        });
+
+        return response()->json([
+            'buys' => $buys
+        ]);
+    }
+
     private function findClothWithTotalQuantity($clothId)
     {
         $cloth = Cloth::find($clothId);
