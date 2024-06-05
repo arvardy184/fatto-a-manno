@@ -265,9 +265,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="-mr-2 flex md:hidden">
+                        <div class="-mr-2 md:hidden">
                             <!-- isOpen menu button -->
                             <button type="button" @click="isOpen = !isOpen"
+                                onclick="document.getElementById('isOpen-menu').classList.remove('hidden')"
                                 class="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                                 aria-controls="isOpen-menu" aria-expanded="false">
                                 <span class="absolute -inset-0.5"></span>
@@ -290,7 +291,7 @@
                 </div>
 
                 <!-- isOpen menu, show/hide based on menu state. -->
-                <div x-show="isOpen" class="md:hidden" id="isOpen-menu">
+                <div x-show="isOpen" class="hidden md:hidden" id="isOpen-menu">
                     @if (!request()->routeIs('dashboard'))
                         <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->

@@ -9,8 +9,9 @@
                 x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity ease-linear duration-300"
                 x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
                 class="fixed inset-0 z-40 flex">
-                <div
-                    class="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-12 shadow-xl">
+
+                <div id="filters"
+                    class=" relative ml-auto hidden h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-12 shadow-xl">
                     <div class="flex items-center justify-between px-4">
                         <h2 class="text-lg font-medium text-gray-900">Filter</h2>
                         {{-- close button --}}
@@ -90,7 +91,8 @@
                                             class="ml-3 min-w-0 flex-1 text-gray-500">Hoodie</label>
                                     </div>
                                     <div class="flex items-center">
-                                        <input id="filter-mobile-type-4" name="type" value="Pants" type="checkbox"
+                                        <input id="filter-mobile-type-4" name="type" value="Pants"
+                                            type="checkbox"
                                             class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                         <label for="filter-mobile-type-4"
                                             class="ml-3 min-w-0 flex-1 text-gray-500">Pants</label>
@@ -399,6 +401,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -407,6 +410,7 @@
                 <div x-data="{ isOpen: false }" class="flex justify-end ml-auto">
                     {{-- button mobile --}}
                     <button @click="test = true" type="button"
+                        onclick="document.getElementById('filters').classList.remove('hidden')"
                         class="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden">
                         <span class="sr-only">Filters</span>
                         <svg class="h-5 w-5" aria-hidden="true" viewBox="0 0 20 20" fill="currentColor">
