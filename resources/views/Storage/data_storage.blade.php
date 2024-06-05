@@ -45,6 +45,7 @@
                                         @csrf
                                         @method('delete')
                                         <button type="button" @click="deletee = true"
+                                            onclick="document.getElementById('deletee').classList.remove('hidden')"
                                             class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
                                         @include('modal.modal_delete')
                                     </form>

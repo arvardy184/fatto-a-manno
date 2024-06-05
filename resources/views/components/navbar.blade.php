@@ -62,23 +62,23 @@
                             <div class="ml-4 flex items-center md:ml-6">
                                 <!-- Profile dropdown -->
                                 <div class="relative ml-3">
-                                    <div>
-                                        <button type="button" @click="isOpen = !isOpen"
-                                            class="relative flex max-w-xs items-center  text-sm" id="user-menu-button"
-                                            aria-expanded="false" aria-haspopup="true">
-                                            <span class="absolute -inset-1.5"></span>
-                                            <span class="sr-only">Open user menu</span>
-                                            <h1 class="text-white">admin <i class="fa-solid fa-chevron-down"
-                                                    style="color: #ffffff;"></i></h1>
-                                        </button>
-                                    </div>
-                                    <div x-show="isOpen" x-transition:enter="transition ease-out duration-100 transform"
+                                    <button type="button" @click="isOpen = !isOpen"
+                                        onclick="document.getElementById('dropdown-profile').classList.remove('hidden')"
+                                        class="relative flex max-w-xs items-center  text-sm" id="user-menu-button"
+                                        aria-expanded="false" aria-haspopup="true">
+                                        <span class="absolute -inset-1.5"></span>
+                                        <span class="sr-only">Open user menu</span>
+                                        <h1 class="text-white">{{ auth()->user()->name }} <i
+                                                class="fa-solid fa-chevron-down" style="color: #ffffff;"></i></h1>
+                                    </button>
+                                    <div x-show="isOpen" @click.away="isOpen=false"
+                                        x-transition:enter="transition ease-out duration-100 transform"
                                         x-transition:enter-start="opacity-0 scale-95"
                                         x-transition:enter-end="opacity-100 scale-100"
                                         x-transition:leave="transition ease-in duration-75 transform"
                                         x-transition:leave-start="opacity-100 scale-100"
-                                        x-transition:leave-end="opacity-0 scale-95"
-                                        class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                        x-transition:leave-end="opacity-0 scale-95" id="dropdown-profile"
+                                        class="absolute hidden right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                                         role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
                                         tabindex="-1">
                                         <!-- Active: "bg-gray-100", Not Active: "" -->
@@ -224,7 +224,8 @@
                             <div class="ml-4 flex items-center md:ml-6">
                                 @if (!request()->routeIs('Keranjang User'))
                                     <div x-data="{ cartt: false }" class="relative ml-auto flex-shrink-0 rounded-full">
-                                        <button id="cartLg_button" @click="cartt = true" type="submit">
+                                        <button onclick="document.getElementById('cartLg').classList.remove('hidden')"
+                                            id="cartLg_button" @click="cartt = true" type="button">
                                             <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></button>
                                         @include('modal.cartLg')
                                     </div>
@@ -233,6 +234,7 @@
                                 <!-- Profile dropdown -->
                                 <div class="relative ml-3">
                                     <button type="button" @click="isOpen = !isOpen"
+                                        onclick="document.getElementById('dropdown-profile').classList.remove('hidden')"
                                         class="relative flex max-w-xs items-center  text-sm" id="user-menu-button"
                                         aria-expanded="false" aria-haspopup="true">
                                         <span class="absolute -inset-1.5"></span>
@@ -246,8 +248,8 @@
                                         x-transition:enter-end="opacity-100 scale-100"
                                         x-transition:leave="transition ease-in duration-75 transform"
                                         x-transition:leave-start="opacity-100 scale-100"
-                                        x-transition:leave-end="opacity-0 scale-95"
-                                        class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                        x-transition:leave-end="opacity-0 scale-95" id="dropdown-profile"
+                                        class="absolute hidden right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                                         role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
                                         tabindex="-1">
                                         <!-- Active: "bg-gray-100", Not Active: "" -->
@@ -317,7 +319,8 @@
                             </div>
                             @if (!request()->routeIs('Keranjang User'))
                                 <div x-data="{ cartt: false }" class="relative ml-auto flex-shrink-0 rounded-full">
-                                    <button id="cartMD_button" @click="cartt = true" type="submit">
+                                    <button onclick="document.getElementById('cartMd').classList.remove('hidden')"
+                                        id="cartMD_button" @click="cartt = true" type="submit">
                                         <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></button>
                                     @include('modal.cartMd')
                                 </div>

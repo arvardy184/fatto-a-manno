@@ -771,7 +771,8 @@
                                                 class="inline-block">
                                                 @csrf
                                                 <button type="button" @click="deletee = true"
-                                                    class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
+                                                    class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                                    onclick="document.getElementById('deletee').classList.remove('hidden')">Delete</button>
                                                 @include('modal.modal_delete')
                                             </form>
                                         </div>
