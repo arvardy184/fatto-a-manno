@@ -10,21 +10,11 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://kit.fontawesome.com/e8b5a157ee.js" crossorigin="anonymous"></script>
     <title>{{ $title }}</title>
-    <style>
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-        }
 
-        .full-height {
-            height: 100%;
-        }
-    </style>
 </head>
 
-<body class="h-full w-full">
-    <nav class="bg-gray-800" x-data="{ isOpen: false }">
+<body>
+    <nav class="bg-gray-800 h-[10vh] p-1" x-data="{ isOpen: false }">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex h-16 items-center justify-between">
                 <div class="flex items-center">
@@ -74,7 +64,7 @@
 
         </div>
     </nav>
-    <div class="p-5 relative isolate overflow-hidden bg-gray-900 py-24 sm:py-32 h-[42.4rem]">
+    <div class="p-5 relative isolate overflow-hidden bg-gray-900 py-24 sm:py-32 h-[90vh]">
         <img src="{{ asset('images/home.png') }}" alt=""
             class="absolute inset-0 -z-10 h-full w-full object-cover object-right md:object-center opacity-30 filter ">
 
@@ -91,7 +81,7 @@
             </div>
         </div>
         <div
-            class="border border-black bg-gray-800 mx-auto lg:max-w-7xl max-h-none h-80 flex items-center justify-center">
+            class="border border-black bg-gray-800 mx-auto lg:max-w-2xl max-h-none h-80 p-1 flex items-center justify-center">
             <div class="mx-auto max-w-3xl lg:mx-0 text-center">
                 <h2 class="md:text-4xl text-xl font-bold tracking-tight text-white sm:text-6xl">Fatto A Mano
                     Official

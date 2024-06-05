@@ -2,10 +2,10 @@
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="relative bg-gray-900 "><img
             src="https://malangposcomedia.id/mpm/uploads/2022/06/ilham-fatto-a-mano2-1-1392x928.jpg"
-            class="opacity-60 object-cover object-right lg:h-[42.4rem] h-[77.2rem] md:h-[95.1vh]   w-full" alt="">
+            class="opacity-60 object-cover object-right relative h-[90vh] w-full" alt="">
         <div class="absolute inset-0 flex items-center justify-center">
 
-            <div class="absolute inset-0 tems-center flex min-h-full flex-col justify-center p-5 ">
+            <div class="absolute inset-0 tems-center flex h-full flex-col justify-center px-5 ">
                 <div class="sm:mx-auto sm:w-full sm:max-w-sm border border-black bg-slate-200 rounded-lg">
                     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
                         <h2 class="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -39,13 +39,13 @@
                             <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
                             <input type="text" id="address" name="address"
                                 class="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                placeholder="Jl Suhat">
+                                placeholder="Jl">
                         </div>
                         <div class="mb-4">
                             <label for="number" class="block text-sm font-medium text-gray-700">Phone Number</label>
                             <input type="text" id="number" name="number"
                                 class="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                placeholder="08111111111111">
+                                placeholder="08xxxxxx">
                         </div>
                         <div x-data="{ back: false }" class="space-y-2">
                             <button @click="back = true" type="submit"

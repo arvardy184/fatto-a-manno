@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="min-h-screen bg-white scroll-smooth">
+<html lang="en" class=" bg-white scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
@@ -12,15 +12,15 @@
     <title>{{ $title }}</title>
 </head>
 
-<body class="h-full">
-    <div class="min-h-full">
-        <x-navbar></x-navbar>
-        <main>
-            <div >
-                {{ $slot }}
-            </div>
-        </main>
-    </div>
+<body>
+
+    <x-navbar></x-navbar>
+    <main>
+        <div>
+            {{ $slot }}
+        </div>
+    </main>
+
 </body>
 
 </html>
