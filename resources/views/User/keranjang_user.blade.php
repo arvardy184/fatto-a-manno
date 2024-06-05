@@ -109,14 +109,13 @@
             @endforeach
         </div>
         <div class="flex justify-end mt-3 px-5">
-            <div class="bg-gray-600 text-white px-4 py-2 rounded-md">
+            <div class="border border-black text-black px-4 py-2 rounded-md">
                 <p class="text-lg font-semibold">Total price: Rp{{ formatRupiah($sum) }}</p>
             </div>
         </div>
         <div x-data="{ pilihPembayaran: false }">
-
             <button type="submit" @click="pilihPembayaran = true"
-                class="block mb-5 w-full max-w-xs mx-auto mt-4 px-4 py-2 border text-base font-semibold leading-6 text-center text-white uppercase bg-green-600 rounded-md hover:bg-green-700 focus:outline-none focus:bg-green-700">Choose
+                class="block mb-3 w-full max-w-xs mx-auto mt-4 px-4 py-2 border text-base font-semibold leading-6 text-center text-white uppercase bg-green-600 rounded-md hover:bg-green-700 focus:outline-none focus:bg-green-700">Choose
                 payment method</button>
             @include('modal.modal_cart')
         </div>
