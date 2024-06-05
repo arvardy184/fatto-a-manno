@@ -95,21 +95,21 @@
                             </div>
                         </div>
                         <div class="-mr-2 flex md:hidden">
-                            <!-- Mobile menu button -->
+                            <!-- isOpen menu button -->
                             <button type="button" @click="isOpen = !isOpen"
                                 class="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                                aria-controls="mobile-menu" aria-expanded="false">
+                                aria-controls="isOpen-menu" aria-expanded="false">
                                 <span class="absolute -inset-0.5"></span>
                                 <span class="sr-only">Open main menu</span>
                                 <!-- Menu open: "hidden", Menu closed: "block" -->
-                                <svg :class="{ 'hidded': isOpen, 'block': !isOpen }" class="block h-6 w-6" fill="none"
-                                    Box="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <svg :class="{ 'hidden': isOpen, 'block': !isOpen }" class="block h-6 w-6" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                 </svg>
                                 <!-- Menu open: "block", Menu closed: "hidden" -->
                                 <svg :class="{ 'block': isOpen, 'hidden': !isOpen }" class="hidden h-6 w-6" fill="none"
-                                    Box="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                             </button>
@@ -117,8 +117,8 @@
                     </div>
                 </div>
 
-                <!-- Mobile menu, show/hide based on menu state. -->
-                <div x-show="isOpen" class="md:hidden" id="mobile-menu">
+                <!-- isOpen menu, show/hide based on menu state. -->
+                <div x-show="isOpen" class="md:hidden" id="isOpen-menu">
                     <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                         @if (!request()->routeIs('dashboard'))
@@ -189,8 +189,8 @@
         {{-- Admin End --}}
     @else
         {{-- User Start --}}
-        <div class="min-h-full">
-            <nav class="bg-gray-800" x-data="{ isOpen: false }">
+        <div x-data="{ isOpen: false }" class="min-h-full">
+            <nav x-data="{ isOpen: false }" class="bg-gray-800">
                 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div class="flex h-16 items-center justify-between">
                         <div class="flex items-center">
@@ -223,11 +223,13 @@
                         <div class="hidden md:block">
                             <div class="ml-4 flex items-center md:ml-6">
                                 @if (!request()->routeIs('Keranjang User'))
-                                    <button type="button" class="relative ml-auto flex-shrink-0 rounded-full">
-                                        <a href="/dashboard/keranjang_user"><i class="fa-solid fa-cart-shopping"
-                                                style="color: #ffffff;"></i></a>
-                                    </button>
+                                    <div x-data="{ cartt: false }" class="relative ml-auto flex-shrink-0 rounded-full">
+                                        <button id="cartLg_button" @click="cartt = true" type="submit">
+                                            <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></button>
+                                        @include('modal.cartLg')
+                                    </div>
                                 @endif
+
                                 <!-- Profile dropdown -->
                                 <div class="relative ml-3">
                                     <button type="button" @click="isOpen = !isOpen"
@@ -238,7 +240,8 @@
                                         <h1 class="text-white">{{ auth()->user()->name }} <i
                                                 class="fa-solid fa-chevron-down" style="color: #ffffff;"></i></h1>
                                     </button>
-                                    <div x-show="isOpen" x-transition:enter="transition ease-out duration-100 transform"
+                                    <div x-show="isOpen" @click.away="isOpen=false"
+                                        x-transition:enter="transition ease-out duration-100 transform"
                                         x-transition:enter-start="opacity-0 scale-95"
                                         x-transition:enter-end="opacity-100 scale-100"
                                         x-transition:leave="transition ease-in duration-75 transform"
@@ -261,30 +264,31 @@
                             </div>
                         </div>
                         <div class="-mr-2 flex md:hidden">
-                            <!-- Mobile menu button -->
+                            <!-- isOpen menu button -->
                             <button type="button" @click="isOpen = !isOpen"
                                 class="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                                aria-controls="mobile-menu" aria-expanded="false">
+                                aria-controls="isOpen-menu" aria-expanded="false">
                                 <span class="absolute -inset-0.5"></span>
                                 <span class="sr-only">Open main menu</span>
                                 <!-- Menu open: "hidden", Menu closed: "block" -->
-                                <svg :class="{ 'hidded': isOpen, 'block': !isOpen }" class="block h-6 w-6" fill="none"
-                                    Box="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <svg :class="{ 'hidden': isOpen, 'block': !isOpen }" class="block h-6 w-6" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                 </svg>
                                 <!-- Menu open: "block", Menu closed: "hidden" -->
                                 <svg :class="{ 'block': isOpen, 'hidden': !isOpen }" class="hidden h-6 w-6" fill="none"
-                                    Box="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                             </button>
+
                         </div>
                     </div>
                 </div>
 
-                <!-- Mobile menu, show/hide based on menu state. -->
-                <div x-show="isOpen" class="md:hidden" id="mobile-menu">
+                <!-- isOpen menu, show/hide based on menu state. -->
+                <div x-show="isOpen" class="md:hidden" id="isOpen-menu">
                     @if (!request()->routeIs('dashboard'))
                         <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
@@ -303,7 +307,7 @@
                         </div>
                     @endif
 
-                    <div x-data="{ cart: false }" class="border-t border-gray-700 pb-3 pt-4">
+                    <div class="border-t border-gray-700 pb-3 pt-4">
                         <div class="flex items-center px-5">
                             <div class="ml-3">
                                 <div class="text-base font-medium leading-none text-white">{{ auth()->user()->name }}
@@ -312,10 +316,11 @@
                                 </div>
                             </div>
                             @if (!request()->routeIs('Keranjang User'))
-                                <button type="button" class="relative ml-auto flex-shrink-0 rounded-full">
-                                    <a href="/dashboard/keranjang_user"><i class="fa-solid fa-cart-shopping"
-                                            style="color: #ffffff;"></i></a>
-                                </button>
+                                <div x-data="{ cartt: false }" class="relative ml-auto flex-shrink-0 rounded-full">
+                                    <button id="cartMD_button" @click="cartt = true" type="submit">
+                                        <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></button>
+                                    @include('modal.cartMd')
+                                </div>
                             @endif
                         </div>
                         <div class="mt-3 space-y-1 px-2">
@@ -331,6 +336,92 @@
                     </div>
                 </div>
             </nav>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script>
+                function formatRupiah(angka, prefix) {
+                    var number_string = angka.toString().replace(/[^,\d]/g, ''),
+                        split = number_string.split(','),
+                        sisa = split[0].length % 3,
+                        rupiah = split[0].substr(0, sisa),
+                        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+                    if (ribuan) {
+                        var separator = sisa ? '.' : '';
+                        rupiah += separator + ribuan.join('.');
+                    }
+
+                    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                    return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+                }
+
+                $(document).ready(function() {
+                    // Handler for large cart modal
+                    $('#cartLg_button').on('click', function(e) {
+                        e.preventDefault();
+                        fetchCartData('.cartLg-container ul', '#subtotal-price-lg');
+                    });
+
+                    // Handler for medium cart modal
+                    $('#cartMD_button').on('click', function(e) {
+                        e.preventDefault();
+                        fetchCartData('.cartMD-container ul', '#subtotal-price-md');
+                    });
+                });
+
+                function fetchCartData(cartContainerSelector, subtotalContainerSelector) {
+                    $.ajax({
+                        url: '/buy/cart/view',
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        success: function(data) {
+                            if (Array.isArray(data['buys'])) {
+                                const cartContainer = $(cartContainerSelector);
+                                const subtotalContainer = $(subtotalContainerSelector);
+                                cartContainer.empty();
+                                let subtotal = 0;
+
+                                data['buys'].forEach(function(element) {
+                                    const formattedPrice = formatRupiah(element.cloth.price_per_piece);
+                                    const totalItemPrice = element.cloth.price_per_piece * element.quantity;
+                                    subtotal += totalItemPrice;
+
+                                    const itemHTML = `
+                            <li class="flex py-6">
+                              <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                <img src="${element.cloth.image_url}" alt="" class="h-full w-full object-cover object-center">
+                              </div>
+                              <div class="ml-4 flex flex-1 flex-col">
+                                <div>
+                                  <div class="flex justify-between text-base font-medium text-gray-900">
+                                    <h3>${element.cloth.name}</h3>
+                                    <p class="ml-4">Rp${formattedPrice}</p>
+                                  </div>
+                                  <p class="mt-1 text-sm text-gray-500">${element.cloth.color}</p>
+                                </div>
+                                <div class="flex flex-1 items-end justify-between text-sm">
+                                  <p class="text-gray-500">Qty ${element.quantity}</p>
+                                 
+                                </div>
+                              </div>
+                            </li>`;
+                                    cartContainer.append(itemHTML);
+                                });
+
+                                subtotalContainer.text('Rp' + formatRupiah(subtotal));
+                            } else {
+                                console.log('Invalid data format');
+                            }
+                        },
+                        error: function(error) {
+                            console.error('Error fetching cart data:', error);
+                        }
+                    });
+                }
+            </script>
+
         </div>
         {{-- User End --}}
     @endif
@@ -376,21 +467,21 @@
                         </div>
                     @endif
                     <div class="-mr-2 flex md:hidden">
-                        <!-- Mobile menu button -->
+                        <!-- isOpen menu button -->
                         <button type="button" @click="isOpen = !isOpen"
                             class="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                            aria-controls="mobile-menu" aria-expanded="false">
+                            aria-controls="isOpen-menu" aria-expanded="false">
                             <span class="absolute -inset-0.5"></span>
                             <span class="sr-only">Open main menu</span>
                             <!-- Menu open: "hidden", Menu closed: "block" -->
-                            <svg :class="{ 'hidded': isOpen, 'block': !isOpen }" class="block h-6 w-6" fill="none"
-                                Box="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <svg :class="{ 'hidden': isOpen, 'block': !isOpen }" class="block h-6 w-6" fill="none"
+                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                             </svg>
                             <!-- Menu open: "block", Menu closed: "hidden" -->
                             <svg :class="{ 'block': isOpen, 'hidden': !isOpen }" class="hidden h-6 w-6" fill="none"
-                                Box="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
@@ -398,8 +489,8 @@
                 </div>
             </div>
 
-            <!-- Mobile menu, show/hide based on menu state. -->
-            <div x-show="isOpen" class="md:hidden" id="mobile-menu">
+            <!-- isOpen menu, show/hide based on menu state. -->
+            <div x-show="isOpen" class="md:hidden" id="isOpen-menu">
                 @if (!request()->routeIs('dashboard'))
                     <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->

@@ -9,6 +9,7 @@ use App\Models\Store;
 use App\Models\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -512,7 +513,6 @@ class BuyController extends Controller
 
     public function getKeranjang()
     {
-
         // Build query conditions based on provided arguments
         $query = Buy::with('cloth')->where('user_id', auth()->user()->id)
             ->where('payment_status', 0)->where('payment_method', 2);
@@ -550,8 +550,17 @@ class BuyController extends Controller
 
     public function getKeranjangAJAX()
     {
+        $user = auth()->user();
+
+        if (!$user) {
+            Log::warning('Unauthenticated access attempt.');
+            return response()->json(['error' => 'Unauthenticated.'], 401);
+        }
+
+        $userId = $user->id;
+
         // Build query conditions based on provided arguments
-        $query = Buy::with('cloth')->where('user_id', auth()->user()->id)
+        $query = Buy::with('cloth')->where('user_id', $userId)
             ->where('payment_status', 0)->where('payment_method', 2);
 
         // Get the results

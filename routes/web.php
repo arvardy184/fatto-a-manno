@@ -141,6 +141,7 @@ Route::group([
     Route::post('/cart/delete/{id}', [BuyController::class, 'deleteKeranjang'])->middleware('isCustomer'); // Delete Keranjang + refresh page
     Route::get('/cart/edit/{id}', [BuyController::class, 'getDataEditKeranjang'])->middleware('isCustomer'); // Redirect ke page edit + passing data
     Route::get('/cart/edit/buy/{id}', [BuyController::class, 'editBuy'])->middleware('isCustomer'); // Edit keranjang + redirect ke halaman keranjang
+    Route::get('/cart/view', [BuyController::class, 'getKeranjangAJAX']);
 });
 
 Route::group([

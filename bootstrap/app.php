@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -22,7 +23,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'isVerified' => \App\Http\Middleware\CheckVerified::class,
             'isCustomer' => \App\Http\Middleware\CheckUserRole::class,
             'loggedIn' => \App\Http\Middleware\CheckAuth::class,
-            'redirectDashboard' => \App\Http\Middleware\CheckDashboard::class
+            'redirectDashboard' => \App\Http\Middleware\CheckDashboard::class,
+            'auth:sanctum' => EnsureFrontendRequestsAreStateful::class, // Ensure Sanctum middleware is added
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
