@@ -12,10 +12,10 @@
     <title>{{ $title }}</title>
 </head>
 
-<body class="h-full">
-    <div class="min-h-full">
-        <div class="min-h-full">
-            <nav class="bg-gray-800" x-data="{ isOpen: false }">
+<body>
+    <div>
+        <div>
+            <nav class="bg-gray-800 h-[10vh] p-1" x-data="{ isOpen: false }">
                 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div class="flex h-16 items-center justify-between">
                         <div class="flex items-center">
@@ -82,8 +82,7 @@
         </div>
         <main>
             <div class="relative bg-gray-900"><img src="{{ asset('images/login.png') }}"
-                    class="opacity-60 object-cover object-right  relative lg:h-[42.4rem] h-[77.2rem] md:h-[95.1vh] w-full "
-                    alt="">
+                    class="opacity-60 object-cover object-right  relative h-[90vh] w-full " alt="">
                 <div class="absolute inset-0 mx-auto max-w-7xl sm:px-6 lg:px-8 p-1">
                     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
                         <div
