@@ -24,7 +24,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'isCustomer' => \App\Http\Middleware\CheckUserRole::class,
             'loggedIn' => \App\Http\Middleware\CheckAuth::class,
             'redirectDashboard' => \App\Http\Middleware\CheckDashboard::class,
-            'auth:sanctum' => EnsureFrontendRequestsAreStateful::class, // Ensure Sanctum middleware is added
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
