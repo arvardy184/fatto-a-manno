@@ -77,6 +77,8 @@
                                 @if (auth()->user()->role_id == 0)
                                     <div class="flex flex-col items-center gap-2" x-data="{ pilihPembayaran: false }">
                                         <button type="button" @click="pilihPembayaran = true"
+                                          
+                                            onclick="document.getElementById('pilihPembayara').classList.remove('hidden')"
                                             class="mt-1 flex w-80 items-center justify-center rounded-md border border-transparent bg-green-600 px-8 py-3 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
                                             Choose payment method</button>
                                         <button type="button" id="addToCartButton"
@@ -90,7 +92,8 @@
                                 @endif
                             @else
                                 <div class="flex flex-col items-center gap-2" x-data="{ belumLogin: false }">
-                                    <button type="button" @click="belumLogin = true"
+                                    <button onclick="document.getElementById('BelumLogin').classList.remove('hidden')"
+                                        type="button" @click="belumLogin = true"
                                         class="mt-1 w-80 rounded-md border border-transparent bg-green-600 px-8 py-3 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">Choose
                                         payment method</button>
                                     <button @click="belumLogin = true" type="button"

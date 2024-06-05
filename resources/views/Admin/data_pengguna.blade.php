@@ -43,6 +43,7 @@
                                     <form action="/user/delete/{{ $user['id'] }}" method="POST">
                                         @csrf
                                         <button type="button" @click="deletee = true"
+                                            onclick="document.getElementById('deletee').classList.remove('hidden')"
                                             class="inline-block mt-2 w-full px-4 py-2 text-xs font-semibold leading-6 text-white uppercase bg-red-600 rounded hover:bg-red-700 focus:outline-none focus:bg-red-700">Delete</button>
                                         @include('modal.modal_delete')
                                     </form>

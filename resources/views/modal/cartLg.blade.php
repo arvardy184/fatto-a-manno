@@ -1,6 +1,6 @@
-<div x-show="cartt" x-transition:enter="ease-in-out duration-500" x-transition:enter-start="opacity-0"
+<div id="cartLg" x-show="cartt" x-transition:enter="ease-in-out duration-500" x-transition:enter-start="opacity-0"
     x-transition:enter-end="opacity-100" x-transition:leave="ease-in-out duration-500"
-    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="relative z-10"
+    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="relative z-10 hidden"
     aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity">
         <div class="fixed inset-0 overflow-hidden">
