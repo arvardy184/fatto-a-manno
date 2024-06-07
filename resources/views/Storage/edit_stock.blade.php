@@ -18,11 +18,10 @@
                 <div>
                     <button type="submit"
                         class="w-full justify-center py-2 px-4 bg-indigo-600 text-sm font-semibold text-white rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Submit</button>
-                    <a href="/dashboard//detail_items"
+                    <a href="{{ url()->previous() }}"
                         class="justify-center text-center block mt-3 w-full py-2 px-4 bg-sky-600 text-sm font-semibold text-white rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Back</a>
                 </div>
             </form>
-
         </div>
     </div>
 </x-layout>
