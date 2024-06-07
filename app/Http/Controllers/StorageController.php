@@ -60,6 +60,12 @@ class StorageController extends Controller
             return redirect()->back()->withErrors(["Storage not Found"]);
         }
 
+        $currently_stored = $storage->cloth()->sum('stores.quantity');
+
+        if (request('quantity_limit') < $currently_stored) {
+            return redirect()->back()->withErrors(["Quantity Limit Error"]);
+        }
+
         // Update storage details and save
         $storage->update([
             'name' => request('name'),
@@ -223,8 +229,16 @@ class StorageController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->messages());
         }
+
         //Find Store
-        $store = Store::find($id);
+        $store = Store::with('storage')->find($id);
+        $storage = Storage::find($store->storage_id);
+
+        //Check if the quantity exceed the storage limit
+        if ($this->getStorageLimit($storage) - (int) request('quantity') +  $store->quantity < 0) {
+            return redirect()->back()->withErrors(["Limit Exceeded"]);
+        }
+
         $store->update([
             'quantity' => request('quantity')
         ]);
@@ -278,5 +292,22 @@ class StorageController extends Controller
         }
 
         return view('Storage.data_storage', ['title' => 'Data Storage'], compact('storages'));
+    }
+
+    public function getStorageLimit($storage)
+    {
+        // Retrieve all clothes
+        $stores = Store::where('storage_id', $storage->id)->get();
+        $sum = 0;
+
+        // Iterate over each cloth
+        $stores->each(function ($store) use (&$sum) {
+            // Attach total quantity to the cloth object
+            $sum += (int) $store->quantity;
+        });
+
+        $limit = (int) $storage->quantity_limit - $sum;
+
+        return $limit;
     }
 }
