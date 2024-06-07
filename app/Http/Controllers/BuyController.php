@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 
@@ -106,11 +107,13 @@ class BuyController extends Controller
         // if ($request->is('api/*')) {
         //     return response()->json(['buy' => $buy], 201);
         // }
+        // Get the current date
+        $currentDate = Carbon::now();
 
         if ($request->payment_method == 1) {
             $params = [
                 "transaction_details" => [
-                    "order_id" => "ORDER-" . $buy->id,
+                    "order_id" => "ORDER-" . $buy->id . '-' . $currentDate->format('m/d/y'),
                     "gross_amount" => (float) $cloth->price_per_piece * (float) $buy->quantity
                 ]
             ];
@@ -174,10 +177,11 @@ class BuyController extends Controller
         // Retrieve buys_id from validated data
         $buysId = $validatedData['buys_id'];
 
+        $currentDate = Carbon::now();
         if ($request->payment_method == 1) {
             $params = [
                 "transaction_details" => [
-                    "order_id" => "ORDER-B-" . implode('-', $buysId),
+                    "order_id" => "ORDER-B-" . implode('-', $buysId) . '-' . $currentDate->format('m/d/y'),
                     "gross_amount" => (float) request('total_price')
                 ]
             ];

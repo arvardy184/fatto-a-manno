@@ -113,7 +113,7 @@ Route::group([
 ], function () {
     Route::post('/add', [StorageController::class, 'addStorage']);
     Route::post('/edit/{id}', [StorageController::class, 'editStorage']);
-    Route::delete('/delete/{id}', [StorageController::class, 'deleteStorage']);
+    Route::post('/delete/{id}', [StorageController::class, 'deleteStorage']);
     Route::get('/', [StorageController::class, 'getAllStorage'])->name('Data Gudang');
     Route::get('/name', [StorageController::class, 'getStoragebyName']);
     Route::get('/{id}', [StorageController::class, 'getStoragebyId']);
