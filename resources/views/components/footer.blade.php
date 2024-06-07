@@ -1,4 +1,4 @@
-<footer class="footer footer-center p-10 bg-gray-800 text-base-content rounded text-white text-center h-[25vh]">
+<footer class="footer footer-center p-10 bg-gray-800 text-base-content rounded text-white text-center">
     <nav class="flex justify-center w-full text-sm gap-4 sm:gap-4 sm:text-lg">
         <a href="https://api.whatsapp.com/send?phone=6281555444174" class="link link-hover">Contact</a>
     </nav>

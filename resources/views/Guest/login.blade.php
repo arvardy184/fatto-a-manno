@@ -126,8 +126,11 @@
                                         Sign in
                                     </button>
                                 </div>
+
                             </form>
-                            <p class="mt-10 text-center text-sm text-gray-500">
+                            <a href="{{ url()->previous() }}"
+                                class="mt-3 flex w-full justify-center rounded-md border border-transparent bg-gray-400 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">Back</a>
+                            <p class="mt-5 text-center text-sm text-gray-500">
                                 Don't have an account yet?
                                 <a href="/register"
                                     class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Register</a>

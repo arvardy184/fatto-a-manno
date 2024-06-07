@@ -145,8 +145,7 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => 'user',
-    'middleware' => 'isAdmin'
+    'prefix' => 'user'
 ], function () {
     Route::get('/', [UserController::class, 'getAllUser']); //Ini return all user to view
     Route::get('/name', [UserController::class, 'getUserbyName']); //Ini return all user to view

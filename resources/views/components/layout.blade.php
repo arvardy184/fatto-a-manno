@@ -12,7 +12,7 @@
     <title>{{ $title }}</title>
 </head>
 
-<body class="h-full">
+<body class="min-h-screen">
     <div class="min-h-full">
         <x-navbar></x-navbar>
         <main>
