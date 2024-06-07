@@ -77,10 +77,10 @@
                                         x-transition:enter-end="opacity-100 scale-100"
                                         x-transition:leave="transition ease-in duration-75 transform"
                                         x-transition:leave-start="opacity-100 scale-100"
-                                        x-transition:leave-end="opacity-0 scale-95" id="dropdown-profile"
+                                        x-transition:leave-end="opacity-0 scale-95"
                                         class="absolute hidden right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                                         role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
-                                        tabindex="-1">
+                                        id="dropdown-profile" tabindex="-1">
                                         <!-- Active: "bg-gray-100", Not Active: "" -->
                                         @if (!request()->routeIs('Profile'))
                                             <a href="/dashboard/profile"
@@ -97,6 +97,7 @@
                         <div class="-mr-2 flex md:hidden">
                             <!-- isOpen menu button -->
                             <button type="button" @click="isOpen = !isOpen"
+                                onclick="document.getElementById('isOpen-menu').classList.remove('hidden')"
                                 class="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                                 aria-controls="isOpen-menu" aria-expanded="false">
                                 <span class="absolute -inset-0.5"></span>
@@ -118,7 +119,7 @@
                 </div>
 
                 <!-- isOpen menu, show/hide based on menu state. -->
-                <div x-show="isOpen" class="md:hidden" id="isOpen-menu">
+                <div x-show="isOpen" class="md:hidden hidden" id="isOpen-menu">
                     <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                         @if (!request()->routeIs('dashboard'))
@@ -432,7 +433,7 @@
 @else
     {{-- Guest Start --}}
     <div>
-        <nav class="bg-gray-800 h-[10vh] p-1" x-data="{ isOpen: false }">
+        <nav class="bg-gray-800" x-data="{ isOpen: false }">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-16 items-center justify-between">
                     <div class="flex items-center">
@@ -473,6 +474,7 @@
                     <div class="-mr-2 flex md:hidden">
                         <!-- isOpen menu button -->
                         <button type="button" @click="isOpen = !isOpen"
+                            onclick="document.getElementById('isOpen-menu').classList.remove('hidden')"
                             class="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                             aria-controls="isOpen-menu" aria-expanded="false">
                             <span class="absolute -inset-0.5"></span>
@@ -494,7 +496,7 @@
             </div>
 
             <!-- isOpen menu, show/hide based on menu state. -->
-            <div x-show="isOpen" class="md:hidden" id="isOpen-menu">
+            <div x-show="isOpen" class="md:hidden hidden" id="isOpen-menu">
                 @if (!request()->routeIs('dashboard'))
                     <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
