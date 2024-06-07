@@ -1,6 +1,9 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="flex justify-center min-h-screen px-6 py-12 lg:px-8">
+        @if (session('errors'))
+            @include('components.view_modal')
+        @endif
         <div class="w-full max-w-md">
             <h2 class="mt-1 mb-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Edit Profile</h2>
             <form class="space-y-6" action="/user/edit/{{ auth()->user()->id }}" method="POST">
