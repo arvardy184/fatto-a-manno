@@ -113,7 +113,7 @@ class BuyController extends Controller
         if ($request->payment_method == 1) {
             $params = [
                 "transaction_details" => [
-                    "order_id" => "ORDER-" . $buy->id . '-' . $currentDate->format('m/d/y'),
+                    "order_id" => "ORDER-" . $buy->id . '@' . $currentDate->format('m/d/y') . ':' . $currentDate->format('H:i:s'),
                     "gross_amount" => (float) $cloth->price_per_piece * (float) $buy->quantity
                 ]
             ];
@@ -181,7 +181,7 @@ class BuyController extends Controller
         if ($request->payment_method == 1) {
             $params = [
                 "transaction_details" => [
-                    "order_id" => "ORDER-B-" . implode('-', $buysId) . '-' . $currentDate->format('m/d/y'),
+                    "order_id" => "ORDER-B-" . implode('-', $buysId) . '@' . $currentDate->format('m/d/y') . ':' . $currentDate->format('H:i:s'),
                     "gross_amount" => (float) request('total_price')
                 ]
             ];
