@@ -49,7 +49,7 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-      /**
+    /**
      * Default values for attributes.
      *
      * @var array
@@ -58,7 +58,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'role_id' => 0,
     ];
 
-    public function clothes()
+    public function cloth()
     {
         return $this->belongsToMany(Cloth::class, 'buys')->withPivot('quantity', 'payment_method', 'payment_status', 'confirmation_status')->withTimestamps();
     }

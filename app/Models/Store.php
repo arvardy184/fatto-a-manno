@@ -16,4 +16,17 @@ class Store extends Pivot
     protected $fillable = [
         'quantity',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the cloth that owns the buy.
+     */
+    public function cloth()
+    {
+        return $this->belongsTo(Cloth::class);
+    }
 }

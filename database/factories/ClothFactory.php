@@ -19,15 +19,50 @@ class ClothFactory extends Factory
     {
         // Set the Faker locale to Indonesian (id)
         $faker = Faker::create('id_ID');
-
         return [
-            'type' => $faker->randomElement(['shirt', 'pants', 'dress', 'jacket', 'skirt']),
-            'name' => $faker->word,
-            'size' => $faker->randomElement(['S', 'M', 'L', 'XL']),
-            'color' => $faker->colorName,
-            'price_per_piece' => $faker->numberBetween(10000, 500000), // Example range for price
+            'type' => $faker->randomElement(['Polo', 'Turtleneck', 'Kaos Polos', 'Wallet', 'Hoodie', 'Pants', 'Caps', 'Kemeja', 'Sweater']),
+            'name' => $faker->randomElement(['Polo', 'Turtleneck', 'Kaos Polos', 'Wallet', 'Hoodie', 'Pants', 'Caps', 'Kemeja', 'Sweater']) . ' ' . $faker->randomElement(['White', 'Black', 'Blue', 'Brown', 'Sage']),
+            'size' => $faker->randomElement(['S', 'M', 'L', 'XL', 'XXL']),
+            'color' => $faker->randomElement(['White', 'Black', 'Blue', 'Brown', 'Sage']),
+            'price_per_piece' => $faker->numberBetween(100000, 500000), // Example range for price
             'description' => $faker->sentence,
             'image_url' => $faker->imageUrl(), // Example image URL
         ];
+    }
+
+    public function withName($name)
+    {
+        return $this->state(function (array $attributes) use ($name) {
+            return [
+                'name' => $name,
+            ];
+        });
+    }
+
+    public function withType($type)
+    {
+        return $this->state(function (array $attributes) use ($type) {
+            return [
+                'type' => $type,
+            ];
+        });
+    }
+
+    public function withSize($size)
+    {
+        return $this->state(function (array $attributes) use ($size) {
+            return [
+                'size' => $size,
+            ];
+        });
+    }
+
+    public function withColor($color)
+    {
+        return $this->state(function (array $attributes) use ($color) {
+            return [
+                'color' => $color,
+            ];
+        });
     }
 }

@@ -1,73 +1,76 @@
-<x-layoutDashboard>
+<x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
-    {{-- seno: ini untuk user --}}
-    <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-            <h2 class="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Profile</h2>
-        </div>
-        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            {{-- seno: tampilkan data-data user disini --}}
-            <form class="space-y-6" action="" method="GET">
-                <div class="form-group mb-3">
-                    <label for="">Nama Lengkap</label>
-                    <input type="hidden" name="nama_lengkap" class="form-control" />
+    @if (auth()->user()->role_id == 1)
+        {{-- admin --}}
+        <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+            <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+                <h2 class="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Profile</h2>
+            </div>
+            <div class="mt-1 sm:mx-auto sm:w-full sm:max-w-sm">
+                {{-- seno: tampilkan data-data user disini --}}
+                @csrf
+                <div class="mb-5">
+                    <label for="" class="block text-sm font-medium text-gray-700">Full Name</label>
+                    <div class="border border-gray-300 rounded-md p-2">{{ auth()->user()->name }}</div>
                 </div>
-                <div class="form-group mb-3">
-                    <label for="">Email</label>
-                    <input type="hidden" name="email" class="form-control" />
+                <div class="mb-5">
+                    <label for="" class="block text-sm font-medium text-gray-700">Email</label>
+                    <div class="border border-gray-300 rounded-md p-2">{{ auth()->user()->email }}</div>
                 </div>
-                <div class="form-group mb-3">
-                    <label for="">Alamat</label>
-                    <input type="hidden" name="email" class="form-control" />
+                <div class="mb-5">
+                    <label for="" class="block text-sm font-medium text-gray-700">
+                        Address
+                    </label>
+                    <div class="border border-gray-300 rounded-md p-2">{{ auth()->user()->address }}</div>
                 </div>
-                <div class="form-group mb-3">
-                    <label for="">No HP</label>
-                    <input type="hidden" name="email" class="form-control" />
-                </div>
-                <div>
-                    <button
-                        class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"><a
-                            href="/dashboard/edit_profil">Edit Profil</a></button>
-                    <button
-                        class="mt-1 flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"><a
-                            href="/dashboard/edit_profil">Ubah Password</a></button>
-                    <button type="submit"
-                        class="mt-1 flex w-full justify-center rounded-md bg-sky-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"><a
-                            href="/dashboard">Back</a></button>
-                </div>
-            </form>
-        </div>
-    </div>
-    {{-- seno: ini untuk admin --}}
-    <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-            <h2 class="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Profile</h2>
-        </div>
-        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            {{-- seno: tampilkan data-data admin disini --}}
-            <form class="space-y-6" action="" method="GET">
-                <div class="form-group mb-3">
-                    <label for="">Nama Lengkap</label>
-                    <input type="hidden" name="nama_lengkap" class="form-control" />
-                </div>
-                <div class="form-group mb-3">
-                    <label for="">Email</label>
-                    <input type="hidden" name="email" class="form-control" />
-                </div>
-                <div class="form-group mb-3">
-                    <label for="">Alamat</label>
-                    <input type="hidden" name="email" class="form-control" />
-                </div>
-                <div class="form-group mb-3">
-                    <label for="">No HP</label>
-                    <input type="hidden" name="email" class="form-control" />
+                <div class="mb-5">
+                    <label for="" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                    <div class="border border-gray-300 rounded-md p-2">{{ auth()->user()->number }}</div>
                 </div>
                 <div>
-                    <button type="submit"
-                        class="mt-1 flex w-full justify-center rounded-md bg-sky-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"><a
-                            href="/dashboard">Back</a></button>
+                    <a class="mt-1 flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        href="/dashboard/ubah_pw">Change password</a>
+
+                    <a class="mt-1 flex w-full justify-center rounded-md bg-gray-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
+                        href="/dashboard">Back</a>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
-</x-layoutDashboard>
+    @else
+        {{-- user --}}
+        <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+            <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+                <h2 class="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Profile</h2>
+            </div>
+            <div class="mt-1 sm:mx-auto sm:w-full sm:max-w-sm">
+                {{-- seno: tampilkan data-data user disini --}}
+                @csrf
+
+                <div class="mb-5">
+                    <label for="" class="block text-sm font-medium text-gray-700">Full Name</label>
+                    <div class="border border-gray-300 rounded-md p-2">{{ auth()->user()->name }}</div>
+                </div>
+                <div class="mb-5">
+                    <label for="" class="block text-sm font-medium text-gray-700">Email</label>
+                    <div class="border border-gray-300 rounded-md p-2">{{ auth()->user()->email }}</div>
+                </div>
+                <div class="mb-5">
+                    <label for="" class="block text-sm font-medium text-gray-700">Address</label>
+                    <div class="border border-gray-300 rounded-md p-2">{{ auth()->user()->address }}</div>
+                </div>
+                <div class="mb-5">
+                    <label for="" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                    <div class="border border-gray-300 rounded-md p-2">{{ auth()->user()->number }}</div>
+                </div>
+                <div>
+                    <a class="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+                        href="/dashboard/edit_profil">Edit profile</a>
+                    <a class="mt-1 flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        href="/dashboard/ubah_pw">Change password</a>
+                    <a class="mt-1 flex w-full justify-center rounded-md bg-gray-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
+                        href="/dashboard">Back</a>
+                </div>
+            </div>
+        </div>
+    @endif
+</x-layout>

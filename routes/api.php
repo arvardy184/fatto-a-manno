@@ -16,6 +16,8 @@ Route::get('/user', function (Request $request) {
 Route::post('/signup', [AuthController::class, 'register']);
 Route::post('/signin', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
+Route::post('/resend-verif/{id}', [AuthController::class, 'resendVerification'])->name('resendVerif');
+Route::post('/forgot', [AuthController::class, 'forgotPassword'])->name('forgotPass');
 
 //Clothes
 Route::group([
@@ -37,9 +39,12 @@ Route::group([
 ], function () {
     Route::post('/add', [StorageController::class, 'addStorage']);
     Route::post('/edit/{cloth_id}', [StorageController::class, 'editStorage']);
-    Route::get('/delete/{id}', [StorageController::class, 'deleteStorage']);
-    Route::get('/', [StorageController::class, 'getAllStorage']);
+    Route::delete('/delete/{id}', [StorageController::class, 'deleteStorage']);
+    Route::get('/', [StorageController::class, 'getAllStorage'])->name('Data Gudang');
     Route::get('/{id}', [StorageController::class, 'getStoragebyId']);
+    Route::get('/data/{id}', [StorageController::class, 'getDataEditStorage']);
+    Route::get('/clothes/{id}', [StorageController::class, 'getStorageDetail']);
+    Route::get('/clothes/data/{id}', [StorageController::class, 'editStock']);
 });
 
 //USER ===========================================================================================
@@ -47,9 +52,10 @@ Route::group([
 Route::group([
     'prefix' => 'user'
 ], function () {
-    Route::get('/all', [UserController::class, 'getAllUsers']);
+    Route::get('/', [UserController::class, 'getAllUsers']);
     Route::get('/{id}', [UserController::class, 'getUserbyId']);
     Route::get('/profile', [UserController::class, 'getProfile']);
+    Route::post('/', [UserController::class, 'getUserbyName']);
 });
 
 //BUY ===========================================================================================
@@ -59,9 +65,12 @@ Route::group(['prefix' => 'buy'], function () {
     Route::put('/edit/{id}', [BuyController::class, 'editBuy']);
     Route::delete('/delete/{id}', [BuyController::class, 'deleteBuy']);
     Route::get('/', [BuyController::class, 'getAllBuys']);
-    Route::get('/{id}', [BuyController::class, 'getBuybyId']);
+    Route::get('/data/{id}', [BuyController::class, 'getBuybyId']);
+    Route::get('/detail/{user_id}', [BuyController::class, 'getBuybyAttribute']);
+    Route::get('/cart', [BuyController::class, 'getKeranjangAJAX'])->middleware('auth:sanctum');
 });
 
 
 Route::post('/pay', [AdminController::class, 'test']);
 Route::post('/hook', [AdminController::class, 'webhook']);
+Route::post('/analyze', [AdminController::class, 'getAnalysis']);

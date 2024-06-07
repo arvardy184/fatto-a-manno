@@ -14,18 +14,18 @@ class StoreSeeder extends Seeder
      */
     public function run(): void
     {
+        // Create 10 clothes using the ClothFactory
+        Cloth::factory(10)->create();
+
         $this->storeClothes(1);
     }
 
     private function storeClothes(int $id)
     {
-        // Create 10 users using the UserFactory
         $clothes = Cloth::all();
-
         $storage = Storage::find($id);
-
         foreach ($clothes as $cloth) {
-            $cloth->storages()->attach($storage, ['quantity' => rand(1, 10)]);
+            $cloth->storages()->attach($storage, ['quantity' => rand(30, 50)]);
         }
     }
 }

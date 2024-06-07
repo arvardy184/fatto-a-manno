@@ -16,11 +16,11 @@ class CheckRole
     public function handle(Request $request, Closure $next): Response
     {
         if (!auth()->user()) {
-            abort(401, 'Unauthenticated');
+            return redirect()->route('login')->withErrors(['Invalid credentials']);
         }
 
         if (auth()->user()->role_id != 1) {
-            abort(401, 'Unauthenticated');
+            return redirect()->back()->withErrors(['Invalid credentials']);
         }
 
         return $next($request);

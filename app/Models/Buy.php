@@ -17,6 +17,23 @@ class Buy extends Pivot
         'quantity',
         'payment_method',
         'payment_status',
-        'confirmation_status'
+        'confirmation_status',
+        'payment_url'
     ];
+
+    /**
+     * Get the user that owns the buy.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the cloth that owns the buy.
+     */
+    public function cloth()
+    {
+        return $this->belongsTo(Cloth::class);
+    }
 }

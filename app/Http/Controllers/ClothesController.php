@@ -15,16 +15,18 @@ class ClothesController extends Controller
     {
         //Validate Request
         $validator = Validator::make(request()->all(), [
-            'type' => 'required',
-            'name' => 'required',
-            'size' => 'required',
-            'color' => 'required',
+            'type' => 'required|string',
+            'name' => 'required|string',
+            'size' => 'required|string',
+            'color' => 'required|string',
             'stored_in' => 'required|exists:storages,name',
-            'quantity' => 'required'
+            'quantity' => 'required|numeric',
+            'price_per_piece' => 'required|numeric',
+            'image_url' => 'required|string'
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->messages()]);
+            return redirect()->back()->withErrors($validator->messages());
         }
 
         // Check if the same clothes exist
@@ -89,17 +91,26 @@ class ClothesController extends Controller
         }
     }
 
+    public function getDataAddClothes()
+    {
+        $temp = Storage::all();
+        $storages = $temp->map(function ($storage) {
+            return ['name' => $storage->name];
+        });
+        return view('Clothes.tambah_pakaian', ['title' => 'Tambah Pakaian'], compact('storages'));
+    }
+
     public function editClothes($id)
     {
         //Validate Request
         $validator = Validator::make(request()->all(), [
-            'type' => 'required',
-            'name' => 'required',
-            'size' => 'required',
-            'color' => 'required',
-            'price_per_piece' => 'required',
-            'description' => 'required',
-            'image_url' => 'required'
+            'type' => 'required|string',
+            'name' => 'required|string',
+            'size' => 'required|string',
+            'color' => 'required|string',
+            'price_per_piece' => 'required|numeric|min:1',
+            'description' => 'required|string',
+            'image_url' => 'required|string'
         ]);
 
         if ($validator->fails()) {
@@ -133,7 +144,6 @@ class ClothesController extends Controller
             if (request()->is('api/*')) {
                 return $res;
             }
-
             return redirect()->route('Data Pakaian');
         } else {
             return redirect()->back()->withErrors(["Error"]);
@@ -148,7 +158,7 @@ class ClothesController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->messages()]);
+            return redirect()->back()->withErrors($validator->messages());
         }
 
         // Find the cloth by ID
@@ -215,7 +225,7 @@ class ClothesController extends Controller
         }
     }
 
-    public function findClothWithTotalQuantity($clothId)
+    private function findClothWithTotalQuantity($clothId)
     {
         $cloth = Cloth::find($clothId);
 
@@ -242,6 +252,19 @@ class ClothesController extends Controller
             $cloth->total_quantity = (int) $this->findClothWithTotalQuantity($cloth->id);
         });
 
+        // Paginate the results for clothes
+        $perPage = 10;
+        $page = request()->get('clothes_page', 1);
+        $offset = ($page - 1) * $perPage;
+        $paginatedResults = $clothes->slice($offset, $perPage);
+        $clothes = new LengthAwarePaginator(
+            $paginatedResults,
+            $clothes->count(),
+            $perPage,
+            $page,
+            ['path' => request()->url(), 'pageName' => 'clothes_page']
+        );
+
         // Return the clothes with total quantities
         if (request()->expectsJson() || request()->is('api/*')) {
             return response()->json([
@@ -257,11 +280,8 @@ class ClothesController extends Controller
     {
         $clothes = Cloth::find($id);
 
-        // Iterate over each cloth
-        $clothes->each(function ($cloth) {
-            // Attach total quantity to the cloth object
-            $cloth->total_quantity = (int) $this->findClothWithTotalQuantity($cloth->id);
-        });
+        // Attach total quantity to the cloth object
+        $clothes->total_quantity = (int) $this->findClothWithTotalQuantity($clothes->id);
 
         // Check if the cloth exists
         if (!$clothes) {
@@ -279,36 +299,83 @@ class ClothesController extends Controller
         return view('Clothes.data_pakaian', ['title' => 'Data Pakaian'], compact('clothes'));
     }
 
+    public function getClothesDetail($id)
+    {
+        $clothes = Cloth::find($id);
+
+        // Attach total quantity to the cloth object
+        $clothes->total_quantity = (int) $this->findClothWithTotalQuantity($clothes->id);
+
+        // Check if the cloth exists
+        if (!$clothes) {
+            return redirect()->back()->withErrors(["Clothes not Found"]);
+        }
+
+        // Return the clothes with total quantities
+        if (request()->expectsJson() || request()->is('api/*')) {
+            return response()->json([
+                'clothes' => $clothes,
+            ]);
+        }
+
+        // Return the clothes with total quantities
+        return view('Clothes.deskripsi_pakaian', ['title' => 'Deskripsi Pakaian'], compact('clothes'));
+    }
+
     //The params are optional in the URL
     public function getClothesbyAttribute()
     {
-        $validator = Validator::make(request()->all(), [
-            'type' => 'sometimes|string',
-            'size' => 'sometimes|string',
-            'color' => 'sometimes|string',
-            'price' => 'sometimes|numeric',
-            'description' => 'sometimes|string',
+        $data = request()->all();
+
+        // Convert buys_id from a comma-separated string to an array of integers
+        if (isset($data['type'])) {
+            $data['type'] = explode(',', $data['type']);
+        }
+
+        if (isset($data['size'])) {
+            $data['size'] = explode(',', $data['size']);
+        }
+
+        if (isset($data['color'])) {
+            $data['color'] = explode(',', $data['color']);
+        }
+
+        $validator = Validator::make($data, [
+            'type' => 'sometimes|array|nullable',
+            'size' => 'sometimes|array|nullable',
+            'color' => 'sometimes|array|nullable',
+            'price' => 'sometimes|numeric|nullable|min:1',
+            'name' => 'sometimes|string|nullable',
+            'sorting' => 'sometimes|in:0,1,2|nullable'
         ]);
 
-        $type = request('type', null);
-        $size = request('size', null);
-        $color = request('color', null);
-        $price = request('price', null);
-        $description = request('description', null);
+        if ($validator->fails()) {
+            // Handle validation failures
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $validatedData = $validator->validated();
+
+        $type = $validatedData['type'] ?? null;
+        $size = $validatedData['size'] ?? null;
+        $color = $validatedData['color'] ?? null;
+        $price = $validatedData['price'] ?? null;
+        $description = $validatedData['name'] ?? null;
+        $sorting = $validatedData['sorting'] ?? null;
 
         // Build query conditions based on provided arguments
         $query = Cloth::query();
 
         if (!is_null($type)) {
-            $query->where('type', $type);
+            $query->whereIn('type', $type);
         }
 
         if (!is_null($size)) {
-            $query->where('size', $size);
+            $query->whereIn('size', $size);
         }
 
         if (!is_null($color)) {
-            $query->where('color', $color);
+            $query->whereIn('color', $color);
         }
 
         if (!is_null($price)) {
@@ -316,7 +383,17 @@ class ClothesController extends Controller
         }
 
         if (!is_null($description)) {
-            $query->where('description', 'like', '%' . $description . '%');
+            $query->where('name', 'like', '%' . $description . '%');
+        }
+
+        if (!is_null($sorting)) {
+            if ($sorting == 0) {
+                $query->orderBy('created_at', 'desc'); // Sort by created_at in descending order (newest first)
+            } else if ($sorting == 1) {
+                $query->orderBy('price_per_piece', 'asc'); // Sort by price in ascending order (low to high)
+            } else if ($sorting == 2) {
+                $query->orderBy('price_per_piece', 'desc'); // Sort by price in descending order (high to low)
+            }
         }
 
         // Get the results
@@ -329,18 +406,17 @@ class ClothesController extends Controller
         });
 
 
-        // Paginate the results
-        $perPage = 10;
-        $page = request()->get('page', 1);
+        // Paginate the results for clothes
+        $perPage = 8;
+        $page = request()->get('clothes_page', 1);
         $offset = ($page - 1) * $perPage;
-        // Slice the results to get the subset for the current page
         $paginatedResults = $results->slice($offset, $perPage);
-        // Create a LengthAwarePaginator instance
         $clothes = new LengthAwarePaginator(
             $paginatedResults,
             $results->count(),
             $perPage,
-            $page
+            $page,
+            ['path' => request()->fullUrl(), 'pageName' => 'clothes_page']
         );
 
         // Check if clothes exist
@@ -362,13 +438,13 @@ class ClothesController extends Controller
     public function getStorageLimit($storage)
     {
         // Retrieve all clothes
-        $clothes = Cloth::all();
+        $stores = Store::where('storage_id', $storage->id)->get();
         $sum = 0;
 
         // Iterate over each cloth
-        $clothes->each(function ($cloth) use (&$sum) {
+        $stores->each(function ($store) use (&$sum) {
             // Attach total quantity to the cloth object
-            $sum += (int) $this->findClothWithTotalQuantity($cloth->id);
+            $sum += (int) $store->quantity;
         });
 
         $limit = (int) $storage->quantity_limit - $sum;
@@ -380,16 +456,16 @@ class ClothesController extends Controller
     {
         $clothes = Cloth::find($id);
 
+        // Check if the cloth exists
+        if (!$clothes) {
+            return redirect()->back()->withErrors(["Clothes not Found"]);
+        }
+
         // Iterate over each cloth
         $clothes->each(function ($cloth) {
             // Attach total quantity to the cloth object
             $cloth->total_quantity = (int) $this->findClothWithTotalQuantity($cloth->id);
         });
-
-        // Check if the cloth exists
-        if (!$clothes) {
-            return redirect()->back()->withErrors(["Clothes not Found"]);
-        }
 
         // Return the clothes with total quantities
         if (request()->expectsJson() || request()->is('api/*')) {
@@ -400,5 +476,113 @@ class ClothesController extends Controller
 
         // Return the clothes with total quantities
         return view('Clothes.edit_pakaian', ['title' => 'Data Pakaian'], compact('clothes'));
+    }
+
+    //The params are optional in the URL
+    public function getClothesbyAttributeAdmin()
+    {
+        $data = request()->all();
+
+        // Convert buys_id from a comma-separated string to an array of integers
+        if (isset($data['type'])) {
+            $data['type'] = explode(',', $data['type']);
+        }
+
+        if (isset($data['size'])) {
+            $data['size'] = explode(',', $data['size']);
+        }
+
+        if (isset($data['color'])) {
+            $data['color'] = explode(',', $data['color']);
+        }
+
+        $validator = Validator::make($data, [
+            'type' => 'sometimes|array|nullable',
+            'size' => 'sometimes|array|nullable',
+            'color' => 'sometimes|array|nullable',
+            'price' => 'sometimes|numeric|nullable|min:1',
+            'name' => 'sometimes|string|nullable',
+            'sorting' => 'sometimes|in:0,1,2|nullable'
+        ]);
+
+        if ($validator->fails()) {
+            // Handle validation failures
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $validatedData = $validator->validated();
+
+        $type = $validatedData['type'] ?? null;
+        $size = $validatedData['size'] ?? null;
+        $color = $validatedData['color'] ?? null;
+        $price = $validatedData['price'] ?? null;
+        $description = $validatedData['name'] ?? null;
+        $sorting = $validatedData['sorting'] ?? null;
+
+        // Build query conditions based on provided arguments
+        $query = Cloth::query();
+
+        if (!is_null($type)) {
+            $query->whereIn('type', $type);
+        }
+
+        if (!is_null($size)) {
+            $query->whereIn('size', $size);
+        }
+
+        if (!is_null($color)) {
+            $query->whereIn('color', $color);
+        }
+
+        if (!is_null($price)) {
+            $query->where('price_per_piece', '<=', $price);
+        }
+
+        if (!is_null($description)) {
+            $query->where('name', 'like', '%' . $description . '%');
+        }
+
+        if (!is_null($sorting)) {
+            if ($sorting == 0) {
+                $query->orderBy('created_at', 'desc'); // Sort by created_at in descending order (newest first)
+            } else if ($sorting == 1) {
+                $query->orderBy('price_per_piece', 'asc'); // Sort by price in ascending order (low to high)
+            } else if ($sorting == 2) {
+                $query->orderBy('price_per_piece', 'desc'); // Sort by price in descending order (high to low)
+            }
+        }
+
+        // Get the results
+        $results = $query->get();
+
+        // Iterate over each cloth
+        $results->each(function ($cloth) {
+            // Attach total quantity to the cloth object
+            $cloth->total_quantity = (int) $this->findClothWithTotalQuantity($cloth->id);
+        });
+
+
+        // Paginate the results for clothes
+        $perPage = 8;
+        $page = request()->get('clothes_page', 1);
+        $offset = ($page - 1) * $perPage;
+        $paginatedResults = $results->slice($offset, $perPage);
+        $clothes = new LengthAwarePaginator(
+            $paginatedResults,
+            $results->count(),
+            $perPage,
+            $page,
+            ['path' => request()->fullUrl(), 'pageName' => 'clothes_page']
+        );
+
+        // Return the clothes with total quantities
+        if (request()->expectsJson() || request()->is('api/*')) {
+            return response()->json([
+                'clothes' => $clothes,
+            ]);
+        }
+
+        // Return the clothes with total quantities
+        return view('Clothes.data_pakaian', ['title' => 'Data Pakaian'], compact('clothes'));
     }
 }

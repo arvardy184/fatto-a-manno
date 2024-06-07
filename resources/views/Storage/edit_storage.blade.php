@@ -1,4 +1,4 @@
-<x-layoutDashboard>
+<x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     <div class="flex justify-center min-h-screen px-6 py-12 lg:px-8">
         <div class="w-full max-w-md">
@@ -32,4 +32,4 @@
             </form>
         </div>
     </div>
-</x-layoutDashboard>
+</x-layout>

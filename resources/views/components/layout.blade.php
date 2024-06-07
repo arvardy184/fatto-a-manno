@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-white scroll-smooth">
+<html lang="en" class="min-h-screen bg-white scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
@@ -12,16 +12,16 @@
     <title>{{ $title }}</title>
 </head>
 
-<body class="h-full">
+<body class="min-h-screen">
     <div class="min-h-full">
         <x-navbar></x-navbar>
         <main>
-            <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 {{ $slot }}
             </div>
         </main>
-        <x-footer></x-footer>
     </div>
+    <x-footer></x-footer>
 </body>
 
 </html>
