@@ -28,13 +28,13 @@ class UserFactory extends Factory
         $faker = Faker::create('id_ID');
 
         return [
-            'name' => $faker->name,
-            'email' => $faker->unique()->safeEmail,
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
             'password' => bcrypt('123456'), // You may use Hash::make() instead
             'address' => $faker->address,
             'number' => $faker->phoneNumber,
-            'role_id' => 0, // You may adjust this value as needed
+            'role_id' => 1, // You may adjust this value as needed
             'remember_token' => Str::random(10),
         ];
     }
