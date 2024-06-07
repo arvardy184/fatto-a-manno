@@ -41,7 +41,8 @@ class ClothesController extends Controller
 
         if (!$storage) {
             return redirect()->back()->withErrors(["Storage not Found"]);
-        };
+        }
+        ;
 
         //Check if the quantity exceed the storage limit
         if ($this->getStorageLimit($storage) - (int) request('quantity') < 0) {
@@ -58,7 +59,8 @@ class ClothesController extends Controller
                 'storage' => $storage
             ]);
             return $res;
-        };
+        }
+        ;
 
         //Create Cloth Instance
         $cloth = Cloth::create([
@@ -172,7 +174,8 @@ class ClothesController extends Controller
 
         if (!$storage) {
             return redirect()->back()->withErrors(["Storage not Found"]);
-        };
+        }
+        ;
 
         // Delete the corresponding record in the pivot table
         $deletedRows = Store::where('cloth_id', $cloth_id)
@@ -435,13 +438,13 @@ class ClothesController extends Controller
     public function getStorageLimit($storage)
     {
         // Retrieve all clothes
-        $clothes = Cloth::all();
+        $stores = Store::where('storage_id', $storage->id)->get();
         $sum = 0;
 
         // Iterate over each cloth
-        $clothes->each(function ($cloth) use (&$sum) {
+        $stores->each(function ($store) use (&$sum) {
             // Attach total quantity to the cloth object
-            $sum += (int) $this->findClothWithTotalQuantity($cloth->id);
+            $sum += (int) $store->quantity;
         });
 
         $limit = (int) $storage->quantity_limit - $sum;
