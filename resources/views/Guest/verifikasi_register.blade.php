@@ -4,7 +4,7 @@
         @if (session('errors'))
             @include('components.view_modal')
         @endif
-        <div class="w-full max-w-md">
+        <div class="w-full max-w-md min-h-screen ">
             <h2 class="mb-2 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Verification has been
                 sent to your email! Check your email now to verify it!</h2>
             <form class="space-y-6" action="/login" method="GET">
