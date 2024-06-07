@@ -17,9 +17,9 @@ class Store extends Pivot
         'quantity',
     ];
 
-    public function user()
+    public function storage()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Storage::class);
     }
 
     /**
