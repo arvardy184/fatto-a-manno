@@ -1,5 +1,5 @@
- {{-- modal belum login --}}
- <div x-show="back" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+ <div x-show="warning" id="warning" class="relative z-10 hidden" aria-labelledby="modal-title" role="dialog"
+     aria-modal="true">
      <div x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0"
          x-transition:enter-end="opacity-100 " x-transition:leave="ease-in duration-200"
          x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
@@ -27,7 +27,7 @@
                              </div>
                              <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                                  <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">
-                                     {{ session('errors')->first() }}</h3>
+                                     Quantity cannot be empty</h3>
                              </div>
                          </div>
                      </div>

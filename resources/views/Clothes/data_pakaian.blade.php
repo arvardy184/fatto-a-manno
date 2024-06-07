@@ -14,8 +14,8 @@
                         x-transition:leave="transition-opacity ease-linear duration-300"
                         x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
                         class="fixed inset-0 z-40 flex">
-                        <div
-                            class="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-12 shadow-xl">
+                        <div id="filters"
+                            class="hidden relative ml-auto h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-12 shadow-xl">
                             <div class="flex items-center justify-between px-4">
                                 <h2 class="text-lg font-medium text-gray-900">Filter</h2>
 
@@ -331,6 +331,7 @@
                         <div x-data="{ isOpen: false }" class="flex justify-end ml-auto">
                             {{-- button mobile --}}
                             <button @click="test = true" type="button"
+                                onclick="document.getElementById('filters').classList.remove('hidden')"
                                 class="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden">
                                 <span class="sr-only">Filters</span>
                                 <svg class="h-5 w-5" aria-hidden="true" viewBox="0 0 20 20" fill="currentColor">
@@ -349,10 +350,12 @@
                                 @csrf
                                 <div class=" flex justify-between px-12">
                                     <h3 class="sr-only">Categories</h3>
-                                    <div x-data="{ expanded: false }" class="border-gray-200 py-6 block w-40">
+
+                                    <div x-data="{ expanded: false }" class="border-gray-200 py-6  block w-40">
                                         <h3 class="-my-3 flow-root">
                                             <!-- Expand/collapse section button -->
                                             <button @click="expanded = ! expanded" type="button"
+                                                onclick="document.getElementById('filter-section-0').classList.remove('hidden')"
                                                 class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500"
                                                 aria-controls="filter-section-0" aria-expanded="false">
                                                 <span class="font-medium text-gray-900">Color</span>
@@ -375,7 +378,8 @@
                                             </button>
                                         </h3>
                                         <!-- Filter section, show/hide based on section state. -->
-                                        <div x-show="expanded" class="pt-1 border z-10 rounded-md shadow w-full mt-1"
+                                        <div x-show="expanded"
+                                            class="pt-1 border z-10 hidden rounded-md shadow w-full mt-1"
                                             id="filter-section-0">
 
                                             <div class="space-y-4 px-3 py-2">
@@ -429,6 +433,7 @@
                                         <h3 class="-my-3 flow-root">
                                             <!-- Expand/collapse section button -->
                                             <button @click="expanded = ! expanded" type="button"
+                                                onclick="document.getElementById('filter-section-1').classList.remove('hidden')"
                                                 class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500"
                                                 aria-controls="filter-section-1" aria-expanded="false">
                                                 <span class="font-medium text-gray-900">Type</span>
@@ -450,9 +455,9 @@
                                             </button>
                                         </h3>
                                         <!-- Filter section, show/hide based on section state. -->
-                                        <div x-show="expanded" class="pt-1 border z-10 rounded-md shadow w-full mt-1"
+                                        <div x-show="expanded"
+                                            class="pt-1 hidden border z-10 rounded-md shadow w-full mt-1"
                                             id="filter-section-1">
-
                                             <div class="space-y-4 px-3 py-2">
                                                 <div class="flex items-center">
                                                     <input id="filter-type-0" name="type" value="Polo"
@@ -526,6 +531,7 @@
                                         <h3 class="-my-3 flow-root">
                                             <!-- Expand/collapse section button -->
                                             <button @click="expanded = ! expanded" type="button"
+                                                onclick="document.getElementById('filter-section-2').classList.remove('hidden')"
                                                 class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500"
                                                 aria-controls="filter-section-2" aria-expanded="false">
                                                 <span class="font-medium text-gray-900">Size</span>
@@ -547,7 +553,8 @@
                                             </button>
                                         </h3>
                                         <!-- Filter section, show/hide based on section state. -->
-                                        <div x-show="expanded" class="pt-1 border z-10 rounded-md shadow w-full mt-1"
+                                        <div x-show="expanded"
+                                            class="pt-1 hidden border z-10 rounded-md shadow w-full mt-1"
                                             id="filter-section-2">
                                             <div class="space-y-4 px-3 py-2">
                                                 <div class="flex items-center">
@@ -592,6 +599,7 @@
                                         <h3 class="-my-3 flow-root">
                                             <!-- Expand/collapse section button -->
                                             <button @click="expanded = ! expanded" type="button"
+                                                onclick="document.getElementById('filter-section-3').classList.remove('hidden')"
                                                 class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500"
                                                 aria-controls="filter-section-2" aria-expanded="false">
                                                 <span class="font-medium text-gray-900">Sort</span>
@@ -613,8 +621,8 @@
                                             </button>
                                         </h3>
                                         <!-- Filter section, show/hide based on section state. -->
-                                        <div x-show="expanded" class="pt-1 border z-10 rounded-md shadow w-full mt-1"
-                                            id="filter-section-2">
+                                        <div x-show="expanded" class="pt-1 border hidden z-10 rounded-md shadow w-full mt-1"
+                                            id="filter-section-3">
                                             <div class="space-y-4 px-3 py-2">
                                                 <div class="flex items-center">
                                                     <input id="filter-size-0" name="sorting" value="0"

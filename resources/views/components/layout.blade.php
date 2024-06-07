@@ -21,6 +21,7 @@
             </div>
         </main>
     </div>
+    <x-footer></x-footer>
 </body>
 
 </html>

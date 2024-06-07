@@ -24,7 +24,7 @@
                                 <input type="hidden" name="buys_id" value="{{ implode(',', $pembayaran) }}">
                                 <input type="hidden" name="total_price" value="{{ $sum }}">
                                 <input type="hidden" name="payment_method" value="0">
-                                <button type="submit"
+                                <button id="bayarLangsung1" type="submit"
                                     class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-1 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Pay
                                     via admin</button>
                             </form>
@@ -52,15 +52,15 @@
 </div>
 
 <script>
-    document.getElementById('formBayarLangsung1').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the default form submission
-        // Submit the form programmatically
-        this.submit();
+    document.getElementById('bayarLangsung1').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default button action
+        var wa = encodeURIComponent("{{ implode(', ', $buys->pluck('cloth.name')->toArray()) }}");
+        window.open('https://wa.me/6281555444174/?text=Halo!%2C%20saya%20ingin%20membeli%20baju%20' + wa + '!',
+            '_blank');
+        document.getElementById('formBayarLangsung1').submit();
     });
-
     document.getElementById('formBayarLangsung2').addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent the default form submission
-        // Submit the form programmatically
         this.submit();
     });
 </script>
