@@ -1,9 +1,10 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
-    <div class="flex justify-center min-h-screen px-6 py-12 border lg:px-8">
+    <div class="flex justify-center min-h-screen px-6 py-12 lg:px-8">
         <div class="w-full max-w-md mt-44">
 
-            <h2 class="mt-1 mb-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Edit Pakaian</h2>
+            <h2 class="mt-1 mb-6 text-center text-2xl font-bold leading-9   text-gray-900">Edit Pakaian
+            </h2>
             @if (session('errors'))
                 @include('components.view_modal')
             @endif
