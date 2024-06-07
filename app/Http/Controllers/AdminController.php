@@ -72,11 +72,14 @@ class AdminController extends Controller
         $req = $request->order_id;
         if (strpos($req, 'ORDER-B-') !== false) {
             // Remove the prefix
-            $ids_string = str_replace('ORDER-B-', '', $req);
+            $string = str_replace('ORDER-B-', '', $req);
+
+            $ids_string = explode('@', $string)[0];
 
             $ids = array_map('intval', explode('-', $ids_string));
         } else {
-            $ids[] = (int) str_replace("ORDER-", "", $req);
+            $string = str_replace("ORDER-", "", $req);
+            $ids[] = (int) explode('@', $string)[0];
         }
 
         $affectedRows = Buy::whereIn('id', $ids)->update([
