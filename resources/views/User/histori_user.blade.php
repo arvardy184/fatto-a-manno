@@ -563,7 +563,7 @@
                                                             Canceled
                                                         @endif
                                                     </td>
-                                                    <td class="px-4 py-2 border">{{ $buy->user->created_at }} </td>
+                                                    <td class="px-4 py-2 border">{{ $buy->created_at }} </td>
                                                     @if ($buy->payment_url != null)
                                                         <td class="px-4 py-2 border">
                                                             <a class="inline-block mt-2 w-full px-4 py-2 text-xs font-semibold leading-6 text-white uppercase bg-yellow-600 rounded hover:bg-yellow-700 focus:outline-none focus:bg-yellow-700""
