@@ -55,7 +55,7 @@
                                     Canceled
                                 @endif
                             </td>
-                            <td class="px-4 py-2 border">{{ $buy->user->created_at }} </td>
+                            <td class="px-4 py-2 border">{{ $buy->created_at }} </td>
 
                             {{-- confirm status ==0 && payment_status ==1, bisa di klik kedua button --}}
                             <td class="px-4 py-2 border">
