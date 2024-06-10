@@ -1,9 +1,10 @@
 # Project Title
 
 ## Overview
-    ##FATTO A MANO
+    FATTO A MANO
 
 Nama Kelompok : KhamsaNur
+
 Anggota : 
 1. Arvan Yudhistia Ardana
 2. Riady Wiguna
@@ -41,8 +42,8 @@ This project is a web-based application that allows users to manage clothes, sto
 
 1. **Clone the repository**
     ```bash
-    git clone https://github.com/yourusername/your-repo-name.git
-    cd your-repo-name
+    git clone https://github.com/arvardy184/fatto-a-mano.git
+    cd fatto-a-mano
     ```
 
 2. **Install PHP dependencies**
