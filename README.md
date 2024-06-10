@@ -1,66 +1,140 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Project Title
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Overview
+    ##FATTO A MANO
 
-## About Laravel
+Nama Kelompok : KhamsaNur
+Anggota : 
+1. Arvan Yudhistia Ardana
+2. Riady Wiguna
+3. Muhammad Zakki Islami
+4. Dani Adrian
+5. Senopati Fadhiilah Langit
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+This project is a web-based application that allows users to manage clothes, storages, and user accounts. It includes features for user authentication, clothes management, storage management, and admin functionalities. The application is built using Laravel, a PHP framework, and utilizes a MySQL database for data storage.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Features
 
-## Learning Laravel
+- User Authentication (Login, Register, Logout)
+- Admin Dashboard
+  - Manage Users (View, Add, Edit, Delete)
+  - Manage Clothes (View, Add, Edit, Delete)
+  - Manage Storages (View, Add, Edit, Delete)
+  - View Analytics and Reports
+- User Dashboard
+  - View and Edit Profile
+  - Change Password
+  - View Purchased Clothe
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Installation
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Prerequisites
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- PHP 7.4 or higher
+- Laravel 
+- Composer
+- MySQL
+- Node.js and NPM (for frontend dependencies)
 
-## Laravel Sponsors
+### Steps
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+1. **Clone the repository**
+    ```bash
+    git clone https://github.com/yourusername/your-repo-name.git
+    cd your-repo-name
+    ```
 
-### Premium Partners
+2. **Install PHP dependencies**
+    ```bash
+    composer install
+    ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+3. **Install JavaScript dependencies**
+    ```bash
+    npm install
+    ```
 
-## Contributing
+4. **Create a copy of your `.env` file**
+    ```bash
+    cp .env.example .env
+    ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+5. **Generate an application key**
+    ```bash
+    php artisan key:generate
+    ```
 
-## Code of Conduct
+6. **Configure your `.env` file**
+    Update your database credentials and other settings in the `.env` file.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+7. **Run the migrations**
+    ```bash
+    php artisan migrate
+    ```
 
-## Security Vulnerabilities
+8. **Seed the database (optional)**
+    ```bash
+    php artisan db:seed
+    ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+9. **Run the development server**
+    ```bash
+    php artisan serve
+    ```
 
-## License
+10. **Compile assets**
+    ```bash
+    npm run dev
+    ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Usage
+
+### User Roles
+
+- **Admin**: Has access to all features, including user management, clothes management, storage management, and analytics.
+- **User**: Can view and edit their profile, view purchased clothes.
+
+## Project Structure
+
+```plaintext
+.
+├── app
+│   ├── Console
+│   ├── Exceptions
+│   ├── Http
+│   │   ├── Controllers
+│   │   │   ├── AuthController.php
+│   │   │   ├── BuyController.php
+│   │   │   ├── ClothesController.php
+│   │   │   ├── StorageController.php
+│   │   │   └── UserController.php
+│   │   ├── Middleware
+│   │   └── Requests
+│   ├── Models
+│   └── Providers
+├── bootstrap
+├── config
+├── database
+│   ├── factories
+│   ├── migrations
+│   └── seeders
+├── public
+├── resources
+│   ├── css
+│   ├── js
+│   ├── views
+│   │   ├── Admin
+│   │   │   ├── data_pengguna.blade.php
+│   │   ├── Guest
+│   │   ├── Storage
+│   │   ├── User
+│   │   └── clothes
+├── routes
+│   ├── api.php
+│   ├── channels.php
+│   ├── console.php
+│   └── web.php
+├── storage
+├── tests
+└── webpack.mix.js
